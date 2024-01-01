@@ -1,1 +1,2 @@
-
+Django~=5.0
+environ~=1.0
