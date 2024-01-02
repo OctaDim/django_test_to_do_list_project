@@ -15,14 +15,28 @@ class Task(models.Model):
     # email = models.EmailField  # Only Django sugar field. Under the hood - VARCHAR with validation
     # models.CommaSeparatedIntegerField  # Only Django sugar field. Under the hood - VARCHAR with validation
     # models.IPAddressField  # Only Django sugar field. Under the hood - VARCHAR with validation
-    title = models.CharField(max_length=75,
-                             default="DEFAULT TITLE")  # Hardcoded default value
+
+    title = models.CharField(
+        max_length=75,
+        default="DEFAULT TITLE",  # Hardcoded default value
+        unique=True
+        # unique_for_date= 'start_date',  # Field should be unique for this date
+        # unique_for_month= '',           # string linc to any date field
+        # unique_for_year= ''             # string linc to any date field
+    )
+
     description = models.TextField(
         max_length=1500,
         verbose_name="Task details",  # For displaying in admin panel
-        default=create_default_description)  # Func 'create_default_description' returns, when new record is creating
+        default=create_default_description  # Func 'create_default_description' returns, when new record is creating
+    )
+
     start_date = models.DateField(help_text="Day, when the task should be started")
     deadline_date = models.DateField(help_text="Day, when the task should be finished")
     started_at = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
+
+    test_blank_field = models.CharField(max_length=10,
+                                        null=True,
+                                        blank=True)
