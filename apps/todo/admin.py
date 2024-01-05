@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.todo.models import (Task, Category, Status, SubTask, User)
+from apps.todo.models import (Task, Category, Status, SubTask)
 
 
 # Register your models here.
