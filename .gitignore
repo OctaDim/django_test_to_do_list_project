@@ -163,12 +163,5 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-Lection_21/
-lection_21/
-Lection_22/
-lection_22/
-lection_25/
 Lections/
 lections/
-decorator_session_manager.py
-db_queries.py
