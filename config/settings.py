@@ -13,8 +13,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 import environ
-# import psycopg2
-from django.core.checks import Debug
+import psycopg2  # pip install psycopg2 and uncomment
+# from django.core.checks import Debug
 
 env = environ.Env(
     DEBUG=(bool, False),  # Not necessarily, but recommended
@@ -41,8 +41,8 @@ ALLOWED_HOSTS = [env("ALLOWED_HOST_1"), env("ALLOWED_HOST_2")]
 # Application definition
 
 INSTALLED_APPS = [
-    "admin_interface",
-    "colorfield",
+    # "admin_interface",  # Added to change admin panel theme, if comment - standard theme
+    # "colorfield",  # Added to change admin panel theme, if comment - standard theme
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -71,7 +71,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates', './templates', ],
+        'DIRS': [BASE_DIR / "templates", ],  # Added
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

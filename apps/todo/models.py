@@ -4,6 +4,7 @@ from django.db import models
 
 from apps.todo.models_helpers import create_default_description  # Added
 
+
 # Create your models here.
 
 
@@ -68,14 +69,14 @@ class Task(models.Model):
                                  blank=True, null=True,
                                  on_delete=models.SET_NULL)
 
-    status = models.ForeignKey(Status, default=1,
-                               on_delete=models.SET(1))
+    status = models.ForeignKey(Status, default=1, on_delete=models.SET(1))
 
     start_date = models.DateField(
+        auto_now_add=True,
         help_text="Day, when the task should be started")
 
-    deadline_date = models.DateField(
-        help_text="Day, when the task should be finished")
+    deadline_date = models.DateField(auto_now_add=True,
+                                     help_text="Day, when the task should be finished")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
@@ -84,7 +85,7 @@ class Task(models.Model):
     deleted = models.BooleanField(
         default=False, editable=False)  # NOTE!!!: by default value is None, if not redefined
 
-    test_blank_field = models.CharField(max_length=10, null=True, blank=True)
+    note = models.CharField(max_length=250, null=True, blank=True)
 
     def __str__(self):
         if len(str(self.title)) > 15:
@@ -98,23 +99,27 @@ class Task(models.Model):
 
 
 class SubTask(models.Model):
-    title = models.CharField(max_length=75)
+    title = models.CharField(max_length=75, default="DEFAULT SUBTASK")
     description = models.TextField(max_length=1500)
 
-    category = models.ForeignKey(Category, blank=True, null=True,
+    category = models.ForeignKey(Category, default=1,
+                                 blank=True, null=True,
                                  on_delete=models.SET_NULL)
 
-    task = models.ForeignKey(Task,
+    task = models.ForeignKey(Task, default=1,
                              on_delete=models.CASCADE,
                              related_name="subtasks",
                              limit_choices_to={"status": 1, })
 
-    creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    creator = models.ForeignKey(User, default=1,
+                                on_delete=models.CASCADE)
 
     start_date = models.DateField(
+        auto_now_add=True,
         help_text="Day, when the task should be started")
 
     deadline_date = models.DateField(
+        auto_now_add=True,
         help_text="Day, when the task should be finished")
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -122,10 +127,10 @@ class SubTask(models.Model):
     deleted_at = models.DateTimeField(null=True, blank=True, editable=False)
 
     def __str__(self):
-        if len(str(self.title)) > 10:
-            return f"{self.title[:10]}....."
+        if len(str(self.title)) > 15:
+            return f"{self.title[:15]}....."
         else:
-            return self.title[:10]
+            return self.title[:15]
 
     class Meta:
         verbose_name = "SubTask"
