@@ -1,11 +1,9 @@
 {% extends "main.html" %}
-<!--{% load static %}-->
 <!--{% extends "todo/main.html" full way, if not defined in setting DIR -->
 
 {% block title %} All Tasks {% endblock %}
 
 {% block content %}
-<!--    <link rel="stylesheet" href="{% static 'todo/css/tasks.css' %}">-->
     <div class="tasks">
         {% for task in tasks %}
             <div class="task">

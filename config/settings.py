@@ -43,6 +43,8 @@ ALLOWED_HOSTS = [env("ALLOWED_HOST_1"), env("ALLOWED_HOST_2")]
 INSTALLED_APPS = [
     # "admin_interface",  # Added to change admin panel theme, if comment - standard theme
     # "colorfield",  # Added to change admin panel theme, if comment - standard theme
+    "debug_toolbar",  # Added
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,14 +66,21 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    "debug_toolbar.middleware.DebugToolbarMiddleware",  # Added
 ]
 
 ROOT_URLCONF = 'config.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates", "templates/todo"],  # Added
+        'DIRS': [BASE_DIR / "templates",    # Added
+                 BASE_DIR / "apps/todo/templates",
+                 BASE_DIR / "apps/todo/forms",
+                 ],  # Added
+        # 'DIRS': ["templates", "apps/todo/templates", "apps/todo/forms"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -145,13 +154,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
-# STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "apps", "todo", "static"),  # additional dirs with static files
+# ]
 
-MEDIA_URL = 'media/'
-# MEDIA_URL = 'm/edia/'
+STATIC_URL = "static/"  # =<each_app_dir>/static - apps dirs, where finder will find static files
+STATIC_ROOT = os.path.join(BASE_DIR, "static")  # =<root_proj_dir>/static - where all collected static files will be collected
+
+MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

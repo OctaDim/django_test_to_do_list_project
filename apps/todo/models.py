@@ -1,6 +1,8 @@
 import django.utils.timezone
 from django.contrib.auth.models import User
+from django.db.models import Model
 from django.db import models
+
 
 from apps.todo.models_helpers import create_default_description  # Added
 
@@ -13,6 +15,8 @@ class Category(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True, editable=False)
+
+    objects = models.Manager()  # Defining default objects manager
 
     def __str__(self):
         return self.name
@@ -27,6 +31,8 @@ class Status(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True, editable=False)
+
+    objects = models.Manager()  # Defining default objects manager
 
     def __str__(self):
         return self.name
@@ -87,6 +93,9 @@ class Task(models.Model):
 
     note = models.CharField(max_length=250, null=True, blank=True)
 
+    objects = models.Manager()  # Defining default objects manager
+
+
     def __str__(self):
         if len(str(self.title)) > 15:
             return f"{self.title[:15]}....."
@@ -125,6 +134,8 @@ class SubTask(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True, editable=False)
+
+    objects = models.Manager()  # Defining default objects manager
 
     def __str__(self):
         if len(str(self.title)) > 15:

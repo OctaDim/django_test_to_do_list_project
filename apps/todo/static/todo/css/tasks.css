@@ -1,4 +1,4 @@
-.todos {
+.tasks {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -16,7 +16,7 @@
     box-shadow: 0 0 10px rgba(22, 160, 133, 0.3);
     background-color: inherit;
     transition: all 0.3s ease; /* Плавное изменение фона при наведении */
-    margin-bottom: 20px  /* Dimas */
+    border-bottom: 10px
 }
 
 .task-description {
