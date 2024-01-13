@@ -148,35 +148,35 @@ if exist templates (
         @echo QUICK COMMAND.BAT INFO: Empty! directory 'templates' was created
     )
 
-echo.
-if exist static (
-    echo.
-    @echo QUICK COMMAND.BAT INFO: Directory 'static' already exists
-    ) else (
-        md "static/app1_rename/images"
-        md "static/app1_rename/css"
-        md "static/app1_rename/js"
+rem echo.
+rem if exist static (
+rem     echo.
+rem     @echo QUICK COMMAND.BAT INFO: Directory 'static' already exists
+rem     ) else (
+rem         md "static/app1_rename/images"
+rem         md "static/app1_rename/css"
+rem         md "static/app1_rename/js"
+rem
+rem         md "static/app2_rename/images"
+rem         md "static/app2_rename/css"
+rem         md "static/app2_rename/js"
+rem
+rem         md "static/app3_rename/images"
+rem         md "static/app3_rename/css"
+rem         md "static/app3_rename/js"
+rem         rem echo.
+rem         @echo QUICK COMMAND.BAT INFO: Empty! directory 'static' was created
+rem     )
 
-        md "static/app2_rename/images"
-        md "static/app2_rename/css"
-        md "static/app2_rename/js"
-
-        md "static/app3_rename/images"
-        md "static/app3_rename/css"
-        md "static/app3_rename/js"
-        rem echo.
-        @echo QUICK COMMAND.BAT INFO: Empty! directory 'static' was created
-    )
-
-echo.
-if exist media (
-    echo.
-    @echo QUICK COMMAND.BAT INFO: Directory 'media' already exists
-    ) else (
-        md "media"
-        rem echo.
-        @echo QUICK COMMAND.BAT INFO: Empty! directory 'media' was created
-    )
+rem echo.
+rem if exist media (
+rem     echo.
+rem     @echo QUICK COMMAND.BAT INFO: Directory 'media' already exists
+rem     ) else (
+rem         md "media"
+rem         rem echo.
+rem         @echo QUICK COMMAND.BAT INFO: Empty! directory 'media' was created
+rem     )
 
 echo.
 if exist "requirements.txt" (

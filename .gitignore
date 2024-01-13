@@ -165,5 +165,8 @@ cython_debug/
 
 Lections/
 lections/
+Examples/
+examples/
 
 sqlite3.db
+static/admin
