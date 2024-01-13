@@ -1,17 +1,19 @@
 {% extends "main.html" %}
+<!--{% load static %}-->
 <!--{% extends "todo/main.html" full way, if not defined in setting DIR -->
 
 {% block title %} All Tasks {% endblock %}
 
 {% block content %}
+<!--    <link rel="stylesheet" href="{% static 'todo/css/tasks.css' %}">-->
     <div class="tasks">
         {% for task in tasks %}
             <div class="task">
-                <h2>title: {{ task.title }}</h2>
-                <h4>category: {{ task.category }}</h4>
-                <h4>status: {{ task.status }}</h4>
-                <p><b>description: {{ task.description }}</b> </p>
-                <h4>creator: {{ task.creator }}</h4>
+                <h2>Title: {{ task.title }}</h2>
+                <h4>Category: {{ task.category }}</h4>
+                <h4>Status: {{ task.status }}</h4>
+                <p><b>Description: {{ task.description }}</b> </p>
+                <h4>Creator: {{ task.creator }}</h4>
                 <h4>start date: {{ task.start_date }}</h4>
                 <h4>deadline date: {{ task.deadline_date }}</h4>
                 <h4>note: {{ task.note }}</h4>
