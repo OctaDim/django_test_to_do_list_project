@@ -78,10 +78,12 @@ class Task(models.Model):
     status = models.ForeignKey(Status, default=1, on_delete=models.SET(1))
 
     start_date = models.DateField(
-        auto_now_add=True,
+        editable=True,
+        # auto_now_add=True, # Make False, because FormModel cannot have non-editable field
         help_text="Day, when the task should be started")
 
-    deadline_date = models.DateField(auto_now_add=True,
+    deadline_date = models.DateField(editable=True,
+                                     # auto_now_add=True,
                                      help_text="Day, when the task should be finished")
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -97,10 +99,10 @@ class Task(models.Model):
 
 
     def __str__(self):
-        if len(str(self.title)) > 15:
-            return f"{self.title[:15]}....."
+        if len(str(self.title)) > 10:
+            return f"{self.title[:10]}....."
         else:
-            return self.title[:15]
+            return self.title[:10]
 
     class Meta:
         verbose_name = "Task"

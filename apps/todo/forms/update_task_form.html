@@ -1,0 +1,67 @@
+{% extends 'main.html' %}
+<!--{% extends "todo/main.html" full way, if not defined in setting DIR -->
+
+{% block title %} Update task (ID: task.id) {% endblock %}
+
+{% block content %}
+    <div class="update-task-title">
+        Update Task
+    </div>
+    <div class="task-container-form">
+        <form method="post" autocomplete="on">  <!--tag Form which contains method (post, put, patch) definitely-->
+            {% csrf_token %}                    <!--csrf_token must be passed on-->
+
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title"
+                       maxlength="25" placeholder="Title" value="{{ task.title }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description"
+                          maxlength="1500">{{ task.description }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select class="form-control" id="category" name="category">
+                    <option value="" selected="">{{ task.category }}</option> <!-- For optional category -->
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-control" id="status" name="status">
+                    <option value="" selected="">{{ task.status }}</option>
+                    {% for status in statuses %}
+                        <option value="{{ status.id }}">{{ status.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="start_date" class="form-label">Start date</label>
+                <input type="date" class="form-control" id="start_date"
+                       name="start_date" value="{{ task.start_date }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="deadline_date" class="form-label">Deadline date</label>
+                <input type="date" class="form-control" id="deadline_date"
+                       name="deadline_date" value="{{ task.deadline_date }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="note" class="form-label">Note</label>
+                <input type="text" class="form-control" id="note"
+                       name="note" value="{{ task.note }}">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+{% endblock %}

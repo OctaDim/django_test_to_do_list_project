@@ -8,7 +8,7 @@ from apps.todo.models import (Task, Category, Status, SubTask)  # Added
 @admin.register(Task)
 # admin.site.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ("title", "category", "status", "creator",
+    list_display = ("id", "title", "category", "status", "creator",
                     "start_date", "deadline_date",
                     "created_at", "updated_at", "deleted_at")
 
@@ -16,7 +16,7 @@ class TaskAdmin(admin.ModelAdmin):
                    "start_date", "deadline_date",
                    "created_at", "updated_at", "deleted_at")
 
-    search_fields = ("title", "description")
+    search_fields = ("id", "title", "description")
 
 
 @admin.register(SubTask)
@@ -31,9 +31,9 @@ class SubTaskAdmin(admin.ModelAdmin):
     subtasks_title_to_upper_case.short_description = "Title in upper case"
     actions = ["subtasks_title_to_upper_case", ]
 
-    list_display = ("title", "created_at", "updated_at",)
+    list_display = ("id", "title", "created_at", "updated_at",)
     list_filter = ("title", "created_at", "updated_at",)
-    search_fields = ("title", "created_at", "updated_at",)
+    search_fields = ("id", "title", "created_at", "updated_at",)
 
 
 @admin.register(Category)

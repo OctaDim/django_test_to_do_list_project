@@ -1,5 +1,4 @@
 html, body {
-    background-color: #232327;
     height: 100%; /* высота на 100% экрана */
     margin: 0; /* внешние отступы выставить в 0 пикселей */
     padding: 0; /* внутренние отступы выставить в 0 пикселей */
@@ -24,7 +23,6 @@ html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover {
 }
 
 body {
-    background-color: #D7D7D7;
     background: url("https://wallpaperaccess.com/full/487834.jpg") no-repeat center center fixed; /* картинка заднего фона, без повторений, растянуть на весь экран, фиксированное положение */
     background-size: cover; /* растянуть на весь экран равномерно */
 }
@@ -34,7 +32,7 @@ body {
     max-width: 1440px; /* максимальная ширина контейнера - 1440 пикселей */
     min-height: 100vh; /* минимальная высота - 100% от высоты окна браузера */
     margin: 0 auto; /* всё содержимое этого блока должно выравниваться ровно по центру экрана */
-    background-color: #D7D7D7; /* задний фон этого контейнера будет тёмно-серым, почти полностью прозрачным */
+    background-color: rgba(57, 57, 57, 0.2); /* задний фон этого контейнера будет тёмно-серым, почти полностью прозрачным */
 }
 
 .navigation-panel {
@@ -44,10 +42,8 @@ body {
     display: flex; /* Используем flexbox для горизонтального выравнивания элементов */
     justify-content: space-evenly;
     background-color: inherit; /* Цвет нефрита */
-    background-color: #D7D7D7; /* Цвет нефрита */
     border-bottom: 1px solid #16a085; /* Нефритовая линия внизу */
     box-shadow: 0 0 10px rgba(46, 204, 113, 0.5); /*  */
-    border-radius: 5px;
 }
 
 .header-item {

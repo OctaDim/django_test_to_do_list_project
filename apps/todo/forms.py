@@ -4,7 +4,8 @@ from django.forms import widgets
 
 
 class CreateTaskForm(ModelForm):
-    title = fields.CharField(max_length=50)
+    # See bellow how to define model and fields fast, without defining parameters
+    title = fields.CharField(max_length=75)
     description = fields.CharField(max_length=1500, widget=fields.Textarea)
     creator = ModelChoiceField(queryset=User.objects.all())
     category = ModelChoiceField(queryset=Category.objects.all(), required=False)
@@ -16,6 +17,16 @@ class CreateTaskForm(ModelForm):
     deadline_date = fields.DateField(
         widget=widgets.DateInput(attrs={"type": "data"}))
 
+    note = fields.CharField(max_length=250)
+
     class Meta:
         model = Task
         fields = "__all__"
+
+
+class TaskUpdateForm(ModelForm):
+    class Meta:
+        model = Task
+        fields = ("title", "description", "category", "status",
+                  "start_date", "deadline_date", "note")  # Possible to choose necessary fields
+        # fields = "__all__"  # All fields can be defined in this way
