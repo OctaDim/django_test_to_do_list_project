@@ -163,10 +163,12 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-Lections/
-lections/
 Examples/
 examples/
+Lectures/
+lectures/
+Lessons/
+lessons/
 
 sqlite3.db
 static/admin

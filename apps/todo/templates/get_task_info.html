@@ -20,7 +20,7 @@
             </div>
             <div class="button-container">
                 <a href="{% url 'router:tasks:update-task' task.id %}" class="update-button">Update</a>
-<!--                {% comment %}<a href="{% url 'router:tasks:delete-task' task.id %}" class="delete-button">Delete</a>{% endcomment %}-->
+                <a href="{% url 'router:tasks:delete-task' task.id %}" class="delete-button">Delete</a>
 <!--                {% comment %}<a href="{% url 'router:tasks:create-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create subtask</a>{% endcomment %}-->
             </div>
         </div>

@@ -97,3 +97,9 @@ def get_task_info_by_task_id(request, task_id):
     return render(request=request,
                   template_name="get_task_info.html",
                   context=context)
+
+
+def delete_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+    task.delete()
+    return redirect("router:tasks:all-tasks")
