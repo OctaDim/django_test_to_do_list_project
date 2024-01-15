@@ -9,7 +9,7 @@ from apps.todo.models import (User,
 
 
 class CreateTaskForm(ModelForm):
-    # See bellow how to define model and fields fast, without defining parameters
+    # See bellow how to define model and fields fast with fields parameters by default as defined in Model
     title = fields.CharField(max_length=75)
     description = fields.CharField(max_length=1500, widget=fields.Textarea)
     creator = ModelChoiceField(queryset=User.objects.all())
@@ -26,7 +26,7 @@ class CreateTaskForm(ModelForm):
 
     class Meta:
         model = Task
-        fields = "__all__"
+        fields = "__all__"  # fields = "__all__" All fields were defined in this way
 
 
 class TaskUpdateForm(ModelForm):
@@ -35,11 +35,15 @@ class TaskUpdateForm(ModelForm):
     class Meta:
         model = Task
         fields = ("title", "description", "category", "status",
-                  "start_date", "deadline_date", "note")  # Possible to choose necessary fields
+                  "start_date", "deadline_date", "note",)  # Possible to choose necessary fields
         # fields = "__all__"  # All fields can be defined in this way
 
 
-class SubtaskUpdateForm(ModelForm):
+class SubTaskUpdateForm(ModelForm):
+    # define fields in easy way, but all formatting will be defined in templates in this way
+
     class Meta:
         model = SubTask
-        fields = ()
+        fields = ("title", "description", "category", "status",
+                  "start_date", "deadline_date", "note",)
+        # fields = "__all__"  # All fields can be defined in this way

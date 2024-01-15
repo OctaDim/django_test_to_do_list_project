@@ -98,10 +98,10 @@ class Task(models.Model):
     objects = models.Manager()  # Defining default objects manager
 
     def __str__(self):
-        if len(str(self.title)) > 10:
-            return f"{self.title[:10]}....."
+        if len(str(self.title)) > 15:
+            return f"{self.title[:15]}..."
         else:
-            return self.title[:10]
+            return self.title[:15]
 
     class Meta:
         verbose_name = "Task"
@@ -127,22 +127,24 @@ class SubTask(models.Model):
     status = models.ForeignKey(Status, default=1, on_delete=models.SET(1))
 
     start_date = models.DateField(
-        auto_now_add=True,
+        # auto_now_add=True,
         help_text="Day, when the task should be started")
 
     deadline_date = models.DateField(
-        auto_now_add=True,
+        # auto_now_add=True,
         help_text="Day, when the task should be finished")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True, editable=False)
 
+    note = models.CharField(max_length=250, null=True, blank=True)
+
     objects = models.Manager()  # Defining default objects manager
 
     def __str__(self):
         if len(str(self.title)) > 15:
-            return f"{self.title[:15]}....."
+            return f"{self.title[:15]}..."
         else:
             return self.title[:15]
 

@@ -4,22 +4,25 @@
 {% block title %} All Tasks ({{ task.tasks_count }}){% endblock %}
 
 {% block content %}
-    <div class="todos">
-        {% for task in tasks %}
-            <a href="{% url 'router:tasks:get-task' task.id %}" class="task-link">
-                <div class="task">
-                    <h2>Title: {{ task.title }}</h2>
-                    <h4>Category: {{ task.category }}</h4>
-                    <h4>Status: {{ task.status }}</h4>
-                    <p><b>Description: {{ task.description }}</b> </p>
-                    <h4>Creator: {{ task.creator }}</h4>
-                    <h4>start date: {{ task.start_date }}</h4>
-                    <h4>deadline date: {{ task.deadline_date }}</h4>
-                    <h4>note: {{ task.note }}</h4>
-                    <h4>note: {{ task.created_at }}</h4>
-                    <h4>note: {{ task.updated_at }}</h4>
-                </div>
-            </a>
-        {% endfor %}
-    </div>
+<div class="todos">
+    {% for task in tasks %}
+    <a href="{% url 'router:tasks:get-task' task.id %}" class="task-link">
+        <div class="task">
+            <h2>Title: {{ task.title }}</h2>
+            <h4>Category: {{ task.category }}</h4>
+            <h4>Status: {{ task.status }}</h4>
+            <p><b>Description: {{ task.description }}</b> </p>
+            <h4>Creator: {{ task.creator }}</h4>
+            <h4>start date: {{ task.start_date }}</h4>
+            <h4>deadline date: {{ task.deadline_date }}</h4>
+            <h4>note: {{ task.note }}</h4>
+            <h4>note: {{ task.created_at }}</h4>
+            <h4>note: {{ task.updated_at }}</h4>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+<div class="button-container">
+    <a href="{% url 'router:tasks:create-task' %}" class="create-subtask">Create new task</a>
+</div>
 {% endblock %}
