@@ -14,8 +14,8 @@
                         <p><span class="subtask-description">Description: </span>{{ subtask.description }}</p>
                         <h4>
                             <span class="subtask-description"> Task Title: </span>
-                            {{ subtask.task.title|slice:":20" }}
-                            {% if subtask.task.title|length > 20 %}...{% endif %}
+                                {{ subtask.task.title|slice:":20" }}
+                                    {% if subtask.task.title|length > 20 %}...{% endif %}
                         </h4>
                         <h4><span class="subtask-description">Start date: </span>{{ subtask.start_date }}</h4>
                         <h4><span class="subtask-description">Deadline date: </span>{{ subtask.deadline_date }}</h4>
@@ -25,7 +25,7 @@
 
         {% else %}
             <div class="no-subtasks-block">
-                <h1>Looks like you don't have any subtask</h1>
+                <h2>Looks like you don't have any subtask</h2>
             </div>
         {% endif %}
     </div>

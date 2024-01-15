@@ -101,7 +101,8 @@ def get_task_info_by_task_id(request, task_id):
     subtasks = SubTask.objects.filter(task=task_id)
 
     context = {"task": task,
-               "subtasks": subtasks}
+               "subtasks": subtasks,
+               }
 
     return render(request=request,
                   template_name="task_info.html",
