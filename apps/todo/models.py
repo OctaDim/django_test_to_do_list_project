@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.db.models import Model
 from django.db import models
 
-
 from apps.todo.models_helpers import create_default_description  # Added
 
 
@@ -78,13 +77,14 @@ class Task(models.Model):
     status = models.ForeignKey(Status, default=1, on_delete=models.SET(1))
 
     start_date = models.DateField(
-        editable=True,
+        # editable=True,
         # auto_now_add=True, # Make False, because FormModel cannot have non-editable field
         help_text="Day, when the task should be started")
 
-    deadline_date = models.DateField(editable=True,
-                                     # auto_now_add=True,
-                                     help_text="Day, when the task should be finished")
+    deadline_date = models.DateField(
+        # editable=True,
+        # auto_now_add=True,
+        help_text="Day, when the task should be finished")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
@@ -96,7 +96,6 @@ class Task(models.Model):
     note = models.CharField(max_length=250, null=True, blank=True)
 
     objects = models.Manager()  # Defining default objects manager
-
 
     def __str__(self):
         if len(str(self.title)) > 10:
@@ -124,6 +123,8 @@ class SubTask(models.Model):
 
     creator = models.ForeignKey(User, default=1,
                                 on_delete=models.CASCADE)
+
+    status = models.ForeignKey(Status, default=1, on_delete=models.SET(1))
 
     start_date = models.DateField(
         auto_now_add=True,

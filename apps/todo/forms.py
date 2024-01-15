@@ -1,6 +1,11 @@
-from django.forms import (ModelForm, fields, ModelChoiceField)  # Added
-from apps.todo.models import (User, Category, Status, Task)  # Added
-from django.forms import widgets
+from django.forms import ModelForm, fields, ModelChoiceField  # Added
+from django.forms import widgets  # Added
+from apps.todo.models import (User,
+                              Category,
+                              Status,
+                              Task,
+                              SubTask,
+                              )  # Added
 
 
 class CreateTaskForm(ModelForm):
@@ -25,8 +30,16 @@ class CreateTaskForm(ModelForm):
 
 
 class TaskUpdateForm(ModelForm):
+    # define fields in easy way, but all formatting will be defined in templates in this way
+
     class Meta:
         model = Task
         fields = ("title", "description", "category", "status",
                   "start_date", "deadline_date", "note")  # Possible to choose necessary fields
         # fields = "__all__"  # All fields can be defined in this way
+
+
+class SubtaskUpdateForm(ModelForm):
+    class Meta:
+        model = SubTask
+        fields = ()

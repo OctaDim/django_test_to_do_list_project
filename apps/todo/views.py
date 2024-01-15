@@ -1,7 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404  # Changed
 
-from apps.todo.models import User, Task, Category, Status  # Added
-from apps.todo.forms import CreateTaskForm, TaskUpdateForm  # Added
+from apps.todo.models import (User,
+                              Task,
+                              SubTask,
+                              Category,
+                              Status,
+                              )  # Added
+
+from apps.todo.forms import (CreateTaskForm,
+                             TaskUpdateForm,
+                             )  # Added
 
 
 # from django.http import HttpResponseRedirect  # Added
@@ -74,9 +82,8 @@ def update_task_by_id(request, task_id):
                    "categories": categories,
                    "statuses": statuses, }
 
-    else:  # if request.method == "POST":
-        form = TaskUpdateForm(
-            instance=task)  # instance=task parameter initializes the form with the existing task data.
+    else:  # if request.method == "GET":
+        form = TaskUpdateForm(instance=task, )  # instance=task parameter initializes the form with the existing task data.
 
         context = {"form": form,
                    "task": task,
@@ -91,11 +98,13 @@ def update_task_by_id(request, task_id):
 
 def get_task_info_by_task_id(request, task_id):
     task = get_object_or_404(Task, id=task_id)
+    subtasks = SubTask.objects.filter(task=task_id)
 
-    context = {"task": task, }
+    context = {"task": task,
+               "subtasks": subtasks}
 
     return render(request=request,
-                  template_name="get_task_info.html",
+                  template_name="task_info.html",
                   context=context)
 
 
@@ -103,3 +112,23 @@ def delete_task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     task.delete()
     return redirect("router:tasks:all-tasks")
+
+
+def get_all_subtasks_by_creator(request):
+    subtasks = SubTask.objects.filter(creator=request.user, )
+
+    context = {"subtasks": subtasks, }
+
+    return render(request=request,
+                  template_name="all_subtasks.html",
+                  context=context)
+
+
+def get_subtask_by_id(request, subtask_id):
+    subtask = get_object_or_404(SubTask, id=subtask_id)
+
+    context = {"subtask": subtask, }
+
+    return render(request=request,
+                  template_name="subtask_info.html",
+                  context=context)
