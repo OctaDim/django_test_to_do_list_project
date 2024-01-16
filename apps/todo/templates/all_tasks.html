@@ -8,18 +8,12 @@
     {% for task in tasks %}
     <a href="{% url 'router:tasks:get-task' task.id %}" class="task-link">
         <div class="task">
-            <h2>
-                <p>
-                    Title: {{ task.title|slice:":15" }}
-                    {% if task.title|length > 15 %}...{% endif %}
-                </p>
-            </h2>
+            <h2><span>Title: {{ task.title|slice:":15" }}
+                {% if task.title|length > 15 %}...{% endif %}</span></h2>
             <h4>Category: {{ task.category }}</h4>
             <h4>Status: {{ task.status }}</h4>
-            <p>
-                <b>
-                    Description: {{ task.description|slice:":15" }}
-                    {% if task.description|length > 15 %}...{% endif %}
+            <p><b>Description: {{ task.description|slice:":20" }}
+                    {% if task.description|length > 20 %}...{% endif %}
                 </b>
             </p>
             <h4>Creator: {{ task.creator }}</h4>

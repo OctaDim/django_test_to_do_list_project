@@ -23,8 +23,9 @@ html::-webkit-scrollbar-thumb:hover, body::-webkit-scrollbar-thumb:hover {
 }
 
 body {
-    background: url("https://wallpaperaccess.com/full/487834.jpg") no-repeat center center fixed; /* картинка заднего фона, без повторений, растянуть на весь экран, фиксированное положение */
+    background: url("#") no-repeat center center fixed; /* картинка заднего фона, без повторений, растянуть на весь экран, фиксированное положение */
     background-size: cover; /* растянуть на весь экран равномерно */
+    background-color: #1E1F22;
 }
 
 

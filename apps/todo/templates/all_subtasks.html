@@ -1,37 +1,34 @@
-{% extends "main.html" %}
+{% extends 'main.html' %}
+<!--{% extends "todo/main.html" full way, if not defined in setting DIR -->
 
-{% block title %} All Subtasks {% endblock %}
+{% block title %}
+    All Subtasks
+{% endblock %}
 
 {% block content %}
     <div class="subtasks">
-        {% if subtasks %}
-            {% for subtask in subtasks %}
-                <a href="{% url 'router:tasks:get-subtask-by-id' subtask.id %}">
+        {% if subtasks %} <!-- Мы можем написать условие, что если сабтаски есть - отображаем их все. -->
+            {% for subtask in subtasks %} <!-- -->
+                <a href="{% url 'router:tasks:get-subtask-by-id' subtask.id %}" class="subtask-link">
                     <div class="subtask">
-                        <h2><span class="subtask-description">Subtask Title: </span>{{ subtask.title }}</h2>
+                        <h2><span class="subtask-description">Title: </span>{{ subtask.title }}</h2>
                         <h4><span class="subtask-description">Category: </span>{{ subtask.category }}</h4>
-                        <h4><span class="subtask-description">Status: </span>{{ subtask.status }}</h4>
-                        <p><span class="subtask-description">Description: </span>{{ subtask.description }}</p>
-                        <h4>
-                            <span class="subtask-description"> Task Title: </span>
-                                {{ subtask.task.title|slice:":15" }}
-                                    {% if subtask.task.title|length > 15 %}...{% endif %}
-                        </h4>
-                        <h4><span class="subtask-description">Start date: </span>{{ subtask.start_date }}</h4>
-                        <h4><span class="subtask-description">Deadline date: </span>{{ subtask.deadline_date }}</h4>
+                        <h4><span class="subtask-description">Status: </span><b>{{ subtask.status }}</b></h4>
+                        <p><b><span class="subtask-description">Description: </span></b>
+                            {{ subtask.description|slice:":30" }}
+                                {% if subtask.description|length > 30 %}...{% endif %}</p>
+                        <h4><span class="subtask-description">Task: </span>
+                            {{ subtask.task.title|slice:":15" }}
+                                {% if subtask.task.title|length > 15 %}...{% endif %}</h4>
+                        <h4><span class="subtask-description">Date started: </span>{{ subtask.date_started }}</h4>
+                        <h4><span class="subtask-description">Deadline: </span>{{ subtask.deadline }}</h4>
                     </div>
                 </a>
-            {% endfor%}
-
-        {% else %}
+            {% endfor %} <!-- -->
+        {% else %} <!-- Иначе мы отображать будем спец окошко, мол нет ни одной подзадачи -->
             <div class="no-subtasks-block">
-                <h2>It looks like you don't have a subtask</h2>
+                <h1>Looks like you don't have any subtask!</h1>
             </div>
-        {% endif %}
+        {% endif %} <!-- Всегда явно указываем закрытие наших блоков. Потому что html за них не шарит. -->
     </div>
-
-<!--<div class="button-container">-->
-<!--    <a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create subtask</a>-->
-<!--</div>-->
-
 {% endblock %}
