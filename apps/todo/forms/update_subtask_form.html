@@ -2,9 +2,7 @@
 <!--{% extends "todo/main.html" full way, if not defined in setting DIR -->
 
 
-{% block title %}
-    {{ subtask.title }} | update
-{% endblock %}
+{% block title %} {{ subtask.title }} | update {% endblock %}
 
 {% block content %}
     <div class="subtask-container-form">        <!--tag Form which contains method (post, put, patch) definitely-->
@@ -47,8 +45,18 @@
             </div>
 
             <div class="subtask-mb-3">
+                <label for="start_date" class="subtask-form-label">Start date</label>
+                <input type="date" class="subtask-form-control" id="start_date" name="start_date" value="{{ subtask.start_date }}">
+            </div>
+
+            <div class="subtask-mb-3">
                 <label for="deadline_date" class="subtask-form-label">Deadline date</label>
                 <input type="date" class="subtask-form-control" id="deadline_date" name="deadline_date" value="{{ subtask.deadline_date }}">
+            </div>
+
+            <div class="subtask-mb-3">
+                <label for="note" class="subtask-form-label">Note</label>
+                <input type="text" class="subtask-form-control" id="note" name="note" value="{{ subtask.note }}">
             </div>
 
             <button type="submit" class="subtask-update-button">Update</button>
