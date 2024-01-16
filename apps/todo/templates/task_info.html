@@ -49,7 +49,7 @@
         {% else %}
             <div class="no-subtasks-block">
                 <h1>You don't have any subtasks for this task</h1>
-                <a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create subtask</a>
+                <a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create Subtask</a>
             </div>
         {% endif %}
     </div>
