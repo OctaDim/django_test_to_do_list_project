@@ -14,8 +14,8 @@
                         <p><span class="subtask-description">Description: </span>{{ subtask.description }}</p>
                         <h4>
                             <span class="subtask-description"> Task Title: </span>
-                                {{ subtask.task.title|slice:":20" }}
-                                    {% if subtask.task.title|length > 20 %}...{% endif %}
+                                {{ subtask.task.title|slice:":15" }}
+                                    {% if subtask.task.title|length > 15 %}...{% endif %}
                         </h4>
                         <h4><span class="subtask-description">Start date: </span>{{ subtask.start_date }}</h4>
                         <h4><span class="subtask-description">Deadline date: </span>{{ subtask.deadline_date }}</h4>
