@@ -32,8 +32,8 @@
                 {% for subtask in subtasks %}
                     <div class="subtask-info">
                         <a href="{% url 'router:tasks:get-subtask-by-id' subtask.id %}" class="subtask-title">
-                            {{ subtask.title|slice:":20" }}
-                                {% if subtask.title|length > 20 %}...{% endif %}
+                            {{ subtask.title|slice:":17" }}
+                                {% if subtask.title|length > 17 %}...{% endif %}
                         </a>
                         <h3>{{ subtask.status }}</h3>
                         <div class="button-container">

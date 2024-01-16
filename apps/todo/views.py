@@ -10,6 +10,7 @@ from apps.todo.models import (User,
 from apps.todo.forms import (CreateTaskForm,
                              TaskUpdateForm,
                              SubTaskUpdateForm,
+                             CreateSubTaskForm,
                              )  # Added
 
 
@@ -38,7 +39,6 @@ def get_all_tasks(request):
 
 
 def create_new_task(request):
-
     if request.method == "POST":
         form = CreateTaskForm(request.POST)
 
@@ -75,11 +75,11 @@ def update_task_by_id(request, task_id):
             return redirect("router:tasks:all-tasks")
 
     else:  # if request.method == "GET":
+        form = TaskUpdateForm(instance=task)  # instance=task parameter initializes the form with the existing task data.
+
         categories = Category.objects.all()
         statuses = Status.objects.all()
         # users = User.objects.all()
-
-        form = TaskUpdateForm(instance=task)  # instance=task parameter initializes the form with the existing task data.
 
         context = {"form": form,
                    "task": task,
@@ -132,10 +132,6 @@ def get_subtask_by_id(request, subtask_id):
 
 def update_subtask_by_subtask_id(request, subtask_id):
     subtask = get_object_or_404(SubTask, id=subtask_id)
-    categories = Category.objects.all()
-    statuses = Status.objects.all()
-
-    form = SubTaskUpdateForm(instance=subtask)
 
     if request.method == 'POST':
         form = SubTaskUpdateForm(request.POST, instance=subtask)
@@ -144,14 +140,29 @@ def update_subtask_by_subtask_id(request, subtask_id):
             form.save()
             return redirect('router:tasks:get-subtask-by-id', subtask_id=subtask_id)
 
-    context = {
-        "form": form,
-        "subtask": subtask,
-        "categories": categories,
-        "statuses": statuses
-    }
-    return render(
-        request=request,
-        template_name='update_subtask_form.html',
-        context=context
-    )
+    else:  # instance=task parameter initializes the form with the existing task data.
+        form = SubTaskUpdateForm(instance=subtask)
+
+        categories = Category.objects.all()
+        statuses = Status.objects.all()
+
+        context = {"form": form,
+                   "subtask": subtask,
+                   "categories": categories,
+                   "statuses": statuses, }
+
+        return render(
+            request=request,
+            template_name='update_subtask_form.html',
+            context=context)
+
+
+def create_new_subtask(request):
+    task_id = request.GET.get("task_id")  # getting data via query, not from reverse urls
+
+    user = get_object_or_404(User, id=request.user.id)
+    task = get_object_or_404(Task, id=task_id)
+    categories = Category.objects.all()
+    statuses = Status.objects.all()
+
+    form = CreateSubTaskForm()
