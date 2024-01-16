@@ -171,4 +171,6 @@ Lessons/
 lessons/
 
 sqlite3.db
-static/admin
+
+static/admin/
+static/debug_toolbar/
