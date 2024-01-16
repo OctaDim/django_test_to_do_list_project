@@ -23,7 +23,7 @@
                 <a href="{% url 'router:tasks:update-task' task.id %}" class="update-button">Update</a>
                 <a href="{% url 'router:tasks:delete-task' task.id %}" class="delete-button">Delete</a>
                 <a href="{% url 'router:tasks:create-task' %}" class="create-subtask">Create Task</a>
-                <a href="{% url 'router:tasks:create-new-subtask' %}" class="create-subtask">Create Subtask</a>
+                <a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create Subtask</a>
 
             </div>
         </div>

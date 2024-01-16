@@ -160,60 +160,31 @@ def update_subtask_by_subtask_id(request, subtask_id):
 
 
 def create_new_subtask(request):
-    task_id = request.GET.get("task_id")  # getting data via query from the request, not from reverse urls
+    task_id = request.GET.get("task_id")
+    user = get_object_or_404(User, id=request.user.id)
+    categories = Category.objects.all()
+    statuses = Status.objects.all()
+    task = get_object_or_404(Task, id=task_id)
+    form = CreateSubTaskForm()
 
-    if request == "POST":
-        form = CreateTaskForm(request.POST)
-
+    if request.method == 'POST':
+        form = CreateSubTaskForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect("router:tasks:get-task", task_id=task_id)
+            return redirect('router:tasks:get-task', task_id=task_id)
 
-    else:
-        form = CreateSubTaskForm()
-
-        task = get_object_or_404(Task, id=task_id)
-        user = get_object_or_404(User, id=request.user.id)
-        categories = Category.objects.all()
-        statuses = Status.objects.all()
-
-        context = {
-            "form": form,
-            "user": user,
-            "task": task,
-            "categories": categories,
-            "statuses": statuses, }
-
-        return render(request=request,
-                      template_name="create_subtask_form.html",
-                      context=context)
-
-    # task_id = request.GET.get("task_id")
-    #
-    # if request.method == 'POST':
-    #     form = CreateSubTaskForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('router:tasks:get-task', task_id=task_id)
-    #
-    # else:
-    #     form = CreateSubTaskForm()
-    #
-    #     task = get_object_or_404(Task, id=task_id)
-    #     user = get_object_or_404(User, id=request.user.id)
-    #
-    #     categories = Category.objects.all()
-    #     statuses = Status.objects.all()
-    #
-    #     context = {"form": form,
-    #                "user": user,
-    #                "categories": categories,
-    #                "statuses": statuses,
-    #                "task": task, }
-    #
-    #     return render(request=request,
-    #                   template_name='create_subtask_form.html',
-    #                   context=context)
+    context = {
+        "form": form,
+        "user": user,
+        "categories": categories,
+        "statuses": statuses,
+        "task": task
+    }
+    return render(
+        request=request,
+        template_name='create_subtask_form.html',
+        context=context
+    )
 
     # task_id = request.GET.get("task_id")  # getting data via query from the request, not from reverse urls
     #
