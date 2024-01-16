@@ -52,7 +52,9 @@ class SubTaskUpdateForm(ModelForm):
 class CreateSubTaskForm(ModelForm):
     class Meta:
         model = SubTask
-        fields = ["title", "description", "category", "status",  # ?????
-                  "task", "creator",  # related fields from other models
-                  "start_date", "deadline_date", "note", ]
+        fields = ["title", "description", "category", "status",
+                  "task", "creator",
+                  "start_date", "deadline_date",
+                  # "note",
+                  ]
         # fields = "__all__"  # All fields can be defined in this way

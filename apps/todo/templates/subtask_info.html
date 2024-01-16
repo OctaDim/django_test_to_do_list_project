@@ -14,7 +14,7 @@
             <h4 class="subtask-block-info"><span class="subtask-info-fields">Deadline date: </span>{{ subtask.deadline_date }}</h4>
         </div>
         <div class="button-container">
-<!--            {% comment %}<a href="{% url 'router:tasks:update-subtask' subtask.id %}" class="update-button">Update</a>{% endcomment %}-->
+            <a href="{% url 'router:tasks:update_subtask_by_subtask_id' subtask.id %}" class="update-button">Update</a>
             <a href="#" class="delete-button">Delete</a>
         </div>
     </div>
