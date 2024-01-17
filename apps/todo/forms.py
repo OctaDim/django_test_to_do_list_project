@@ -35,7 +35,7 @@ class TaskUpdateForm(ModelForm):
     class Meta:
         model = Task
         fields = ("title", "description", "category", "status",
-                  "start_date", "deadline_date", "note",)  # Possible to choose necessary fields
+                  "start_date", "deadline_date", "note", )  # Possible to choose necessary fields
         # fields = "__all__"  # All fields can be defined in this way
 
 
@@ -45,7 +45,7 @@ class SubTaskUpdateForm(ModelForm):
     class Meta:
         model = SubTask
         fields = ("title", "description", "category", "status",
-                  "start_date", "deadline_date", "note",)  # Possible to choose necessary fields
+                  "start_date", "deadline_date", "note", )  # Possible to choose necessary fields
         # fields = "__all__"  # All fields can be defined in this way
 
 
@@ -53,8 +53,6 @@ class CreateSubTaskForm(ModelForm):
     class Meta:
         model = SubTask
         fields = ("title", "description", "category", "status",
-                  "task", "creator",
-                  "start_date", "deadline_date",
-                  # "note",
-                  )
+                  "task", "creator", "note",
+                  "start_date", "deadline_date", )
         # fields = "__all__"  # All fields can be defined in this way
