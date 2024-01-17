@@ -138,7 +138,7 @@ class SubTask(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True, editable=False)
 
-    note = models.CharField(max_length=250, null=True, blank=True)
+    note = models.CharField(max_length=250, blank=True)
 
     objects = models.Manager()  # Defining default objects manager
 

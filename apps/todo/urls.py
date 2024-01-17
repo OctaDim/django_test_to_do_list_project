@@ -7,7 +7,8 @@ from apps.todo.views import (get_all_tasks,
                              get_all_subtasks_by_creator,
                              get_subtask_by_id,
                              update_subtask_by_subtask_id,
-                             create_new_subtask
+                             create_new_subtask,
+                             delete_subtask_by_id
                              )  # Added
 
 app_name = "tasks"
@@ -23,5 +24,6 @@ urlpatterns = [
     path("subtask/<int:subtask_id>/", get_subtask_by_id, name="get-subtask-by-id"),
     path("subtasks/create/", create_new_subtask, name="create-new-subtask"),
     path("subtasks/update/<int:subtask_id>/", update_subtask_by_subtask_id, name="update_subtask_by_subtask_id"),
+    path("subtasks/delete/<int:subtask_id>/", delete_subtask_by_id, name="delete-subtask-by-id")
 
 ]

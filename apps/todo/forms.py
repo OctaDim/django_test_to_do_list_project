@@ -54,5 +54,7 @@ class CreateSubTaskForm(ModelForm):
         model = SubTask
         fields = ("title", "description", "category", "status",
                   "task", "creator",
-                  "start_date", "deadline_date", "note", )
+                  "start_date", "deadline_date",
+                  # "note",
+                  )
         # fields = "__all__"  # All fields can be defined in this way

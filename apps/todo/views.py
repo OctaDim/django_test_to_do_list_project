@@ -170,46 +170,56 @@ def create_new_subtask(request):
             return redirect('router:tasks:get-task', task_id=task_id)
 
     else:
+        form = CreateSubTaskForm()
+
         user = get_object_or_404(User, id=request.user.id)
+        task = get_object_or_404(Task, id=task_id)
         categories = Category.objects.all()
         statuses = Status.objects.all()
-        task = get_object_or_404(Task, id=task_id)
-        form = CreateSubTaskForm()
 
         context = {"form": form,
                    "user": user,
                    "categories": categories,
                    "statuses": statuses,
                    "task": task
-        }
+                   }
+
         return render(request=request,
                       template_name='create_subtask_form.html',
                       context=context)
 
+    # task_id = request.GET.get("task_id")
+    # user = get_object_or_404(User, id=request.user.id)
+    # categories = Category.objects.all()
+    # statuses = Status.objects.all()
+    # task = get_object_or_404(Task, id=task_id)
+    # form = CreateSubTaskForm()
+    #
+    # if request.method == 'POST':
+    #     form = CreateSubTaskForm(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('router:tasks:get-task', task_id=task_id)
+    #
+    # context = {
+    #     "form": form,
+    #     "user": user,
+    #     "categories": categories,
+    #     "statuses": statuses,
+    #     "task": task
+    # }
+    # return render(
+    #     request=request,
+    #     template_name='create_subtask_form.html',
+    #     context=context
+    # )
 
 
-# task_id = request.GET.get("task_id")
-#     user = get_object_or_404(User, id=request.user.id)
-#     categories = Category.objects.all()
-#     statuses = Status.objects.all()
-#     task = get_object_or_404(Task, id=task_id)
-#     form = CreateSubTaskForm()
-#
-#     if request.method == 'POST':
-#         form = CreateSubTaskForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('router:tasks:get-task', task_id=task_id)
-#
-#     context = {
-#         "form": form,
-#         "user": user,
-#         "categories": categories,
-#         "statuses": statuses,
-#         "task": task
-#     }
-#     return render(
-#         request=request,
-#         template_name='create_subtask_form.html',
-#         context=context
-#     )
+# def delete_subtask_by_id(request)
+
+
+def delete_subtask_by_id(request, subtask_id):
+    subtask = get_object_or_404(SubTask, id=subtask_id)
+
+    subtask.delete()
+    return redirect('router:tasks:get-all-subtasks-by-creator')
