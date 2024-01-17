@@ -110,7 +110,7 @@ class Task(models.Model):
 
 class SubTask(models.Model):
     title = models.CharField(max_length=75, default="DEFAULT SUBTASK")
-    description = models.TextField(max_length=1500)
+    description = models.TextField(max_length=1500, null=True, blank=True)
 
     category = models.ForeignKey(Category, default=1,
                                  blank=True, null=True,
@@ -123,21 +123,24 @@ class SubTask(models.Model):
     creator = models.ForeignKey(User, default=1,
                                 on_delete=models.CASCADE)
 
-    status = models.ForeignKey(Status, default=1, on_delete=models.SET(1))
+    status = models.ForeignKey(Status, default=1,
+                               null=True, blank=True,
+                               on_delete=models.CASCADE)
+    # status = models.ForeignKey(Status, default=1, on_delete=models.SET(1))
 
-    start_date = models.DateField(
-        # auto_now_add=True,
-        help_text="Day, when the task should be started")
+    start_date = models.DateField(null=True, blank=True,
+                                  # auto_now_add=True,
+                                  help_text="Day, when the task should be started")
 
-    deadline_date = models.DateField(
-        # auto_now_add=True,
-        help_text="Day, when the task should be finished")
+    deadline_date = models.DateField(null=True, blank=True,
+                                     # auto_now_add=True,
+                                     help_text="Day, when the task should be finished")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
     deleted_at = models.DateTimeField(null=True, blank=True, editable=False)
 
-    note = models.CharField(max_length=250, blank=True)
+    note = models.CharField(max_length=250, null=True, blank=True)
 
     objects = models.Manager()  # Defining default objects manager
 
