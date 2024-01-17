@@ -118,8 +118,7 @@ class SubTask(models.Model):
 
     task = models.ForeignKey(Task, default=1,
                              on_delete=models.CASCADE,
-                             related_name="subtasks",
-                             limit_choices_to={"status": 1, })
+                             related_name="subtasks")
 
     creator = models.ForeignKey(User, default=1,
                                 on_delete=models.CASCADE)

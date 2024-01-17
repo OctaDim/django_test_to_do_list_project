@@ -15,7 +15,7 @@ app_name = "tasks"
 
 urlpatterns = [
     path("", get_all_tasks, name="all-tasks"),
-    path("<int:task_id>/", get_task_by_task_id, name="get-task"),
+    path("<int:task_id>/", get_task_by_task_id, name="get-task-by-id"),
     path("create/", create_new_task, name="create-task"),
     path("update/<int:task_id>/", update_task_by_id, name="update-task"),
     path("delete/<int:task_id>/", delete_task, name="delete-task"),

@@ -23,7 +23,7 @@
                 <a href="{% url 'router:tasks:update-task' task.id %}" class="update-button">Update</a>
                 <a href="{% url 'router:tasks:delete-task' task.id %}" class="delete-button">Delete</a>
                 <a href="{% url 'router:tasks:create-task' %}" class="create-subtask">Create Task</a>
-                <a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create Sq/rubtask</a>
+                <a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create Subtask</a>
 
             </div>
         </div>
@@ -39,7 +39,7 @@
                         <h3>{{ subtask.status }}</h3>
                         <div class="button-container">
                             <a href="{% url 'router:tasks:update_subtask_by_subtask_id' subtask_id=subtask.id %}" class="update-button">Update</a>
-                            <a href="{% url 'router:tasks:delete-subtask-by-id' subtask.id %}" class="delete-button">Delete</a>
+                            <a href="{% url 'router:tasks:delete-subtask-by-id' subtask.id %}?task_id={{ task.id }}" class="delete-button">Delete</a>
                             <a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create</a>
 
                         </div>
@@ -49,7 +49,7 @@
         {% else %}
             <div class="no-subtasks-block">
                 <h1>You don't have any subtasks for this task</h1>
-                <a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create subtask</a>
+                <a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create new subtask</a>
             </div>
         {% endif %}
     </div>

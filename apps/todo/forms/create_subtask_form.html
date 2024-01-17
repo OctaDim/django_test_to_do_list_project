@@ -72,6 +72,16 @@
 <!--            </div>-->
 
             <button type="submit" class="subtask-create-button">Create</button>
+            {% for error in error_messages %}
+                <h3>{{error}}</h3>
+            {% endfor %}
+            <div><span>task= </span>{{task}}</div>
+            <div><span>title= </span>{{task.title}}</div>
+            <div><span>status= </span>{{task.status}}</div>
+            <div><span>category= </span>{{task.category}}</div>
+            <div><span>task_id= </span>{{task_id}}</div>
+            <div><span>task.id= </span>{{task.id}}</div>
+            <div>form.errors: </div>
             {{ form.title.errors }}
             {{ form.description.errors }}
             {{ form.category.errors }}

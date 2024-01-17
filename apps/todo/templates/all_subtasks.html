@@ -7,8 +7,8 @@
 
 {% block content %}
     <div class="subtasks">
-        {% if subtasks %} <!-- Мы можем написать условие, что если сабтаски есть - отображаем их все. -->
-            {% for subtask in subtasks %} <!-- -->
+        {% if subtasks %}
+            {% for subtask in subtasks %}
                 <a href="{% url 'router:tasks:get-subtask-by-id' subtask.id %}" class="subtask-link">
                     <div class="subtask">
                         <h2><span class="subtask-description">Title: </span>{{ subtask.title }}</h2>
@@ -24,11 +24,16 @@
                         <h4><span class="subtask-description">Deadline: </span>{{ subtask.deadline }}</h4>
                     </div>
                 </a>
-            {% endfor %} <!-- -->
-        {% else %} <!-- Иначе мы отображать будем спец окошко, мол нет ни одной подзадачи -->
+            {% endfor %}
+        <div class="button-container">
+            <a href="{% url 'router:tasks:update_subtask_by_subtask_id' subtask_id=subtask.id %}" class="update-button">Update</a>
+            <a href="{% url 'router:tasks:delete-subtask-by-id' subtask.id %}" class="delete-button">Delete</a>
+            <a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create</a>
+        </div>
+        {% else %}
             <div class="no-subtasks-block">
                 <h1>Looks like you don't have any subtask!</h1>
             </div>
-        {% endif %} <!-- Всегда явно указываем закрытие наших блоков. Потому что html за них не шарит. -->
+        {% endif %}
     </div>
 {% endblock %}

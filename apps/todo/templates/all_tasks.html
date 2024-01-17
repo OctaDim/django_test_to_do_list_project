@@ -6,7 +6,7 @@
 {% block content %}
 <div class="todos">
     {% for task in tasks %}
-    <a href="{% url 'router:tasks:get-task' task.id %}" class="task-link">
+    <a href="{% url 'router:tasks:get-task-by-id' task.id %}" class="task-link">
         <div class="task">
             <h2><span>Title: {{ task.title|slice:":15" }}
                 {% if task.title|length > 15 %}...{% endif %}</span></h2>
