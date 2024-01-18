@@ -62,6 +62,23 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>
+
+            {% if form.errors %}
+                <div style="margin: 15px 15px;">
+                    <div style="color:red">
+                        NON VALIDATED (WRONG OR EMPTY):
+                        {{ form.errors }}
+                    </div>
+                    <div style="color:white">
+                        VALIDATED (CLEANED DATA) :
+                        {% for field_ok, value_ok in form.cleaned_data.items %}
+                            <div>{{ field_ok }} = {{ value_ok }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+
         </form>
     </div>
 {% endblock %}
