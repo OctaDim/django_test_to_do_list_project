@@ -66,29 +66,29 @@
                 <input type="date" class="subtask-form-control" id="deadline_date" name="deadline_date">
             </div>
 
-<!--            <div class="subtask-mb-3">-->
-<!--                <label for="note" class="subtask-form-label">Note</label>-->
-<!--                <input type="text" class="subtask-form-control" id="note" name="note">-->
-<!--            </div>-->
+            <div class="subtask-mb-3">
+                <label for="note" class="subtask-form-label">Note</label>
+                <input type="text" class="subtask-form-control" id="note" name="note">
+            </div>
 
             <button type="submit" class="subtask-create-button">Create</button>
-            {% for error in error_messages %}
-                <h3>{{error}}</h3>
-            {% endfor %}
-            <div><span>task= </span>{{task}}</div>
-            <div><span>title= </span>{{task.title}}</div>
-            <div><span>status= </span>{{task.status}}</div>
-            <div><span>category= </span>{{task.category}}</div>
-            <div><span>task_id= </span>{{task_id}}</div>
-            <div><span>task.id= </span>{{task.id}}</div>
-            <div>form.errors: </div>
-            {{ form.title.errors }}
-            {{ form.description.errors }}
-            {{ form.category.errors }}
-            {{ form.task.errors}}
-            {{ form.status.errors }}
-            {{ form.start_date.errors }}
-            {{ form.deadline_date.errors }}
+
+            {% if form.errors %}
+                <div style="margin: 15px 15px;">
+                    <div style="color:red">
+                        NON VALIDATED (WRONG OR EMPTY):
+                        {{ form.errors }}
+                    </div>
+                    <div style="color:white">
+                        VALIDATED (CLEANED DATA) :
+                        {% for field_ok, value_ok in form.cleaned_data.items %}
+                            <div>{{ field_ok }} = {{ value_ok }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+
         </form>
     </div>
 {% endblock %}
