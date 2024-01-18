@@ -30,6 +30,9 @@
         {% if subtasks %}
             <div class="task-subtasks">
                 <div><h2 align="right">SUBTASKS:</h2></div>
+<!--                <div align="right">-->
+<!--                    <a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create new Subtask</a>-->
+<!--                </div>-->
                 {% for subtask in subtasks %}
                     <div class="subtask-info">
                         <a href="{% url 'router:tasks:get-subtask-by-id' subtask.id %}" class="subtask-title">
