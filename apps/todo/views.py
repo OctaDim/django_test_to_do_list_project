@@ -182,6 +182,10 @@ def create_new_subtask(request):
 def delete_subtask_by_id(request, subtask_id):
     subtask = get_object_or_404(SubTask, id=subtask_id)
     task_id = request.GET.get("task_id")
-
     subtask.delete()
-    return redirect('router:tasks:get-task-by-id', task_id=task_id)
+
+    print(task_id)
+    if task_id:
+        return redirect('router:tasks:get-task-by-id', task_id=task_id)
+    else:
+        return redirect('router:tasks:get-all-subtasks-by-creator')
