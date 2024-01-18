@@ -7,7 +7,7 @@ from apps.user.forms import LoginForm, CreateNewUserForm
 
 # Create your views here.
 
-def user_login(request):
+def login_existing_user(request):
     form = LoginForm()
 
     if request.method == 'POST':
@@ -17,29 +17,33 @@ def user_login(request):
             username = request.POST.get("username")
             password = request.POST.get("password")
 
-            user = authenticate(
-                request=request,
-                username=username,
-                password=password
-            )
+            user = authenticate(request=request,
+                                username=username,
+                                password=password)
 
             if user is not None:
                 auth.login(request, user=user)
 
                 return redirect('router:tasks:get-all-tasks')
 
-    context = {
-        "form": form
-    }
+    context = {"form": form, }
 
-    return render(
-        request=request,
-        template_name='user_login_form.html',
-        context=context
-    )
+    return render(request=request,
+                  template_name='login_existing_user_form.html',
+                  context=context)
 
 
-# def create_new_user(request):
-#     form = CreateNewUserForm()
+def register_new_user(request):
+    form = CreateNewUserForm()
 
-    # if request.method == "POST"
+    if request.method == "POST":
+        form = CreateNewUserForm(request.POST, )
+        if form.is_valid():
+            form.save()
+            return redirect("router:user:login-existing-user")
+
+    context = {"form": form, }
+
+    return render(request=request,
+                  template_name="register_new_user.html",
+                  context=context)

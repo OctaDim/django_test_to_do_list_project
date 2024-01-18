@@ -20,9 +20,27 @@
             <button type="submit" class="login-button">Login</button>
 
             <div class="login-account-choice">
-                <p>You don't have an account?</p>
-                <a href="#">Register</a>
+                <p>Don't you have an account ?</p>
+                <a href="{% url 'router:user:register_new_user' %}">Register new user</a>
             </div>
+
+
+            {% if form.errors %}
+                <div style="margin: 15px 15px;">
+                    <div style="color:red">
+                        NON VALIDATED (WRONG OR EMPTY):
+                        {{ form.errors }}
+                    </div>
+                    <div style="color:white">
+                        VALIDATED (CLEANED DATA) :
+                        {% for field_ok, value_ok in form.cleaned_data.items %}
+                            <div>{{ field_ok }} = {{ value_ok }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+
         </form>
     </div>
 {% endblock %}
