@@ -79,9 +79,11 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [BASE_DIR / "templates",    # Added
                  BASE_DIR / "apps/todo/templates",
-                 BASE_DIR / "apps/todo/forms",
+                 BASE_DIR / "apps/todo/forms_templates",
+                 BASE_DIR / "apps/user/templates",
+                 BASE_DIR / "apps/user/forms_templates/",
                  ],  # Added
-        # 'DIRS': ["templates", "apps/todo/templates", "apps/todo/forms"],
+        # 'DIRS': ["templates", "apps/todo/templates", "apps/todo/forms_templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -157,6 +159,7 @@ USE_TZ = True
 
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, "apps", "todo", "static"),  # additional dirs with static files
+#     os.path.join(BASE_DIR, "apps", "user", "static"),  # additional dirs with static files
 # ]
 
 STATIC_URL = "static/"  # =<each_app_dir>/static - apps dirs, where finder will find static files

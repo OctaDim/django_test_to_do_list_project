@@ -1,0 +1,28 @@
+{% extends 'main.html' %}
+<!--{% extends "todo/main.html" full way, if not defined in setting DIR -->
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+    <div class="login-container">
+        <form method="POST" class="log-in-form"> <!--tag Form which contains method (post, put, patch) definitely-->
+            {% csrf_token %}                     <!--csrf_token must be passed on-->
+
+            <div class="mb-3">
+                <label for="username" class="log-in-form-label">User name</label>
+                {{ form.username }}
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="log-in-form-label">Password</label>
+                {{ form.password }}
+            </div>
+
+            <button type="submit" class="login-button">Login</button>
+
+            <div class="login-account-choice">
+                <p>You don't have an account?</p>
+                <a href="#">Register</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

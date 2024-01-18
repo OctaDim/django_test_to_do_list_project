@@ -14,7 +14,7 @@ class CreateTaskForm(ModelForm):
     description = fields.CharField(max_length=1500,
                                    widget=fields.Textarea,
                                    required=False, )
-    creator = ModelChoiceField(queryset=User.objects.all())
+    creator = ModelChoiceField(queryset=User.objects.all(), )
     category = ModelChoiceField(queryset=Category.objects.all(),
                                 required=False, )
     status = ModelChoiceField(queryset=Status.objects.all(),

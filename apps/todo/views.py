@@ -13,18 +13,17 @@ from apps.todo.forms import (CreateTaskForm,
                              CreateSubTaskForm,
                              )  # Added
 
-
-# from django.http import HttpResponseRedirect  # Added
-
-# Create your views here.
+from django.contrib.auth.decorators import login_required
 
 
+@login_required(login_url="router:user:login")
 def home_page(request):
     return render(request=request,
                   template_name="main.html",  # full way, if not defined in setting DIR
                   )
 
 
+@login_required(login_url="router:user:login")
 def get_all_tasks(request):
     tasks = Task.objects.all()
     tasks_count = Task.objects.all().count()
@@ -38,6 +37,7 @@ def get_all_tasks(request):
                   context=context)
 
 
+@login_required(login_url="router:user:login")
 def create_new_task(request):
     users = User.objects.all()
     categories = Category.objects.all()
@@ -51,7 +51,7 @@ def create_new_task(request):
         if form.is_valid():
             task_data = form.cleaned_data
             Task.objects.create(**task_data)
-            return redirect("router:tasks:all-tasks")
+            return redirect("router:tasks:get-all-tasks")
 
     context = {"form": form,
                "users": users,
@@ -63,6 +63,7 @@ def create_new_task(request):
                   context=context)
 
 
+@login_required(login_url="router:user:login")
 def update_task_by_id(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     categories = Category.objects.all()
@@ -71,11 +72,12 @@ def update_task_by_id(request, task_id):
     form = TaskUpdateForm(instance=task)  # instance=task parameter initializes the form with the existing task data.
 
     if request.method == "POST":
-        form = TaskUpdateForm(request.POST, instance=task)  # instance=task parameter initializes the form with the existing task data.
+        form = TaskUpdateForm(request.POST,
+                              instance=task)  # instance=task parameter initializes the form with the existing task data.
 
         if form.is_valid():
             form.save()
-            return redirect("router:tasks:all-tasks")
+            return redirect("router:tasks:get-all-tasks")
 
     context = {"form": form,
                "task": task,
@@ -87,6 +89,7 @@ def update_task_by_id(request, task_id):
                   context=context)
 
 
+@login_required(login_url="router:user:login")
 def get_task_by_task_id(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     subtasks = SubTask.objects.filter(task=task_id)
@@ -99,12 +102,14 @@ def get_task_by_task_id(request, task_id):
                   context=context)
 
 
+@login_required(login_url="router:user:login")
 def delete_task(request, task_id):
     task = get_object_or_404(Task, id=task_id)
     task.delete()
-    return redirect("router:tasks:all-tasks")
+    return redirect("router:tasks:get-all-tasks")
 
 
+@login_required(login_url="router:user:login")
 def get_all_subtasks_by_creator(request):
     subtasks = SubTask.objects.filter(creator=request.user, )
 
@@ -115,6 +120,7 @@ def get_all_subtasks_by_creator(request):
                   context=context)
 
 
+@login_required(login_url="router:user:login")
 def get_subtask_by_id(request, subtask_id):
     subtask = get_object_or_404(SubTask, id=subtask_id)
 
@@ -125,6 +131,7 @@ def get_subtask_by_id(request, subtask_id):
                   context=context)
 
 
+@login_required(login_url="router:user:login")
 def update_subtask_by_subtask_id(request, subtask_id):
     subtask = get_object_or_404(SubTask, id=subtask_id)
     task_id = request.GET.get("task_id")
@@ -155,6 +162,7 @@ def update_subtask_by_subtask_id(request, subtask_id):
                   context=context)
 
 
+@login_required(login_url="router:user:login")
 def create_new_subtask(request):
     task_id = request.GET.get("task_id")
 
@@ -168,7 +176,8 @@ def create_new_subtask(request):
 
     if request.method == 'POST':
         form = CreateSubTaskForm(request.POST)
-        form_instance = form.instance  # TEST
+        # form_instance = form.instance  # TEST
+        # form_data = form.cleaned_data  # TEST
         if form.is_valid():
             form.save()
             return redirect('router:tasks:get-task-by-id', task_id=task_id)
@@ -185,6 +194,7 @@ def create_new_subtask(request):
         context=context)
 
 
+@login_required(login_url="router:user:login")
 def delete_subtask_by_id(request, subtask_id):
     subtask = get_object_or_404(SubTask, id=subtask_id)
     task_id = request.GET.get("task_id")
