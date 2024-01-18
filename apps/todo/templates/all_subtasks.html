@@ -26,9 +26,9 @@
                 </a>
             {% endfor %}
         <div class="button-container">
-            <a href="{% url 'router:tasks:update_subtask_by_subtask_id' subtask_id=subtask.id %}" class="update-button">Update</a>
-            <a href="{% url 'router:tasks:delete-subtask-by-id' subtask.id %}" class="delete-button">Delete</a>
-            <a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create</a>
+<!--            {% comment %}<a href="{% url 'router:tasks:update_subtask_by_subtask_id' subtask_id=subtask.id %}" class="update-button">Update</a>{% endcomment %}-->
+<!--            {% comment %}<a href="{% url 'router:tasks:delete-subtask-by-id' subtask.id %}?task_id={{ task.id }}" class="delete-button">Delete</a>{% endcomment %}-->
+<!--            {% comment %}<a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create</a>{% endcomment %}-->
         </div>
         {% else %}
             <div class="no-subtasks-block">
