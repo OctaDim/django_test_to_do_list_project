@@ -26,7 +26,7 @@
             <div class="mb-3">
                 <label for="category" class="form-label">Category</label>
                 <select class="form-control" id="category" name="category">
-                    <option value="" selected="">{{ task.category }}</option> <!-- For optional category -->
+                    <option value="task.category.id" selected="selected">{{ task.category }}</option> <!-- For optional category -->
                     {% for category in categories %}
                         <option value="{{ category.id }}">{{ category.name }}</option>
                     {% endfor %}
@@ -36,7 +36,7 @@
             <div class="mb-3">
                 <label for="status" class="form-label">Status</label>
                 <select class="form-control" id="status" name="status">
-                    <option value="" selected="">{{ task.status }}</option>
+                    <option value="task.status.id" selected="selected">{{ task.status }}</option>
                     {% for status in statuses %}
                         <option value="{{ status.id }}">{{ status.name }}</option>
                     {% endfor %}

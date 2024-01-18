@@ -24,9 +24,7 @@
             <div class="subtask-mb-3">
                 <label for="category" class="subtask-form-label">Category</label>
                 <select class="subtask-form-control" id="category" name="category">
-                    <option value="{{ subtask.category.id }}"
-                            selected="{{ subtask.category }}">{{ subtask.category }}</option>
-                    <!-- For optional category -->
+                    <option value="{{ subtask.category.id }}" selected="selected">{{ subtask.category }}</option>
                     {% for category in categories %}
                         <option value="{{ category.id }}">{{ category.name }}</option>
                     {% endfor %}
@@ -36,8 +34,7 @@
             <div class="subtask-mb-3">
                 <label for="status" class="subtask-form-label">Status</label>
                 <select class="subtask-form-control" id="status" name="status">
-                    <option value="{{ subtask.status.id }}"
-                            selected="{{ subtask.status }}">{{ subtask.status }}</option>
+                    <option value="{{ subtask.status.id }}" selected="selected">{{ subtask.status }}</option>
                     {% for status in statuses %}
                         <option value="{{ status.id }}">{{ status.name }}</option>
                     {% endfor %}
