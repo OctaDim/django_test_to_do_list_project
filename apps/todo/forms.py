@@ -11,18 +11,22 @@ from apps.todo.models import (User,
 class CreateTaskForm(ModelForm):
     # See bellow how to define model and fields fast with fields parameters by default as defined in Model
     title = fields.CharField(max_length=75)
-    description = fields.CharField(max_length=1500, widget=fields.Textarea)
+    description = fields.CharField(max_length=1500,
+                                   widget=fields.Textarea,
+                                   required=False, )
     creator = ModelChoiceField(queryset=User.objects.all())
-    category = ModelChoiceField(queryset=Category.objects.all(), required=False)
-    status = ModelChoiceField(queryset=Status.objects.all())
+    category = ModelChoiceField(queryset=Category.objects.all(),
+                                required=False, )
+    status = ModelChoiceField(queryset=Status.objects.all(),
+                              required=False, )
 
     start_date = fields.DateField(
-        widget=widgets.DateInput(attrs={"type": "data"}))
+        widget=widgets.DateInput(attrs={"type": "data"}), required=False, )
 
     deadline_date = fields.DateField(
-        widget=widgets.DateInput(attrs={"type": "data"}))
+        widget=widgets.DateInput(attrs={"type": "data"}), required=False, )
 
-    note = fields.CharField(max_length=250)
+    note = fields.CharField(max_length=250, required=False, )
 
     class Meta:
         model = Task

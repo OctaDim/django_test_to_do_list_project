@@ -59,6 +59,7 @@ class Task(models.Model):
 
     description = models.TextField(
         max_length=1500,
+        null=True, blank=True,
         verbose_name="Task details",  # For displaying in admin panel
         default=create_default_description)  # Func 'create_default_description' returns, when new record is creating
 
@@ -74,16 +75,20 @@ class Task(models.Model):
                                  blank=True, null=True,
                                  on_delete=models.SET_NULL)
 
-    status = models.ForeignKey(Status, default=1, on_delete=models.SET(1))
+    status = models.ForeignKey(Status, default=1,
+                               null=True, blank=True,
+                               on_delete=models.SET(1))
 
     start_date = models.DateField(
         # editable=True,
         # auto_now_add=True, # Make False, because FormModel cannot have non-editable field
+        null=True, blank=True,
         help_text="Day, when the task should be started")
 
     deadline_date = models.DateField(
         # editable=True,
         # auto_now_add=True,
+        null=True, blank=True,
         help_text="Day, when the task should be finished")
 
     created_at = models.DateTimeField(auto_now_add=True)
