@@ -39,6 +39,12 @@ def get_all_tasks(request):
 
 
 def create_new_task(request):
+    users = User.objects.all()
+    categories = Category.objects.all()
+    statuses = Status.objects.all()
+
+    form = CreateTaskForm()
+
     if request.method == "POST":
         form = CreateTaskForm(request.POST)
 
@@ -46,12 +52,6 @@ def create_new_task(request):
             task_data = form.cleaned_data
             Task.objects.create(**task_data)
             return redirect("router:tasks:all-tasks")
-
-    users = User.objects.all()
-    categories = Category.objects.all()
-    statuses = Status.objects.all()
-
-    form = CreateTaskForm()
 
     context = {"form": form,
                "users": users,
@@ -65,26 +65,20 @@ def create_new_task(request):
 
 def update_task_by_id(request, task_id):
     task = get_object_or_404(Task, id=task_id)
+    categories = Category.objects.all()
+    statuses = Status.objects.all()
+
+    form = TaskUpdateForm(instance=task)  # instance=task parameter initializes the form with the existing task data.
 
     if request.method == "POST":
-        form = TaskUpdateForm(request.POST,
-                              instance=task)  # instance=task parameter initializes the form with the existing task data.
+        form = TaskUpdateForm(request.POST, instance=task)  # instance=task parameter initializes the form with the existing task data.
 
         if form.is_valid():
             form.save()
             return redirect("router:tasks:all-tasks")
 
-    else:  # if request.method == "GET":
-        form = TaskUpdateForm(
-            instance=task)  # instance=task parameter initializes the form with the existing task data.
-
-        categories = Category.objects.all()
-        statuses = Status.objects.all()
-        # users = User.objects.all()
-
         context = {"form": form,
                    "task": task,
-                   # "users": users,
                    "categories": categories,
                    "statuses": statuses, }
 
@@ -134,6 +128,11 @@ def get_subtask_by_id(request, subtask_id):
 def update_subtask_by_subtask_id(request, subtask_id):
     subtask = get_object_or_404(SubTask, id=subtask_id)
 
+    categories = Category.objects.all()
+    statuses = Status.objects.all()
+
+    form = SubTaskUpdateForm(instance=subtask)
+
     if request.method == 'POST':
         form = SubTaskUpdateForm(request.POST, instance=subtask)
 
@@ -141,117 +140,44 @@ def update_subtask_by_subtask_id(request, subtask_id):
             form.save()
             return redirect('router:tasks:get-subtask-by-id', subtask_id=subtask_id)
 
-    else:  # instance=task parameter initializes the form with the existing task data.
-        form = SubTaskUpdateForm(instance=subtask)
+    context = {"form": form,
+               "subtask": subtask,
+               "categories": categories,
+               "statuses": statuses, }
 
-        categories = Category.objects.all()
-        statuses = Status.objects.all()
-
-        context = {"form": form,
-                   "subtask": subtask,
-                   "categories": categories,
-                   "statuses": statuses, }
-
-        return render(
-            request=request,
-            template_name='update_subtask_form.html',
-            context=context)
+    return render(request=request,
+                  template_name='update_subtask_form.html',
+                  context=context)
 
 
 def create_new_subtask(request):
     task_id = request.GET.get("task_id")
-    if not task_id:
-        print(task_id)
-        raise ValueError("Invalid task ID")
 
     user = get_object_or_404(User, id=request.user.id)
-    if not user:
-        print(user)
-        raise ValueError(f"Invalid user ID")
-
     task = get_object_or_404(Task, id=task_id)
-    if not task:
-        print(task)
-        raise ValueError(f"Invalid task ID")
 
     categories = Category.objects.all()
     statuses = Status.objects.all()
 
     form = CreateSubTaskForm()
 
-    # error_messages = form.errors
-    # # cleaned_data = form.cleaned_data
-    # data = form.data
-    # fields = form.fields
-    # instance = form.instance
-    # base_fields = form.base_fields
-
     if request.method == 'POST':
         form = CreateSubTaskForm(request.POST)
         if form.is_valid():
-            print("cleaned_data:", form.cleaned_data)
-
             form.save()
             return redirect('router:tasks:get-task-by-id', task_id=task_id)
-
-    error_messages = form.errors
-    # cleaned_data = form.cleaned_data
-    data = form.data
-    fields = form.fields
-    instance = form.instance
-    base_fields = form.base_fields
-    # value = form.value
-
-    for error in error_messages:
-        print("error:", error)
-    print("data:", data)
-    # print("cleaned data:", cleaned_data)
-    print("fields:", fields)
-    print("instance:", instance)
-    print("base_fields:", base_fields)
-    # print("value:", value)
 
     context = {
         "form": form,
         "user": user,
         "categories": categories,
         "statuses": statuses,
-        "task": task,
-        "error_messages": error_messages,
-    }
+        "task": task, }
 
     return render(
         request=request,
         template_name='create_subtask_form.html',
-        context=context
-    )
-
-    # task_id = request.GET.get("task_id")
-    #
-    # if request.method == 'POST':
-    #     form = CreateSubTaskForm(request.POST)
-    #
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('router:tasks:get-task-by-id', task_id=task_id)
-    #
-    # user = get_object_or_404(User, id=request.user.id)
-    # task = get_object_or_404(Task, id=task_id)
-    # categories = Category.objects.all()
-    # statuses = Status.objects.all()
-    #
-    # form = CreateSubTaskForm()
-    #
-    # context = {"form": form,
-    #            "user": user,
-    #            "categories": categories,
-    #            "statuses": statuses,
-    #            "task": task
-    #            }
-    #
-    # return render(request=request,
-    #               template_name='create_subtask_form.html',
-    #               context=context)
+        context=context)
 
 
 def delete_subtask_by_id(request, subtask_id):
