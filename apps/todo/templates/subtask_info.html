@@ -16,6 +16,7 @@
         <div class="button-container">
             <a href="{% url 'router:tasks:update_subtask_by_subtask_id' subtask.id %}" class="update-button">Update</a>
             <a href="{% url 'router:tasks:delete-subtask-by-id' subtask.id %}?task_id={{ task.id }}" class="delete-button">Delete</a>
+
         </div>
     </div>
 {% endblock %}

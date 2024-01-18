@@ -33,12 +33,11 @@
                 {% for subtask in subtasks %}
                     <div class="subtask-info">
                         <a href="{% url 'router:tasks:get-subtask-by-id' subtask.id %}" class="subtask-title">
-                            {{ subtask.title|slice:":20" }}
-                                {% if subtask.title|length > 20 %}...{% endif %}
+                            {{ subtask.title|slice:":12" }}{% if subtask.title|length > 12 %}...{% endif %}
                         </a>
-                        <h3>{{ subtask.status }}</h3>
+                        <div class="subtask-title" align="right">{{ subtask.status }}</div>
                         <div class="button-container">
-                            <a href="{% url 'router:tasks:update_subtask_by_subtask_id' subtask_id=subtask.id %}" class="update-button">Update</a>
+                            <a href="{% url 'router:tasks:update_subtask_by_subtask_id' subtask_id=subtask.id %}?task_id={{ task.id }}" class="update-button">Update</a>
                             <a href="{% url 'router:tasks:delete-subtask-by-id' subtask.id %}?task_id={{ task.id }}" class="delete-button">Delete</a>
                             <a href="{% url 'router:tasks:create-new-subtask' %}?task_id={{ task.id }}" class="create-subtask">Create</a>
 

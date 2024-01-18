@@ -126,6 +126,7 @@ def get_subtask_by_id(request, subtask_id):
 
 def update_subtask_by_subtask_id(request, subtask_id):
     subtask = get_object_or_404(SubTask, id=subtask_id)
+    task_id = request.GET.get("task_id")
 
     categories = Category.objects.all()
     statuses = Status.objects.all()
@@ -137,7 +138,11 @@ def update_subtask_by_subtask_id(request, subtask_id):
 
         if form.is_valid():
             form.save()
-            return redirect('router:tasks:get-subtask-by-id', subtask_id=subtask_id)
+            if task_id:
+                return redirect('router:tasks:get-task-by-id', task_id=task_id)
+            else:
+                return redirect('router:tasks:get-all-subtasks-by-creator')
+                # return redirect('router:tasks:get-subtask-by-id', subtask_id=subtask_id)
 
     context = {"form": form,
                "subtask": subtask,
