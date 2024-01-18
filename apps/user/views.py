@@ -1,8 +1,11 @@
-from django.shortcuts import render, redirect  # Changed
+from django.shortcuts import render, redirect, get_object_or_404  # Changed
 from django.contrib.auth import authenticate  # Added
 from django.contrib.auth.models import auth  # Added
+from django.contrib.auth.decorators import login_required  # Added Decorator password required
+from django.contrib.auth.models import User  # Added
+from apps.user.forms import LoginForm, CreateNewUserForm  # Added
 
-from apps.user.forms import LoginForm, CreateNewUserForm
+from apps.todo.models import Task, SubTask
 
 
 # Create your views here.
@@ -47,3 +50,23 @@ def register_new_user(request):
     return render(request=request,
                   template_name="register_new_user.html",
                   context=context)
+
+
+@login_required(login_url="router:user:login-existing-user")
+def user_profile_info(request):
+    user = get_object_or_404(User, id=request.user.id)
+    tasks = Task.objects.filter(creator=user.id)  # The same: creator=request.user.id
+    subtasks = SubTask.objects.filter(creator=user.id)  # The same: creator=request.user.id
+
+    context = {"user": user,
+               "tasks": tasks,
+               "subtasks": subtasks, }
+
+    return render(request=request,
+                  template_name="user_profile_info.html",
+                  context=context)
+
+
+def logout_user(request):
+    auth.logout(request=request)
+    return redirect("router:user:login-existing-user")

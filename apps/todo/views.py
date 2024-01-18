@@ -25,7 +25,8 @@ def home_page(request):
 
 @login_required(login_url="router:user:login-existing-user")
 def get_all_tasks(request):
-    tasks = Task.objects.all()
+    tasks = Task.objects.filter(creator=request.user)
+    # tasks = Task.objects.all()
     tasks_count = Task.objects.all().count()
 
     context = {"tasks": tasks,

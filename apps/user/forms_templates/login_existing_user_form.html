@@ -21,7 +21,7 @@
 
             <div class="login-account-choice">
                 <p>Don't you have an account ?</p>
-                <a href="{% url 'router:user:register_new_user' %}">Register new user</a>
+                <a href="{% url 'router:user:register-new-user' %}">Register new user</a>
             </div>
 
 
@@ -31,12 +31,12 @@
                         NON VALIDATED (WRONG OR EMPTY):
                         {{ form.errors }}
                     </div>
-                    <div style="color:white">
-                        VALIDATED (CLEANED DATA) :
-                        {% for field_ok, value_ok in form.cleaned_data.items %}
-                            <div>{{ field_ok }} = {{ value_ok }}</div>
-                        {% endfor %}
-                    </div>
+<!--                    <div style="color:white">-->
+<!--                        VALIDATED (CLEANED DATA) :-->
+<!--                        {% for field_ok, value_ok in form.cleaned_data.items %}-->
+<!--                            <div>{{ field_ok }} = {{ value_ok }}</div>-->
+<!--                        {% endfor %}-->
+<!--                    </div>-->
                 </div>
             {% endif %}
 

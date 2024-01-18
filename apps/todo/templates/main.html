@@ -39,7 +39,7 @@
                 <a class="nav-link" aria-current="page" href="{% url 'router:home' %}">Home</a>
             </li>
             <li class="header-item">
-                <a class="nav-link" href="#">Profile</a>
+                <a class="nav-link" href="{% url 'router:user:user-profile-info' %}">Profile</a>
             </li>
             <li class="header-item">
                 <a class="nav-link" href="{% url 'router:tasks:get-all-tasks' %}">Tasks</a>

@@ -57,12 +57,12 @@
                         NON VALIDATED (WRONG OR EMPTY):
                         {{ form.errors }}
                     </div>
-                    <div style="color:white">
-                        VALIDATED (CLEANED DATA) :
-                        {% for field_ok, value_ok in form.cleaned_data.items %}
-                            <div>{{ field_ok }} = {{ value_ok }}</div>
-                        {% endfor %}
-                    </div>
+<!--                    <div style="color:white">-->
+<!--                        VALIDATED (CLEANED DATA) :-->
+<!--                        {% for field_ok, value_ok in form.cleaned_data.items %}-->
+<!--                            <div>{{ field_ok }} = {{ value_ok }}</div>-->
+<!--                        {% endfor %}-->
+<!--                    </div>-->
                 </div>
             {% endif %}
 
