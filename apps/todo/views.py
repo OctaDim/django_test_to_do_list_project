@@ -77,14 +77,13 @@ def update_task_by_id(request, task_id):
             form.save()
             return redirect("router:tasks:all-tasks")
 
-        context = {"form": form,
-                   "task": task,
-                   "categories": categories,
-                   "statuses": statuses, }
-
-        return render(request=request,
-                      template_name="update_task_form.html",
-                      context=context)
+    context = {"form": form,
+               "task": task,
+               "categories": categories,
+               "statuses": statuses, }
+    return render(request=request,
+                  template_name="update_task_form.html",
+                  context=context)
 
 
 def get_task_by_task_id(request, task_id):
