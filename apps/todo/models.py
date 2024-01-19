@@ -71,11 +71,13 @@ class Task(models.Model):
     # creator = models.ForeignKey(User, on_delete=models.SET(111))
     # creator = models.ForeignKey(User, on_delete=models.SET("def on delete user"))
 
-    category = models.ForeignKey(Category, default=1,
+    category = models.ForeignKey(Category,
+                                 default=1,
                                  blank=True, null=True,
                                  on_delete=models.SET_NULL)
 
-    status = models.ForeignKey(Status, default=1,
+    status = models.ForeignKey(Status,
+                               default=1,
                                null=True, blank=True,
                                on_delete=models.SET(1))
 
