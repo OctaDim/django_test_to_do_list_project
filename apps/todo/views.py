@@ -73,8 +73,7 @@ def update_task_by_id(request, task_id):
     form = TaskUpdateForm(instance=task)  # instance=task parameter initializes the form with the existing task data.
 
     if request.method == "POST":
-        form = TaskUpdateForm(request.POST,
-                              instance=task)  # instance=task parameter initializes the form with the existing task data.
+        form = TaskUpdateForm(request.POST, instance=task)  # instance=task parameter initializes the form with the existing task data.
 
         if form.is_valid():
             form.save()
@@ -140,10 +139,10 @@ def update_subtask_by_subtask_id(request, subtask_id):
     categories = Category.objects.all()
     statuses = Status.objects.all()
 
-    form = SubTaskUpdateForm(instance=subtask)
+    form = SubTaskUpdateForm(instance=subtask)  # instance=task parameter initializes the form with the existing task data.
 
     if request.method == 'POST':
-        form = SubTaskUpdateForm(request.POST, instance=subtask)
+        form = SubTaskUpdateForm(request.POST, instance=subtask)  # instance=task parameter initializes the form with the existing task data.
 
         if form.is_valid():
             form.save()
