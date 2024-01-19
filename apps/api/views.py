@@ -21,29 +21,30 @@ class TasksApiViews(APIView):
                         data=[])
 
     def post(self, request: Request):
-        try:
-            serializer = AllTasksSerializer(data=request.data)
+        serializer = AllTasksSerializer(data=request.data)
 
-            serializer.is_valid(
-                raise_exception=True)  # if exception, serializer.save() will not be execited. If raise_exception undefined exception will not be raise
+        if serializer.is_valid():  # The same, but without try-except and raising exception
             serializer.save()
             return Response(status=status.HTTP_201_CREATED,
                             data=serializer.data)
 
-        except ValidationError as error:
-            return Response(status=status.HTTP_400_BAD_REQUEST,
-                            data={"error": str(error),
-                                  "error_detail": error.detail,
-                                  },
-                            )
+        return Response(status=status.HTTP_400_BAD_REQUEST,
+                        data=serializer.errors)
 
-        # if serializer.is_valid():  # The same, but without try-except and raising exception
+        # try:  # Option 2: the same result 2
+        #     serializer = AllTasksSerializer(data=request.data)
+        #
+        #     serializer.is_valid(
+        #         raise_exception=True)  # if except, .save() will not be executed
         #     serializer.save()
         #     return Response(status=status.HTTP_201_CREATED,
         #                     data=serializer.data)
         #
-        # return Response(status=status.HTTP_400_BAD_REQUEST,
-        #                 data=serializer.errors)
+        # except ValidationError as error:
+        #     return Response(status=status.HTTP_400_BAD_REQUEST,
+        #                     data={"error": str(error),
+        #                           "error_detail": error.detail}, )
+
 
     def delete(self):
         pass
