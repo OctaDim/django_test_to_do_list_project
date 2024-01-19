@@ -53,10 +53,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3-rd apps
+    "rest_framework",
 
     # local apps
     "apps.todo.apps.TodoConfig",
     "apps.user.apps.UserConfig",
+    "apps.api.apps.ApiConfig",
 ]
 
 MIDDLEWARE = [

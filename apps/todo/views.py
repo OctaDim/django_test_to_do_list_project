@@ -79,6 +79,8 @@ def update_task_by_id(request, task_id):
             form.save()
             return redirect("router:tasks:get-all-tasks")
 
+    # form = CreateTaskForm(instance=task)  # Settle saving intermediate data if not validated
+
     context = {"form": form,
                "task": task,
                "categories": categories,
@@ -152,6 +154,8 @@ def update_subtask_by_subtask_id(request, subtask_id):
                 return redirect('router:tasks:get-all-subtasks-by-creator')
                 # return redirect('router:tasks:get-subtask-by-id', subtask_id=subtask_id)
 
+    # form = SubTaskUpdateForm(instance=subtask)  # Settle saving intermediate data if not validated
+
     context = {"form": form,
                "subtask": subtask,
                "categories": categories,
@@ -181,6 +185,8 @@ def create_new_subtask(request):
         if form.is_valid():
             form.save()
             return redirect('router:tasks:get-task-by-id', task_id=task_id)
+
+    form = SubTaskUpdateForm(instance=subtask)
 
     context = {"form": form,
                "user": user,
