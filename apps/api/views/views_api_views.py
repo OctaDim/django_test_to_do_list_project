@@ -1,5 +1,6 @@
-# #################### VIA API VIEWS CLASSES ###########################
-# CONTENT: TASKS (GET, POST)
+# #################### Via ApiViews Classes ############################
+# CONTENT:
+# class TasksApiViews(APIView) with GET, POST
 
 from rest_framework import status
 from rest_framework.views import Response, Request, APIView

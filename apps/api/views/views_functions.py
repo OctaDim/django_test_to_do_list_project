@@ -1,7 +1,7 @@
-# #################### VIA FUNCTIONS ###################################
+# #################### Via Functions ###################################
 # CONTENT:
-# def get_all_tasks_response
-# def create_new_task_response
+# @api_view(["GET"]) def get_all_tasks_response
+# @api_view(["POST"]) def create_new_task_response
 
 from django.shortcuts import render  # Added
 from rest_framework.request import Request  # Added
