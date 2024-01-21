@@ -10,7 +10,7 @@ from apps.api.serializers import AllTasksSerializer
 from apps.todo.models import Task
 
 
-class TaskDetailGenericViews(RetrieveAPIView):
+class TaskDetailGenericViews(RetrieveAPIView):  # Parent class has the only 'get' method, so it will be inherited
     serializer_class = AllTasksSerializer
 
     def get_object(self):
