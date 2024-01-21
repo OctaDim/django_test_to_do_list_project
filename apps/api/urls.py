@@ -8,7 +8,8 @@ from apps.api.views.views_functions import (get_all_tasks,
 from apps.api.views.views_api_views import TasksApiViews
 
 # views via GenericViews Classes (samples)
-from apps.api.views.views_generic_views import TaskDetailGenericViews
+from apps.api.views.views_generic_views import (GetTaskGenericViews,
+                                                GetTaskWithSubtasks)
 
 # views via ModelViewSet Classes (samples)
 from apps.api.views.views_model_view_set import (StatusViewSet,
@@ -21,7 +22,8 @@ urlpatterns = [
     # for ModelViewSet classes router is used, see bellow
 
     # views via GenericViews (samples)
-    path("generics/task/<int:task_id>", TaskDetailGenericViews.as_view(), name="get-task-by-id"),
+    path("generics/task/<int:task_id>", GetTaskGenericViews.as_view(), name="get-task-by-id"),
+    path("generics/task_with_subtasks/<int:task_id>", GetTaskWithSubtasks.as_view(), name="get-task-by-id-with-subtasks"),
 
     # views via ApiViews classes (samples)
     path("api_views/tasks/", TasksApiViews.as_view(), name="tasks-api-view"),

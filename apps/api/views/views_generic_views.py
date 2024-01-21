@@ -6,12 +6,22 @@ from rest_framework.generics import (RetrieveAPIView,
                                      get_object_or_404,
                                      )
 
-from apps.api.serializers import AllTasksSerializer
+from apps.api.serializers import (TaskSerializer,
+                                  TaskWithSubtasksSerializer)
 from apps.todo.models import Task
 
 
-class TaskDetailGenericViews(RetrieveAPIView):  # Parent class has the only 'get' method, so it will be inherited
-    serializer_class = AllTasksSerializer
+class GetTaskGenericViews(RetrieveAPIView):  # Parent class has the only 'get' method, so it will be inherited
+    serializer_class = TaskSerializer
+
+    def get_object(self):
+        task_id = self.kwargs.get("task_id")
+        task = get_object_or_404(Task, id=task_id)
+        return task
+
+
+class GetTaskWithSubtasks(RetrieveAPIView):
+    serializer_class = TaskWithSubtasksSerializer
 
     def get_object(self):
         task_id = self.kwargs.get("task_id")

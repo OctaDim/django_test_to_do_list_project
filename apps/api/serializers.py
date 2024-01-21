@@ -9,7 +9,7 @@ from apps.todo.models import (Task,  # Added
                               Status, )
 
 
-class AllTasksSerializer(serializers.ModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = ["id",
@@ -30,10 +30,12 @@ class SubTaskPreviewSerializer(serializers.ModelSerializer):
         fields = ["id",
                   "title",
                   "category",
-                  "status", ]
+                  "status",
+                  "description",
+                  "note", ]
 
 
-class TaskInfoSerializer(serializers.ModelSerializer):
+class TaskWithSubtasksSerializer(serializers.ModelSerializer):
     subtasks = SubTaskPreviewSerializer(many=True, read_only=True)
 
     class Meta:
