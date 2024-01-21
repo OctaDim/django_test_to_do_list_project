@@ -15,7 +15,7 @@ from apps.todo.models import Task  # Added
 
 # ##### VIEWS VIA FUNCTIONS (SAMPLES) USUALLY NOT USED IN PRACTICE #####
 
-@api_view(["GET"])  # Attention. Methods for this decorator should passed in !!!list format!!!
+@api_view(["GET"])  # Attention. Methods for this decorator should passed in !!!list format!!! The same as if request == "GET"
 def get_all_tasks(request: Request):  # Defined at once, that request is type Request
     # if request.method == "GET":     # Unnecessary, because defined in decorator
     tasks = Task.objects.all()
@@ -29,7 +29,7 @@ def get_all_tasks(request: Request):  # Defined at once, that request is type Re
                     data=[], )
 
 
-@api_view(["POST"])  # Attention. Methods for this decorator should passed in !!!list format!!!
+@api_view(["POST"])  # Attention. Methods for this decorator should passed in !!!list format!!! The same as if request == "POST"
 def create_new_task(request: Request):
     serializer = TaskSerializer(data=request.data)
 

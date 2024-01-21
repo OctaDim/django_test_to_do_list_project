@@ -3,7 +3,9 @@
 # Class TaskDetailGenericViews(RetrieveAPIView)
 
 from rest_framework.generics import (RetrieveAPIView,
+                                     ListAPIView,
                                      get_object_or_404,
+
                                      )
 
 from apps.api.serializers import (TaskSerializer,
@@ -20,10 +22,15 @@ class GetTaskGenericViews(RetrieveAPIView):  # Parent class has the only 'get' m
         return task
 
 
-class GetTaskWithSubtasks(RetrieveAPIView):
+class GetTaskWithSubtasksGenericViews(RetrieveAPIView):
     serializer_class = TaskWithSubtasksSerializer
 
     def get_object(self):
         task_id = self.kwargs.get("task_id")
         task = get_object_or_404(Task, id=task_id)
         return task
+
+
+class GetAllTasksWithSubtasksGenericViews(ListAPIView):
+    serializer_class = TaskWithSubtasksSerializer
+    queryset = Task.objects.all()

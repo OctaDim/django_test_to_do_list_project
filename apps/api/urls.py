@@ -9,7 +9,8 @@ from apps.api.views.views_api_views import TasksApiViews
 
 # views via GenericViews Classes (samples)
 from apps.api.views.views_generic_views import (GetTaskGenericViews,
-                                                GetTaskWithSubtasks)
+                                                GetTaskWithSubtasksGenericViews,
+                                                GetAllTasksWithSubtasksGenericViews, )
 
 # views via ModelViewSet Classes (samples)
 from apps.api.views.views_model_view_set import (StatusViewSet,
@@ -23,7 +24,8 @@ urlpatterns = [
 
     # views via GenericViews (samples)
     path("generics/task/<int:task_id>", GetTaskGenericViews.as_view(), name="get-task-by-id"),
-    path("generics/task_with_subtasks/<int:task_id>", GetTaskWithSubtasks.as_view(), name="get-task-by-id-with-subtasks"),
+    path("generics/task_with_subtasks/<int:task_id>", GetTaskWithSubtasksGenericViews.as_view(), name="get-task-by-id-with-subtasks"),
+    path("generics/all_tasks", GetAllTasksWithSubtasksGenericViews.as_view(), name="get-all-tasks"),
 
     # views via ApiViews classes (samples)
     path("api_views/tasks/", TasksApiViews.as_view(), name="tasks-api-view"),
@@ -35,7 +37,7 @@ urlpatterns = [
 
 # #################### FOR MODEL VIEW SET ONLY #########################
 router = DefaultRouter()  # For ModelViewSet only
-router.register(r"model_view_set/category", CategoryViewSet)  # regular expression is used r"category"
-router.register(r"model_view_set/status", StatusViewSet)  # regular expression is used r"status"
+router.register(r"model_view_set/category", CategoryViewSet)  # regular expression is used r"category". WITHOT '/' at the end of url!!!
+router.register(r"model_view_set/status", StatusViewSet)  # regular expression is used r"status". WITHOT '/' at the end of url!!!
 urlpatterns += router.urls  # Unparse all CRUD methods and add to urlpatterns
 # ######################################################################

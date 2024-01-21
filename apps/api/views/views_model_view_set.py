@@ -11,11 +11,11 @@ from apps.todo.models import (Status,  # Added
                               Category)
 
 
-class StatusViewSet(ModelViewSet):
+class StatusViewSet(ModelViewSet):  # All CRUD methods are under the hood included
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
 
 
-class CategoryViewSet(ModelViewSet):
+class CategoryViewSet(ModelViewSet):  # All CRUD methods are under the hood included
     queryset = Category.objects.all()
     serializer_class = CategorySerializer

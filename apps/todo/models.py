@@ -18,7 +18,8 @@ class Category(models.Model):
     objects = models.Manager()  # Defining default objects manager
 
     def __str__(self):
-        return self.name
+        return f">>> {self.name}"  # Any f-string possible
+        # return self.name  # Simple option, just defined field value
 
     class Meta:
         verbose_name = "Category"
@@ -34,7 +35,8 @@ class Status(models.Model):
     objects = models.Manager()  # Defining default objects manager
 
     def __str__(self):
-        return self.name
+        return f">>> {self.name}"  # Any f-string possible
+        # return self.name  # Simple option, just defined field value
 
     class Meta:
         verbose_name = "Status"
@@ -106,9 +108,9 @@ class Task(models.Model):
 
     def __str__(self):
         if len(str(self.title)) > 15:
-            return f"{self.title[:15]}..."
+            return f"{self.title[:15]}..."  # Any f-string possible
         else:
-            return self.title[:15]
+            return self.title[:15]  # Any f-string possible
 
     class Meta:
         verbose_name = "Task"
@@ -153,9 +155,9 @@ class SubTask(models.Model):
 
     def __str__(self):
         if len(str(self.title)) > 15:
-            return f"{self.title[:15]}..."
+            return f"{self.title[:15]}..."  # Any f-string possible
         else:
-            return self.title[:15]
+            return self.title[:15]  # Any f-string possible
 
     class Meta:
         verbose_name = "SubTask"

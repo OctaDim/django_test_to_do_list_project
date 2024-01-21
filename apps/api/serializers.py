@@ -9,7 +9,22 @@ from apps.todo.models import (Task,  # Added
                               Status, )
 
 
-class TaskSerializer(serializers.ModelSerializer):
+class ExampleSerializer(serializers.Serializer):  # Low-level Serializer class inherittance sample. Enables define field parameters
+    title = serializers.CharField(max_length=50, required=True)  # Defining fields parameters
+
+    def create(self, validated_data):  # Overriding methods. Sample: Low-level Serializer class inherittance
+        pass
+
+    class Meta:  # Sample: Low-level Serializer class inherittance
+        model = Task
+        fields = ["id", "title", "description"]
+
+
+class TaskSerializer(serializers.ModelSerializer):  # ModelSerializer takes all fields parameters from the Model
+    creator = serializers.StringRelatedField()  # Shows literal value from model __str__ method, instead of id value
+    category = serializers.StringRelatedField()  # Shows literal value from model __str__ method, instead of id value
+    status = serializers.StringRelatedField()  # Shows literal value from model __str__ method, instead of id value
+
     class Meta:
         model = Task
         fields = ["id",
@@ -24,7 +39,10 @@ class TaskSerializer(serializers.ModelSerializer):
         # fields = "__all_"  # if all fields/
 
 
-class SubTaskPreviewSerializer(serializers.ModelSerializer):
+class SubTaskPreviewSerializer(serializers.ModelSerializer):  # ModelSerializer takes all fields parameters from the Model
+    status = serializers.StringRelatedField()  # Shows literal value from model __str__ method, instead of id value
+    category = serializers.StringRelatedField()  # Shows literal value from model __str__ method, instead of id value
+
     class Meta:
         model = SubTask
         fields = ["id",
@@ -35,8 +53,12 @@ class SubTaskPreviewSerializer(serializers.ModelSerializer):
                   "note", ]
 
 
-class TaskWithSubtasksSerializer(serializers.ModelSerializer):
-    subtasks = SubTaskPreviewSerializer(many=True, read_only=True)
+class TaskWithSubtasksSerializer(serializers.ModelSerializer):  # ModelSerializer takes all fields parameters from the Model
+    subtasks = SubTaskPreviewSerializer(many=True, read_only=True)  # Defining related serializer of the related Model
+
+    creator = serializers.StringRelatedField()  # Shows literal value from model __str__ method, instead of id value
+    category = serializers.StringRelatedField()  # Shows literal value from model __str__ method, instead of id value
+    status = serializers.StringRelatedField()  # Shows literal value from model __str__ method, instead of id value
 
     class Meta:
         model = Task
@@ -52,7 +74,7 @@ class TaskWithSubtasksSerializer(serializers.ModelSerializer):
                   "subtasks", ]
 
 
-class StatusSerializer(serializers.ModelSerializer):
+class StatusSerializer(serializers.ModelSerializer):  # ModelSerializer takes all fields parameters from the Model
     class Meta:
         model = Status
         fields = "__all__"
@@ -62,7 +84,8 @@ class StatusSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(STATUS_NAME_LEN_ERROR_MESSAGE)
 
 
-class CategorySerializer(serializers.ModelSerializer):
+
+class CategorySerializer(serializers.ModelSerializer):  # ModelSerializer takes all fields parameters from the Model
     class Meta:
         model = Category
         fields = "__all__"
