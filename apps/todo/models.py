@@ -18,7 +18,7 @@ class Category(models.Model):
     objects = models.Manager()  # Defining default objects manager
 
     def __str__(self):
-        return f">>> {self.name}"  # Any f-string possible
+        return f">> {self.name}"  # Any f-string possible
         # return self.name  # Simple option, just defined field value
 
     class Meta:
@@ -35,7 +35,7 @@ class Status(models.Model):
     objects = models.Manager()  # Defining default objects manager
 
     def __str__(self):
-        return f">>> {self.name}"  # Any f-string possible
+        return f">> {self.name}"  # Any f-string possible
         # return self.name  # Simple option, just defined field value
 
     class Meta:
@@ -121,18 +121,22 @@ class SubTask(models.Model):
     title = models.CharField(max_length=75, default="DEFAULT SUBTASK")
     description = models.TextField(max_length=1500, null=True, blank=True)
 
-    category = models.ForeignKey(Category, default=1,
+    category = models.ForeignKey(Category,
+                                 # default=1,
                                  blank=True, null=True,
-                                 on_delete=models.SET_NULL)
+                                 on_delete=models.CASCADE)
 
-    task = models.ForeignKey(Task, default=1,
+    task = models.ForeignKey(Task,
+                             # default=1,
                              on_delete=models.CASCADE,
                              related_name="subtasks")
 
-    creator = models.ForeignKey(User, default=1,
+    creator = models.ForeignKey(User,
+                                # default=1,
                                 on_delete=models.CASCADE)
 
-    status = models.ForeignKey(Status, default=1,
+    status = models.ForeignKey(Status,
+                               # default=1,
                                null=True, blank=True,
                                on_delete=models.CASCADE)
     # status = models.ForeignKey(Status, default=1, on_delete=models.SET(1))

@@ -9,7 +9,7 @@ from rest_framework.response import Response  # Added
 from rest_framework import status  # Added
 from rest_framework.decorators import api_view  # Added
 
-from apps.api.serializers import TaskSerializer  # Added
+from apps.api.serializers import TaskModelSerializer  # Added
 from apps.todo.models import Task  # Added
 
 
@@ -21,7 +21,7 @@ def get_all_tasks(request: Request):  # Defined at once, that request is type Re
     tasks = Task.objects.all()
 
     if tasks:
-        serializer = TaskSerializer(instance=tasks, many=True)  # Attention, many=True is necessarily
+        serializer = TaskModelSerializer(instance=tasks, many=True)  # Attention, many=True is necessarily
         return Response(status=status.HTTP_200_OK,  # Never pass in this way: data= {"status": 200}, only as status
                         data=serializer.data, )
 
@@ -31,7 +31,7 @@ def get_all_tasks(request: Request):  # Defined at once, that request is type Re
 
 @api_view(["POST"])  # Attention. Methods for this decorator should passed in !!!list format!!! The same as if request == "POST"
 def create_new_task(request: Request):
-    serializer = TaskSerializer(data=request.data)
+    serializer = TaskModelSerializer(data=request.data)
 
     if serializer.is_valid():
         serializer.save()

@@ -8,9 +8,10 @@ from apps.api.views.views_functions import (get_all_tasks,
 from apps.api.views.views_api_views import TasksApiViews
 
 # views via GenericViews Classes (samples)
-from apps.api.views.views_generic_views import (GetTaskGenericViews,
-                                                GetTaskWithSubtasksGenericViews,
-                                                GetAllTasksWithSubtasksGenericViews, )
+from apps.api.views.views_generic_views import (TaskByIdGenericViewsRetrieve,
+                                                TaskByIdWithSubtasksGenericViewsRetrieve,
+                                                AllTasksWithSubtasksGenericViewsList,
+                                                AllSubtasksGenericViewsListCreate)
 
 # views via ModelViewSet Classes (samples)
 from apps.api.views.views_model_view_set import (StatusViewSet,
@@ -23,9 +24,11 @@ urlpatterns = [
     # for ModelViewSet classes router is used, see bellow
 
     # views via GenericViews (samples)
-    path("generics/task/<int:task_id>", GetTaskGenericViews.as_view(), name="get-task-by-id"),
-    path("generics/task_with_subtasks/<int:task_id>", GetTaskWithSubtasksGenericViews.as_view(), name="get-task-by-id-with-subtasks"),
-    path("generics/all_tasks", GetAllTasksWithSubtasksGenericViews.as_view(), name="get-all-tasks"),
+    path("generics/task/<int:task_id>", TaskByIdGenericViewsRetrieve.as_view(), name="get-task-by-id"),
+    path("generics/task_with_subtasks/<int:task_id>", TaskByIdWithSubtasksGenericViewsRetrieve.as_view(), name="get-task-by-id-with-subtasks"),
+    path("generics/all_tasks", AllTasksWithSubtasksGenericViewsList.as_view(), name="get-all-tasks"),
+    path("generics/all_subtasks", AllSubtasksGenericViewsListCreate.as_view(), name="get-all-subtasks"),
+
 
     # views via ApiViews classes (samples)
     path("api_views/tasks/", TasksApiViews.as_view(), name="tasks-api-view"),

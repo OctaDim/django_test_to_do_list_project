@@ -2,12 +2,12 @@
 # CONTENT:
 # class TasksApiViews(APIView) with GET, POST
 
-from rest_framework import status
-from rest_framework.views import Response, Request, APIView
+from rest_framework import status  # Added
+from rest_framework.views import Response, Request, APIView  # Added
 from rest_framework.serializers import ValidationError
 
 from apps.todo.models import Task  # Added
-from apps.api.serializers import TaskSerializer  # Added
+from apps.api.serializers import TaskModelSerializer  # Added
 
 
 # ############### VIEWS VIA API VIEWS CLASSES (SAMPLES) ################
@@ -17,7 +17,7 @@ class TasksApiViews(APIView):
         tasks = Task.objects.filter(creator=request.user.id)
 
         if tasks:  # if tasks.exists() the same result
-            serializer = TaskSerializer(instance=tasks, many=True)
+            serializer = TaskModelSerializer(instance=tasks, many=True)
             return Response(status=status.HTTP_200_OK,
                             data=serializer.data)
 
@@ -25,7 +25,7 @@ class TasksApiViews(APIView):
                         data=[])
 
     def post(self, request: Request):
-        serializer = TaskSerializer(data=request.data)
+        serializer = TaskModelSerializer(data=request.data)
 
         if serializer.is_valid():  # The same, but without try-except and raising exception (see bellow)
             serializer.save()
