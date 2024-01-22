@@ -80,7 +80,7 @@ class SubTaskModelSerializer(serializers.ModelSerializer):
     # SlugRelatedField (see bellow) allow to edit fields and simultaneously
     # and show literal value from model __str__ method instead of id value
     category = serializers.SlugRelatedField(slug_field="name",
-                                            queryset=Category.objects.all())
+                                            queryset=Category.objects.all(), )
 
     creator = serializers.SlugRelatedField(slug_field="username",
                                            queryset=User.objects.all())

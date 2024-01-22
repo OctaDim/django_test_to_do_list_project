@@ -8,10 +8,12 @@ from apps.api.views.views_functions import (get_all_tasks,
 from apps.api.views.views_api_views import TasksApiViews
 
 # views via GenericViews Classes (samples)
-from apps.api.views.views_generic_views import (TaskByIdGenericViewsRetrieve,
-                                                TaskByIdWithSubtasksGenericViewsRetrieve,
-                                                AllTasksWithSubtasksGenericViewsList,
-                                                AllSubtasksGenericViewsListCreate)
+from apps.api.views.views_generic_views import (
+    TaskByIdGenericRetrieve,
+    TaskByIdWithSubtasksGenericRetrieve,
+    AllTasksWithSubtasksGenericList,
+    AllSubtasksGenericListCreate,
+    SubtaskByIdGenericRetrieveUpdateDelete)
 
 # views via ModelViewSet Classes (samples)
 from apps.api.views.views_model_view_set import (StatusViewSet,
@@ -24,11 +26,11 @@ urlpatterns = [
     # for ModelViewSet classes router is used, see bellow
 
     # views via GenericViews (samples)
-    path("generics/task/<int:task_id>", TaskByIdGenericViewsRetrieve.as_view(), name="get-task-by-id"),
-    path("generics/task_with_subtasks/<int:task_id>", TaskByIdWithSubtasksGenericViewsRetrieve.as_view(), name="get-task-by-id-with-subtasks"),
-    path("generics/all_tasks", AllTasksWithSubtasksGenericViewsList.as_view(), name="get-all-tasks"),
-    path("generics/all_subtasks", AllSubtasksGenericViewsListCreate.as_view(), name="get-all-subtasks"),
-
+    path("generics/task/<int:task_id>", TaskByIdGenericRetrieve.as_view(), name="get-task-by-id"),
+    path("generics/task_with_subtasks/<int:task_id>", TaskByIdWithSubtasksGenericRetrieve.as_view(), name="get-task-by-id-with-subtasks"),
+    path("generics/all_tasks", AllTasksWithSubtasksGenericList.as_view(), name="get-all-tasks"),
+    path("generics/all_subtasks", AllSubtasksGenericListCreate.as_view(), name="get-all-subtasks"),
+    path("generics/subtask/<int:subtask_id>", SubtaskByIdGenericRetrieveUpdateDelete.as_view(), name="get-subtask-by-id"),
 
     # views via ApiViews classes (samples)
     path("api_views/tasks/", TasksApiViews.as_view(), name="tasks-api-view"),

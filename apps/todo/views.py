@@ -206,7 +206,6 @@ def delete_subtask_by_id(request, subtask_id):
     task_id = request.GET.get("task_id")
     subtask.delete()
 
-    print(task_id)
     if task_id:
         return redirect('router:tasks:get-task-by-id', task_id=task_id)
     else:
