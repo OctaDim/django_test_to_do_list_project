@@ -72,17 +72,19 @@ class AllSubtasksGenericViewsListCreate(ListCreateAPIView):
                         data=[])
 
     def post(self, request: Request, *args, **kwargs):
-        # new_subtask = self.create_subtask(data=request.data)
-        # return Response(status=status.HTTP_201_CREATED,
-        #                 data=new_subtask)  # not serializer, because functions returns result serializer.data already
+        # Option 1: returns response with status code
+        # serializer = self.serializer_class(data=request.data)
+        #
+        # if serializer.is_valid():
+        #     serializer.save()
+        #     return Response(status=status.HTTP_201_CREATED,
+        #                     data=serializer.data)
+        #
+        # return Response(status=status.HTTP_400_BAD_REQUEST,
+        #                 data=serializer.errors)
 
-        # Option 2: returns response with status code
-        serializer = self.serializer_class(data=request.data)
+        # Option 2: sample, does not return response with error status code, option 1 is better (see bellow)
+        new_subtask = self.create_subtask(data=request.data)
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_201_CREATED,
-                            data=serializer.data)
-
-        return Response(status=status.HTTP_400_BAD_REQUEST,
-                        data=serializer.errors)
+        return Response(status=status.HTTP_201_CREATED,
+                        data=new_subtask)  # not serializer.data, because funct returns serializer.data result already
