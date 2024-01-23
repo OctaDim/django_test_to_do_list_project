@@ -54,7 +54,7 @@ INSTALLED_APPS = [
 
     # 3-rd apps
     "rest_framework",  # Added for DjangoRestFramework
-    # "drf_yasg",  # Added for SWAGER
+    "drf_yasg",  # Added for SWAGER
 
     # local apps
     "apps.todo.apps.TodoConfig",  # Added
