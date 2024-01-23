@@ -13,7 +13,8 @@ from apps.api.views.views_generic_views import (
     TaskByIdWithSubtasksGenericRetrieve,
     AllTasksWithSubtasksGenericList,
     AllSubtasksGenericListCreate,
-    SubtaskByIdGenericRetrieveUpdateDelete)
+    SubtaskByIdGenericRetrieveUpdateDelete,
+    TasksFilteredGenericListCreate)
 
 # views via ModelViewSet Classes (samples)
 from apps.api.views.views_model_view_set import (StatusViewSet,
@@ -31,6 +32,7 @@ urlpatterns = [
     path("generics/all_tasks", AllTasksWithSubtasksGenericList.as_view(), name="get-all-tasks"),
     path("generics/all_subtasks", AllSubtasksGenericListCreate.as_view(), name="get-all-subtasks"),
     path("generics/subtask/<int:subtask_id>", SubtaskByIdGenericRetrieveUpdateDelete.as_view(), name="get-subtask-by-id"),
+    path("generics/filtered_tasks/", TasksFilteredGenericListCreate.as_view(), name="get-filtered-tasks"),
 
     # views via ApiViews classes (samples)
     path("api_views/tasks/", TasksApiViews.as_view(), name="tasks-api-view"),

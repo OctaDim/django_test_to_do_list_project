@@ -13,7 +13,9 @@ from rest_framework.generics import (get_object_or_404,  # Added
                                      RetrieveUpdateDestroyAPIView)
 
 from apps.api.messages import (SUBTASK_SUCCESS_CREATED_MESSAGE,
-                               SUBTASK_SUCCESS_DELETED_MESSAGE)
+                               SUBTASK_SUCCESS_DELETED_MESSAGE,
+                               TASK_SUCCESS_CREATED_MESSAGE
+                               )
 
 from apps.todo.models import (Task,
                               SubTask)
@@ -128,3 +130,62 @@ class SubtaskByIdGenericRetrieveUpdateDelete(RetrieveUpdateDestroyAPIView):
         subtask.delete()
         return Response(status=status.HTTP_200_OK,
                         data=SUBTASK_SUCCESS_DELETED_MESSAGE)
+
+
+class TasksFilteredGenericListCreate(ListCreateAPIView):
+    serializer_class = TaskWithSubtasksModelSerializer
+    # serializer_class = TaskModelSerializer
+
+    def get_queryset(self):
+        # 1) Get all tasks
+        # 2) Get status abd category for each task
+        # 3) Get list of the all subtasks for the current task
+
+        queryset = (Task.objects
+                    .select_related("category", "status")  # JOINing related one-many, one-one, minimize requests to DB
+                    .prefetch_related("subtasks")  # JOINing many-many, , minimize requests number to DB
+                    )
+
+        # 4) Filtration by fields: status, category, [date_from, date_to], deadline_date
+        #    note: values for the filtration will be passed via query_params
+        #    sample: 127.0.0.1:8000/api/tasks/?status=NEW&category=WORK
+
+        status_name = self.request.GET.get("status_name")
+        category_name = self.request.GET.get("category_name")
+        date_from = self.request.GET.get("date_from")
+        date_to = self.request.GET.get("date_to")
+        deadline_date = self.request.GET.get("deadline_date")
+
+        if status_name:
+            queryset = queryset.filter(status__name=status_name)  # status__name refers to related model via field name
+
+        if category_name:
+            queryset = queryset.filter(category__name=category_name)  # category__name refer to related model via f.name
+
+        if date_from and date_to:
+            queryset = queryset.filter(start_date__range=[date_from,
+                                                          date_to])
+
+        if deadline_date:
+            queryset = queryset.filter(deadline_date=deadline_date)
+
+        return queryset
+
+    def get(self, request: Request, *args, **kwargs):
+        filtered_data = self.get_queryset()
+
+        if filtered_data.exists():
+            serializer = self.serializer_class(instance=filtered_data, many=True)
+            return Response(status=status.HTTP_200_OK,
+                            data=serializer.data)
+
+        return Response(status=status.HTTP_204_NO_CONTENT,
+                        data=[])
+
+    def post(self, request: Request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=status.HTTP_200_OK,
+                        data=serializer.data)
