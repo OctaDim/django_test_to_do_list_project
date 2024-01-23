@@ -144,8 +144,8 @@ class SubTaskPreviewModelSerializer(serializers.ModelSerializer):  # ModelSerial
 
 
 class TaskWithSubtasksModelSerializer(serializers.ModelSerializer):  # ModelSerializer all fields params from the Model
-    subtasks = SubTaskPreviewModelSerializer(many=True,
-                                             read_only=True)  # Defining related serializer of the related Model
+    subtasks = SubTaskPreviewModelSerializer(many=True,       # Defining related serializer of the related Model to show
+                                             read_only=True)  # info from SubTask serializer, when Task info showing
 
     # SlugRelatedField (see bellow) allow to edit fields and simultaneously
     # and show literal value from model __str__ method instead of id value

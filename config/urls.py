@@ -15,15 +15,74 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include  # Added include
 from django.conf.urls.static import static  # Added
 from django.conf import settings  # Added
 
+from django.urls import path, include, re_path  # Added include
+# from rest_framework.permissions import AllowAny  # Added
+
+# from drf_yasg import openapi  # Added
+# from drf_yasg.views import get_schema_view  # Added
+
+
+# from rest_framework.permissions import (IsAdminUser,  # API can read/write only admin
+                                        # IsAuthenticatedOrReadOnly,  # API can read/write authorised, else readonly
+                                        # AllowAny,  # API can read/write any users (allowed to all)
+                                        # BasePermission,  # API can read/write only (custom settings)
+                                        # IsAuthenticated,  # API can read/write only authorised users
+                                        # )
+
+# schema_view = get_schema_view(
+#     info=openapi.Info(
+#         title='TODO API Documentation',
+#         default_version='v1',
+#         description='TODO APPLICATION API DOCUMENTATION',
+#         terms_of_service='https://www.google.com',
+#         contact=openapi.Contact(email='test.email@example.com'),
+#         license=openapi.License(name='QWERTY Licence')
+#     ),
+#     public=True,
+#     permission_classes=([AllowAny])
+# )
+
+
+# schema_view = get_schema_view(info=openapi.Info(
+#     title="TODO API Documentation",
+#     default_version="v1.0",
+#     description="TODO APPLICATION API DOCUMENTATION",
+#     terms_of_service="https://www.google.com",  # for example, https://www.domain.com/api/terms
+#     contact=openapi.Contact(email="example.email@example.com"),
+#     license=openapi.License(name="QWERTY License")
+#     ),
+#     public=True,  # API settings (public or not)
+#     permission_classes=([IsAdminUser, IsAuthenticatedOrReadOnly, ])  # Can be added several permissions
+# )
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path("", include("apps.router")),  # Added
+    path("admin/", admin.site.urls),
+    path("", include('apps.router')),
+    # re_path(
+    #     r"^swagger(?P<format>\.json|\.yaml)$",
+    #     schema_view.without_ui(cache_timeout=0)
+    # ),
+    # re_path(
+    #     r"^swagger/$",
+    #     schema_view.with_ui('swagger', cache_timeout=0)
+    # ),
+    # re_path(
+    #     r"^redoc/$",
+    #     schema_view.with_ui('redoc', cache_timeout=0)
+    # ),
 ]
+
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path("", include("apps.router")),  # Added
+#     # re_path(r"^swagger(?P<format>\.json|\.yaml)$", schema_view.without_ui(cache_timeout=0)),
+#     # re_path(r"^swagger/$", schema_view.with_ui('swagger', cache_timeout=0)),
+#     # re_path(r"^redoc/$", schema_view.with_ui('redoc', cache_timeout=0)),
+# ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # Added
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Added

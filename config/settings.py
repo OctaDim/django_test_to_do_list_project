@@ -53,12 +53,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3-rd apps
-    "rest_framework",
+    "rest_framework",  # Added for DjangoRestFramework
+    # "drf_yasg",  # Added for SWAGER
 
     # local apps
-    "apps.todo.apps.TodoConfig",
-    "apps.user.apps.UserConfig",
-    "apps.api.apps.ApiConfig",
+    "apps.todo.apps.TodoConfig",  # Added
+    "apps.user.apps.UserConfig",  # Added
+    "apps.api.apps.ApiConfig",  # Added
 ]
 
 MIDDLEWARE = [
