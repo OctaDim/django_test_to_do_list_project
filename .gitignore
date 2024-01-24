@@ -174,3 +174,5 @@ sqlite3.db
 
 static/admin/
 static/debug_toolbar/
+static/drf-yasg/
+static/rest_framework/

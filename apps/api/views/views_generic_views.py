@@ -189,3 +189,19 @@ class TasksFilteredGenericListCreate(ListCreateAPIView):
         serializer.save()
         return Response(status=status.HTTP_200_OK,
                         data=serializer.data)
+
+
+# class TestGetByIdGenericRetrieve(RetrieveAPIView):
+#     serializer_class = TaskWithSubtasksModelSerializer
+#     # queryset = Task
+#     # queryset = Task.objects.all()
+#
+#     def get_queryset(self):
+#         # query_set = Task
+#         query_set = Task.objects.all()
+#         return query_set
+#
+#     def get_object(self):
+#         task_id = self.kwargs.get("task_id")
+#         task = get_object_or_404(Task, id=task_id)
+#         return task
