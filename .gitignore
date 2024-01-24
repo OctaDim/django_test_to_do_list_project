@@ -172,7 +172,16 @@ lessons/
 
 sqlite3.db
 
-static/admin/
-static/debug_toolbar/
-static/drf-yasg/
-static/rest_framework/
+static/*
+!static/<todo>
+!static/<user>
+
+!static/<apps1>
+!static/<apps2>
+!static/<apps3>
+!static/<apps4>
+!static/<apps5>
+!static/<apps6>
+!static/<apps7>
+!static/<apps8>
+!static/<apps9>
