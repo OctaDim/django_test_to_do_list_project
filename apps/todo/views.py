@@ -180,13 +180,9 @@ def create_new_subtask(request):
 
     if request.method == 'POST':
         form = CreateSubTaskForm(request.POST)
-        # form_instance = form.instance  # TEST
-        # form_data = form.cleaned_data  # TEST
         if form.is_valid():
             form.save()
             return redirect('router:tasks:get-task-by-id', task_id=task_id)
-
-    form = SubTaskUpdateForm(instance=subtask)
 
     context = {"form": form,
                "user": user,
