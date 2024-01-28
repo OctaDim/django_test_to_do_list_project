@@ -1,18 +1,27 @@
-from django.contrib.auth.backends import ModelBackend, BaseBackend
+from django.contrib.auth.backends import ModelBackend  # Added
+from django.contrib.auth.backends import UserModel  # Added
+# from django.shortcuts import get_object_or_404
+# from rest_framework.serializers import ValidationError
+# from django.utils.translation import gettext_lazy
+# from apps.api.error_messages import (EMAIL_OR_USERNAME_REQUIRED_MESSAGE,
+#                                      PASSWORD_REQUIRED_MESSAGE,
+#                                      USER_NOT_FOUND_MESSAGE)
 
 
-# class CustomEmailAuthentication(ModelBackend):
-#     def authenticate(self, request, username=None, password=None, **kwargs):
-#         if username is None:
-#             username = kwargs.get(UserModel.USERNAME_FIELD)
-#         if username is None or password is None:
-#             return
-#         try:
-#             user = UserModel._default_manager.get_by_natural_key(username)
-#         except UserModel.DoesNotExist:
-#             # Run the default password hasher once to reduce the timing
-#             # difference between an existing and a nonexistent user (#20760).
-#             UserModel().set_password(password)
-#         else:
-#             if user.check_password(password) and self.user_can_authenticate(user):
-#                 return user
+class CustomEmailAuthenticationBackend(ModelBackend):
+    def authenticate(self, request, username=None, password=None, **kwargs):
+        if username is None:
+            username = kwargs.get("username")  # Get username with email entered on purpose or by mistake
+
+        if (username is None) and (password is None):
+            return None
+
+        try:
+            user = UserModel.objects.get(email=username)  # Get user by email entered as username
+        except UserModel.DoesNotExist:
+            # Run the default password hasher once to reduce the timing
+            # difference between an existing and a nonexistent user (#20760).
+            UserModel().set_password(password)
+        else:
+            if user.check_password(password) and self.user_can_authenticate(user):
+                return user
