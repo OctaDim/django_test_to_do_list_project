@@ -10,29 +10,23 @@ from apps.user.manager import UserManager
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(
-        max_length=120,
-        unique=True,
-        verbose_name=gettext_lazy("Email address")
-    )
-    first_name = models.CharField(
-        max_length=50,
-        verbose_name=gettext_lazy("First name")
-    )
-    last_name = models.CharField(
-        max_length=50,
-        verbose_name=gettext_lazy("Last name")
-    )
-    username = models.CharField(
-        max_length=30,
-        unique=True,
-        verbose_name=gettext_lazy("Username")
-    )
-    phone = models.CharField(
-        max_length=75,
-        blank=True,
-        null=True
-    )
+    email = models.EmailField(max_length=120,
+                              unique=True,
+                              verbose_name=gettext_lazy("Email address"))
+
+    username = models.CharField(max_length=30,
+                                unique=True,
+                                verbose_name=gettext_lazy("Username"))
+
+    first_name = models.CharField(max_length=50,
+                                  verbose_name=gettext_lazy("First name"))
+
+    last_name = models.CharField(max_length=50,
+                                 verbose_name=gettext_lazy("Last name"))
+
+    phone = models.CharField(max_length=75, blank=True, null=True)
+
+
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
@@ -47,7 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     def __str__(self):
-        return self.email
+        return f"{self.email}"
 
     @property
     def get_full_name(self):
