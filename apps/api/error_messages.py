@@ -1,2 +1,11 @@
 STATUS_NAME_LEN_ERROR_MESSAGE = "The Status name length should be between 3-30"
 CATEGORY_NAME_LEN_ERROR_MESSAGE = "The Category name length should be between 4-25"
+
+PASSWORDS_DO_NOT_MATCH_ERROR = "Passwords do not match. Please, Try again"
+
+NON_VALID_EMAIL_MESSAGE = "Please, enter a valid email"
+EMAIL_REQUIRED_MESSAGE = "Empty email. Email is required"
+FIRST_NAME_REQUIRED_MESSAGE = "Empty first name. First name is required"
+LAST_NAME_REQUIRED_MESSAGE = "Empty last name. Last name is required"
+NOT_IS_STAFF_ERROR = "Admin must be staff"
+NOT_IS_SUPERUSER_ERROR = "Admin must be a superuser"

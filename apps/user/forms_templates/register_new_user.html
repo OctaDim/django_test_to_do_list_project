@@ -8,15 +8,9 @@
             {% csrf_token %}
 
             <div class="mb-3">
-                <label class="registration-form-label">Name</label>
-                {{ form.first_name }}
-                {{ form.first_name.errors }}
-            </div>
-
-            <div class="mb-3">
-                <label class="registration-form-label">Surname</label>
-                {{ form.last_name }}
-                {{ form.last_name.errors }}
+                <label for="email" class="registration-form-label">Email</label>
+                {{ form.email }}
+                {{ form.email.errors }}
             </div>
 
             <div class="mb-3">
@@ -26,10 +20,22 @@
             </div>
 
             <div class="mb-3">
-                <label for="email" class="registration-form-label">Email</label>
-                {{ form.email }}
-                {{ form.email.errors }}
+                <label for="first_name" class="registration-form-label">First Name</label>
+                {{ form.first_name }}
+                {{ form.first_name.errors }}
             </div>
+
+            <div class="mb-3">
+                <label for="last_name" class="registration-form-label">Last Name</label>
+                {{ form.last_name }}
+                {{ form.last_name.errors }}
+            </div>
+
+<!--            <div class="mb-3">-->
+<!--                <label for="phone" class="registration-form-label">Phone</label>-->
+<!--                {{ form.phone }}-->
+<!--                {{ form.phone.errors }}-->
+<!--            </div>-->
 
             <div class="mb-3">
                 <label for="password1" class="registration-form-label">Password</label>

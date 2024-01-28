@@ -9,11 +9,11 @@
             {% csrf_token %}                     <!--csrf_token must be passed on-->
 
             <div class="mb-3">
-                <label for="username" class="log-in-form-label">User name</label>
+                <label for="username" class="login-form-label">Username (*temporary: email)</label>
                 {{ form.username }}
             </div>
             <div class="mb-3">
-                <label for="password1" class="log-in-form-label">Password</label>
+                <label for="password" class="login-form-label" placeholder="123">Password</label>
                 {{ form.password }}
             </div>
 

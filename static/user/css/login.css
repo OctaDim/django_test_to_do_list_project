@@ -9,7 +9,7 @@
 }
 
 .register-form .mb-3, .log-in-form .mb-3 {
-    margin-bottom: 1rem;
+    /*margin-bottom: 3rem;*/
 }
 
 .registration-form-label, .login-form-label {
@@ -17,15 +17,14 @@
     color: rgba(46, 204, 113, 0.4);
     font-weight: 600;
     font-size: 20px;
-    margin-bottom: .5rem;
 }
 
 .register-form input, .log-in-form input,
 .register-form textarea, .log-in-form textarea,
 .register-form select, .log-in-form select {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     border-radius: 10px;
     border: 1px solid rgba(46, 204, 113, 0.5);
     box-shadow: 0 0 10px rgba(46, 204, 113, 0.6);

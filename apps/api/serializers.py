@@ -1,7 +1,8 @@
 from rest_framework import serializers  # Added
 
 from apps.api.error_messages import (CATEGORY_NAME_LEN_ERROR_MESSAGE,  # Added
-                                     STATUS_NAME_LEN_ERROR_MESSAGE)
+                                     STATUS_NAME_LEN_ERROR_MESSAGE,
+                                     PASSWORDS_DO_NOT_MATCH_ERROR)
 
 from django.contrib.auth.models import User
 from apps.todo.models import (Task,  # Added
@@ -144,7 +145,7 @@ class SubTaskPreviewModelSerializer(serializers.ModelSerializer):  # ModelSerial
 
 
 class TaskWithSubtasksModelSerializer(serializers.ModelSerializer):  # ModelSerializer all fields params from the Model
-    subtasks = SubTaskPreviewModelSerializer(many=True,       # Defining related serializer of the related Model to show
+    subtasks = SubTaskPreviewModelSerializer(many=True,  # Defining related serializer of the related Model to show
                                              read_only=True)  # info from SubTask serializer, when Task info showing
 
     # SlugRelatedField (see bellow) allow to edit fields and simultaneously
@@ -176,3 +177,72 @@ class TaskWithSubtasksModelSerializer(serializers.ModelSerializer):  # ModelSeri
                   "deadline_date",
                   "note",
                   "subtasks", ]
+
+
+class UserRegisterSerializer(serializers.ModelSerializer):  # VLD
+    email = serializers.CharField(
+        style={"placeholder": "enter email like xxx@xxx.xxx"}, )
+    password = serializers.CharField(min_length=4, max_length=68,
+                                     write_only=True,
+                                     style={"input_type": "password",
+                                            "placeholder": "enter password"}, )
+
+    password2 = serializers.CharField(min_length=4, max_length=68,
+                                      write_only=True,
+                                      style={"input_type": "password",
+                                             "placeholder": "repeat password"}, )
+
+    username = serializers.CharField(style={"placeholder": "enter your login"}, )
+
+    class Meta:
+        model = User
+        fields = [
+            'email',
+            'first_name',
+            'last_name',
+            "username",  # DIM
+            'password',
+            'password2'
+        ]
+
+    def validate(self, attrs):
+        password = attrs.get("password")
+        password2 = attrs.get("password2")
+
+        if password != password2:
+            raise serializers.ValidationError(
+                PASSWORDS_DO_NOT_MATCH_ERROR
+            )
+
+        return attrs
+
+    def create(self, validated_data):
+        user = User.objects.create_user(
+            email=validated_data.get("email"),
+            first_name=validated_data.get("first_name"),
+            last_name=validated_data.get("last_name"),
+            username=validated_data.get("username"),
+            password=validated_data.get("password")
+        )
+
+        return user
+
+
+class UserListSerializer(serializers.ModelSerializer):  # VLD
+    class Meta:
+        model = User
+        fields = '__all__'
+
+
+class UserInfoSerializer(serializers.ModelSerializer):  # VLD
+    class Meta:
+        model = User
+        fields = [
+            'id',
+            'email',
+            'first_name',
+            'last_name',
+            'username',
+            # 'phone',  # Not in standard User Model
+            'date_joined'
+        ]
