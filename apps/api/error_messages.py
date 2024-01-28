@@ -1,7 +1,11 @@
 STATUS_NAME_LEN_ERROR_MESSAGE = "The Status name length should be between 3-30"
 CATEGORY_NAME_LEN_ERROR_MESSAGE = "The Category name length should be between 4-25"
 
-PASSWORDS_DO_NOT_MATCH_ERROR = "Passwords do not match. Please, Try again"
+PASSWORDS_DO_NOT_MATCH_ERROR = "Passwords do not match. Please, try again"
+USERNAME_ALREADY_EXISTS = "Such username already exists. Try another username"
+EMAIL_ALREADY_EXISTS = "Such email already exists. Try another email"
+
+
 
 NON_VALID_EMAIL_MESSAGE = "Please, enter a valid email"
 EMAIL_REQUIRED_MESSAGE = "Empty email. Email is required"

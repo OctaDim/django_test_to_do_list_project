@@ -2,13 +2,19 @@ from rest_framework import serializers  # Added
 
 from apps.api.error_messages import (CATEGORY_NAME_LEN_ERROR_MESSAGE,  # Added
                                      STATUS_NAME_LEN_ERROR_MESSAGE,
-                                     PASSWORDS_DO_NOT_MATCH_ERROR)
+                                     PASSWORDS_DO_NOT_MATCH_ERROR,
+                                     USERNAME_ALREADY_EXISTS,
+                                     EMAIL_ALREADY_EXISTS)
 
-from django.contrib.auth.models import User
 from apps.todo.models import (Task,  # Added
                               SubTask,
                               Category,
                               Status, )
+
+from django.contrib.auth.models import User
+
+from rest_framework.validators import UniqueValidator
+
 
 
 class ExampleSerializer(serializers.Serializer):  # Low-level Serializer sample. Enables define field parameters
@@ -181,7 +187,9 @@ class TaskWithSubtasksModelSerializer(serializers.ModelSerializer):  # ModelSeri
 
 class UserRegisterSerializer(serializers.ModelSerializer):  # VLD
     email = serializers.CharField(
-        style={"placeholder": "enter email like xxx@xxx.xxx"}, )
+        validators=[UniqueValidator(queryset=User.objects.all())],
+        style={"placeholder": "enter email like [any]@[any].[any]"}, )
+
     password = serializers.CharField(min_length=4, max_length=68,
                                      write_only=True,
                                      style={"input_type": "password",
@@ -192,7 +200,9 @@ class UserRegisterSerializer(serializers.ModelSerializer):  # VLD
                                       style={"input_type": "password",
                                              "placeholder": "repeat password"}, )
 
-    username = serializers.CharField(style={"placeholder": "enter your login"}, )
+    username = serializers.CharField(
+        validators=[UniqueValidator(queryset=User.objects.all())],
+        style={"placeholder": "enter your login"}, )
 
     class Meta:
         model = User
@@ -209,10 +219,16 @@ class UserRegisterSerializer(serializers.ModelSerializer):  # VLD
         password = attrs.get("password")
         password2 = attrs.get("password2")
 
-        if password != password2:
-            raise serializers.ValidationError(
-                PASSWORDS_DO_NOT_MATCH_ERROR
-            )
+        if password and password2 and (password != password2):
+            raise serializers.ValidationError(PASSWORDS_DO_NOT_MATCH_ERROR)
+
+        # username_to_check_unique = attrs.get("username")  # Check, if not defined unique validator in field parameters
+        # if User.objects.filter(username=username_to_check_unique).exists():
+        #     raise serializers.ValidationError(USERNAME_ALREADY_EXISTS)
+        #
+        # email_to_check_unique = attrs.get("email")  # Check, if not defined unique validator in field parameters
+        # if User.objects.filter(email=email_to_check_unique).exists():
+        #     raise serializers.ValidationError(EMAIL_ALREADY_EXISTS)
 
         return attrs
 
