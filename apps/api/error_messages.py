@@ -17,3 +17,7 @@ LAST_NAME_REQUIRED_MESSAGE = "Empty last name. Last name is required"
 
 NOT_IS_STAFF_ERROR = "Admin must be staff"
 NOT_IS_SUPERUSER_ERROR = "Admin must be a superuser"
+
+
+def USER_NOT_FOUND_MESSAGE(email: str) -> str:
+    return f"User with email {email} was not found"
