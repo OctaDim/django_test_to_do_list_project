@@ -38,9 +38,9 @@ urlpatterns = [
     path("generics/filtered_tasks/", TasksFilteredGenericListCreate.as_view(), name="get-filtered-tasks"),
 
     # for users: views via GenericViews (samples):
-    path("generics/register_user/", RegisterUserGenericCreate.as_view(), name="register-new-user"),
-    path("generics/all_users/", ListUsersGenericList.as_view(), name="get-all-users"),
-    path("generics/user_by_id/<int:user_id>/", UserByIdGenericRetrieveUpdDestroy.as_view(), name="get-user-by-id"),
+    path("generics/authentication/register_user/", RegisterUserGenericCreate.as_view(), name="register-new-user"),
+    path("generics/authentication/all_users/", ListUsersGenericList.as_view(), name="get-all-users"),
+    path("generics/authentication/user_by_id/<int:user_id>/", UserByIdGenericRetrieveUpdDestroy.as_view(), name="get-user-by-id"),
 
     # views via ApiViews classes (samples):
     path("api_views/tasks/", TasksApiViews.as_view(), name="tasks-api-view"),
