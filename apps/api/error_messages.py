@@ -22,5 +22,6 @@ NOT_IS_SUPERUSER_ERROR = "Admin must be a superuser"
 def USER_NOT_FOUND_MESSAGE(email: str) -> str:
     return f"User with email {email} was not found"
 
+
 def INVALID_EMAIL_ERROR(message):
     return f"{message}.\n Please, enter a valid email"

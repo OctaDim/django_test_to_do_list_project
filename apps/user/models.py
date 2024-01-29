@@ -1,14 +1,15 @@
 from django.db import models
-
-from django.contrib.auth.models import (AbstractBaseUser,
-                                        PermissionsMixin)
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    PermissionsMixin
+)
 
 from django.utils.translation import gettext_lazy
 
-from apps.user.manager import CustomUserManager
+from apps.user.manager import UserManager
 
 
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         max_length=120,
         unique=True,
@@ -24,8 +25,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
     username = models.CharField(
         max_length=30,
-        blank=True,
-        null=True
+        unique=True,
+        verbose_name=gettext_lazy("Username")
     )
     phone = models.CharField(
         max_length=75,
@@ -39,10 +40,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)
 
-    USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    USERNAME_FIELD = "username"
 
-    objects = CustomUserManager()  # Standard django User manager from auth.model
+    REQUIRED_FIELDS = ["email", 'first_name', 'last_name']
+
+    objects = UserManager()
 
     def __str__(self):
         return self.email

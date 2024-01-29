@@ -1,15 +1,17 @@
-from django.contrib.auth.backends import ModelBackend  # Added
-from django.contrib.auth.backends import UserModel  # Added
 # from django.shortcuts import get_object_or_404
 # from rest_framework.serializers import ValidationError
+from django.contrib.auth.backends import ModelBackend  # Added
+from django.contrib.auth.backends import UserModel  # Added, Standard model
 from django.utils.translation import gettext_lazy
 from apps.api.error_messages import (EMAIL_OR_USERNAME_REQUIRED_MESSAGE,
                                      PASSWORD_REQUIRED_MESSAGE,
                                      USER_NOT_FOUND_MESSAGE)
 
 
-class CustomEmailAuthenticationBackend(ModelBackend):
+class CustomAuthByEmailBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
+        print(f"AUTH ##### username: {username}, password: {password}")
+        print(f"AUTH KWARGS ##### username: {kwargs.get("username")}, email: {kwargs.get("email")}")
         if username is None:
             username = kwargs.get("username")  # Get username with email entered on purpose or by mistake
 

@@ -1,5 +1,10 @@
 import django.utils.timezone
-from django.contrib.auth.models import User
+
+# ####################################################
+# from django.contrib.auth.models import User  # Added
+from apps.user.models import User
+# ####################################################
+
 from django.db.models import Model
 from django.db import models
 

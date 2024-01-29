@@ -39,7 +39,10 @@ from apps.api.serializers import (UserRegisterSerializer,  # VLD
                                   UserListSerializer,  # VLD
                                   UserInfoSerializer)  # VLD
 
-from django.contrib.auth.models import User  # For standard django user
+# ####################################################
+# from django.contrib.auth.models import User  # Added
+from apps.user.models import User
+# ####################################################
 
 
 class TaskByIdGenericRetrieve(RetrieveAPIView):  # Parent class has the only 'get' method, so it will be inherited

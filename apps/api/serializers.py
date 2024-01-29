@@ -11,7 +11,10 @@ from apps.todo.models import (Task,  # Added
                               Category,
                               Status, )
 
-from django.contrib.auth.models import User
+# ####################################################
+# from django.contrib.auth.models import User  # Added
+from apps.user.models import User
+# ####################################################
 
 from django.utils.translation import gettext_lazy
 
@@ -213,6 +216,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):  # VLD
             'first_name',
             'last_name',
             "username",  # DIM
+            "phone",
             'password',
             'password2'
         ]
@@ -243,6 +247,7 @@ class UserRegisterSerializer(serializers.ModelSerializer):  # VLD
             first_name=validated_data.get("first_name"),
             last_name=validated_data.get("last_name"),
             username=validated_data.get("username"),
+            phone=validated_data.get("phone"),
             password=validated_data.get("password")
         )
 
