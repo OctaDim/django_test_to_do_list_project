@@ -13,6 +13,8 @@ from apps.todo.models import (Task,  # Added
 
 from django.contrib.auth.models import User
 
+from django.utils.translation import gettext_lazy
+
 from rest_framework.validators import UniqueValidator
 
 
@@ -190,6 +192,10 @@ class UserRegisterSerializer(serializers.ModelSerializer):  # VLD
         validators=[UniqueValidator(queryset=User.objects.all())],
         style={"placeholder": "enter email like [any]@[any].[any]"}, )
 
+    username = serializers.CharField(
+        validators=[UniqueValidator(queryset=User.objects.all())],
+        style={"placeholder": "enter your login"}, )
+
     password = serializers.CharField(min_length=4, max_length=68,
                                      write_only=True,
                                      style={"input_type": "password",
@@ -199,10 +205,6 @@ class UserRegisterSerializer(serializers.ModelSerializer):  # VLD
                                       write_only=True,
                                       style={"input_type": "password",
                                              "placeholder": "repeat password"}, )
-
-    username = serializers.CharField(
-        validators=[UniqueValidator(queryset=User.objects.all())],
-        style={"placeholder": "enter your login"}, )
 
     class Meta:
         model = User
@@ -220,15 +222,18 @@ class UserRegisterSerializer(serializers.ModelSerializer):  # VLD
         password2 = attrs.get("password2")
 
         if password and password2 and (password != password2):
-            raise serializers.ValidationError(PASSWORDS_DO_NOT_MATCH_ERROR)
+            raise serializers.ValidationError(
+                gettext_lazy(PASSWORDS_DO_NOT_MATCH_ERROR))
 
         # username_to_check_unique = attrs.get("username")  # Check, if not defined unique validator in field parameters
         # if User.objects.filter(username=username_to_check_unique).exists():
-        #     raise serializers.ValidationError(USERNAME_ALREADY_EXISTS)
+        #     raise serializers.ValidationError(
+        #         gettext_lazy(USERNAME_ALREADY_EXISTS))
         #
         # email_to_check_unique = attrs.get("email")  # Check, if not defined unique validator in field parameters
         # if User.objects.filter(email=email_to_check_unique).exists():
-        #     raise serializers.ValidationError(EMAIL_ALREADY_EXISTS)
+        #     raise serializers.ValidationError(
+        #         gettext_lazy(EMAIL_ALREADY_EXISTS))
 
         return attrs
 

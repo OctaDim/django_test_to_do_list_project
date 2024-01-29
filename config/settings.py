@@ -181,3 +181,5 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",  # Standard AUTH.MODELS django auth by username, if not -> next Backend
     "apps.user.authentications.CustomEmailAuthenticationBackend",  # Custom auth by email
     ]
+
+AUTH_USER_MODEL = 'user.CustomUser'
