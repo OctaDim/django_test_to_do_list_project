@@ -36,6 +36,7 @@ from rest_framework.permissions import (IsAuthenticated,  # VLD
                                         IsAdminUser)  # VLD
 
 from apps.api.serializers import (RegistrationUserSerializer,  # VLD
+                                  RegistrationSuperUserSerializer,
                                   UserListSerializer,  # VLD
                                   UserInfoSerializer)  # VLD
 
@@ -215,7 +216,7 @@ class TasksFilteredGenericListCreate(ListCreateAPIView):
 # #################### USER SERIALIZERS ################################
 
 class RegisterUserGenericCreate(CreateAPIView):
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated]
     serializer_class = RegistrationUserSerializer
 
     def post(self, request: Request, *args, **kwargs):
@@ -229,23 +230,21 @@ class RegisterUserGenericCreate(CreateAPIView):
         return Response(status=status.HTTP_400_BAD_REQUEST,
                         data=serializer.errors)
 
-# class RegisterSuperUserGenericCreate(CreateAPIView):
-#     serializer_class = RegistrationUserSerializer
-#
-#     def post(self, request: Request, *args, **kwargs):
-#         serializer = self.serializer_class(data=request.data)
-#
-#         if serializer.is_valid(raise_exception=True):
-#             serializer.save()
-#
-#             return Response(
-#                 status=status.HTTP_201_CREATED,
-#                 data=serializer.data
-#             )
-#         return Response(
-#             status=status.HTTP_400_BAD_REQUEST,
-#             data=serializer.errors
-#         )
+
+class RegisterSuperUserGenericCreate(CreateAPIView):
+    permission_classes = [IsAdminUser]
+    serializer_class = RegistrationSuperUserSerializer
+
+    def post(self, request: Request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED,
+                            data=serializer.data)
+
+        return Response(status=status.HTTP_400_BAD_REQUEST,
+                        data=serializer.errors)
 
 
 class ListUsersGenericList(ListAPIView):
