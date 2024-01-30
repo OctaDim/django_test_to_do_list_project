@@ -73,6 +73,12 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault("is_superuser", True)
         extra_fields.setdefault("is_verified", True)
 
+        if not extra_fields.get("is_staff"):
+            raise ValueError(gettext_lazy(NOT_IS_STAFF_ERROR))
+
+        if not extra_fields.get("is_superuser"):
+            raise ValueError(gettext_lazy(NOT_IS_SUPERUSER_ERROR))
+
         if not email:
             raise ValueError(gettext_lazy(EMAIL_REQUIRED_MESSAGE))
         else:
@@ -82,11 +88,7 @@ class UserManager(BaseUserManager):
         if not username:
             raise ValueError(gettext_lazy(USERNAME_REQUIRED_MESSAGE))
 
-        if not extra_fields.get("is_staff"):
-            raise ValueError(gettext_lazy(NOT_IS_STAFF_ERROR))
 
-        if not extra_fields.get("is_superuser"):
-            raise ValueError(gettext_lazy(NOT_IS_SUPERUSER_ERROR))
 
         user = self.model(email=email,  # Named parameters extracted to check or make ops
                           username=username,
