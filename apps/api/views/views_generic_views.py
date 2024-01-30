@@ -35,7 +35,7 @@ from apps.api.serializers import (TaskModelSerializer,
 from rest_framework.permissions import (IsAuthenticated,  # VLD
                                         IsAdminUser)  # VLD
 
-from apps.api.serializers import (UserRegisterSerializer,  # VLD
+from apps.api.serializers import (RegistrationUserSerializer,  # VLD
                                   UserListSerializer,  # VLD
                                   UserInfoSerializer)  # VLD
 
@@ -213,7 +213,7 @@ class TasksFilteredGenericListCreate(ListCreateAPIView):
 
 
 class RegisterUserGenericCreate(CreateAPIView):
-    serializer_class = UserRegisterSerializer
+    serializer_class = RegistrationUserSerializer
 
     def post(self, request: Request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
@@ -229,6 +229,25 @@ class RegisterUserGenericCreate(CreateAPIView):
             status=status.HTTP_400_BAD_REQUEST,
             data=serializer.errors
         )
+
+
+# class RegisterSuperUserGenericCreate(CreateAPIView):
+#     serializer_class = RegistrationUserSerializer
+#
+#     def post(self, request: Request, *args, **kwargs):
+#         serializer = self.serializer_class(data=request.data)
+#
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save()
+#
+#             return Response(
+#                 status=status.HTTP_201_CREATED,
+#                 data=serializer.data
+#             )
+#         return Response(
+#             status=status.HTTP_400_BAD_REQUEST,
+#             data=serializer.errors
+#         )
 
 
 class ListUsersGenericList(ListAPIView):
@@ -313,7 +332,7 @@ class UserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
 
 
 class UserRegistrationGenericView(CreateAPIView):
-    serializer_class = UserRegisterSerializer
+    serializer_class = RegistrationUserSerializer
 
     def post(self, request: Request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)

@@ -12,6 +12,7 @@ from apps.api.error_messages import (
     FIRST_NAME_REQUIRED_MESSAGE,
     NOT_IS_STAFF_ERROR,
     NOT_IS_SUPERUSER_ERROR,
+    USERNAME_REQUIRED_MESSAGE
 )
 
 
@@ -24,27 +25,25 @@ class UserManager(BaseUserManager):
                 gettext_lazy(INVALID_EMAIL_ERROR(err.message))
             )
 
-    def create_user(self, email, first_name, last_name, password, **extra_fields):
+    def create_user(self, email, username, first_name, last_name, password, **extra_fields):
         if email:
             email = self.normalize_email(email=email)
-            self.email_validator(email=email)
+            # self.email_validator(email=email)
         else:
-            raise ValueError(
-                gettext_lazy(EMAIL_REQUIRED_MESSAGE)
-            )
+            raise ValueError(gettext_lazy(EMAIL_REQUIRED_MESSAGE))
+
+        if not username:
+            raise ValueError(gettext_lazy(USERNAME_REQUIRED_MESSAGE))
 
         if not first_name:
-            raise ValueError(
-                gettext_lazy(FIRST_NAME_REQUIRED_MESSAGE)
-            )
+            raise ValueError(gettext_lazy(FIRST_NAME_REQUIRED_MESSAGE))
 
         if not last_name:
-            raise ValueError(
-                gettext_lazy(LAST_NAME_REQUIRED_MESSAGE)
-            )
+            raise ValueError(gettext_lazy(LAST_NAME_REQUIRED_MESSAGE))
 
         user = self.model(
             email=email,
+            username=username,
             first_name=first_name,
             last_name=last_name,
             password=password,

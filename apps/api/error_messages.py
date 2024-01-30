@@ -4,13 +4,15 @@ CATEGORY_NAME_LEN_ERROR_MESSAGE = "The Category name length should be between 4-
 PASSWORDS_DO_NOT_MATCH_ERROR = "Passwords do not match. Please, try again"
 PASSWORD_REQUIRED_MESSAGE = "Empty password. Password is required"
 
+EMAIL_OR_USERNAME_REQUIRED_MESSAGE = "Empty login name. Email or Username is required"
+
 USERNAME_ALREADY_EXISTS = "Such username already exists. Try another username"
-EMAIL_ALREADY_EXISTS = "Such email already exists. Try another email"
+USERNAME_REQUIRED_MESSAGE = "Empty username. Username is required"
 
 NON_VALID_EMAIL_MESSAGE = "Please, enter a valid email"
 
+EMAIL_ALREADY_EXISTS = "Such email already exists. Try another email"
 EMAIL_REQUIRED_MESSAGE = "Empty email. Email is required"
-EMAIL_OR_USERNAME_REQUIRED_MESSAGE = "Empty login name. Email or Username is required"
 
 FIRST_NAME_REQUIRED_MESSAGE = "Empty first name. First name is required"
 LAST_NAME_REQUIRED_MESSAGE = "Empty last name. Last name is required"

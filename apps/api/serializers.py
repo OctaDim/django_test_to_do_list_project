@@ -190,10 +190,10 @@ class TaskWithSubtasksModelSerializer(serializers.ModelSerializer):  # ModelSeri
                   "subtasks", ]
 
 
-class UserRegisterSerializer(serializers.ModelSerializer):  # VLD
+class RegistrationUserSerializer(serializers.ModelSerializer):  # VLD
     email = serializers.CharField(
         validators=[UniqueValidator(queryset=User.objects.all())],
-        style={"placeholder": "enter email like [any]@[any].[any]"}, )
+        style={"placeholder": "enter email like <any>@<any>.<any>"}, )
 
     username = serializers.CharField(
         validators=[UniqueValidator(queryset=User.objects.all())],
@@ -213,9 +213,9 @@ class UserRegisterSerializer(serializers.ModelSerializer):  # VLD
         model = User
         fields = [
             'email',
+            "username",  # DIM
             'first_name',
             'last_name',
-            "username",  # DIM
             "phone",
             'password',
             'password2'
@@ -244,9 +244,9 @@ class UserRegisterSerializer(serializers.ModelSerializer):  # VLD
     def create(self, validated_data):
         user = User.objects.create_user(
             email=validated_data.get("email"),
+            username=validated_data.get("username"),
             first_name=validated_data.get("first_name"),
             last_name=validated_data.get("last_name"),
-            username=validated_data.get("username"),
             phone=validated_data.get("phone"),
             password=validated_data.get("password")
         )
@@ -269,6 +269,6 @@ class UserInfoSerializer(serializers.ModelSerializer):  # VLD
             'first_name',
             'last_name',
             'username',
-            # 'phone',  # Not in standard User Model
+            "phone",  # Not for standard User Model
             'date_joined'
         ]
