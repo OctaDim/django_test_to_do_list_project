@@ -235,12 +235,12 @@ class RegistrationUserSerializer(serializers.ModelSerializer):  # VLD
 
     def create(self, validated_data):
         user = User.objects.create_user(email=validated_data.get("email"),
-                                        username=validated_data.get("username"),
-                                        first_name=validated_data.get("first_name"),
-                                        last_name=validated_data.get("last_name"),
-                                        phone=validated_data.get("phone"),
-                                        password=validated_data.get("password"),
-                                        )
+                                    username=validated_data.get("username"),
+                                    first_name=validated_data.get("first_name"),
+                                    last_name=validated_data.get("last_name"),
+                                    phone=validated_data.get("phone"),
+                                    password=validated_data.get("password"),
+                                    )
         return user
 
 
@@ -297,13 +297,13 @@ class RegistrationSuperUserSerializer(serializers.ModelSerializer):  # VLD
         return attrs
 
     def create(self, validated_data):
-        user = User.objects.create_user(email=validated_data.get("email"),
-                                        username=validated_data.get("username"),
-                                        first_name=validated_data.get("first_name"),
-                                        last_name=validated_data.get("last_name"),
-                                        phone=validated_data.get("phone"),
-                                        password=validated_data.get("password"),
-                                        )
+        user = User.objects.create_superuser(email=validated_data.get("email"),
+                                    username=validated_data.get("username"),
+                                    first_name=validated_data.get("first_name"),
+                                    last_name=validated_data.get("last_name"),
+                                    phone=validated_data.get("phone"),
+                                    password=validated_data.get("password"),
+                                    )
         return user
 
 
