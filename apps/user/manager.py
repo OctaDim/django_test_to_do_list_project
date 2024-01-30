@@ -17,20 +17,24 @@ from apps.api.error_messages import (
 
 
 class UserManager(BaseUserManager):
+
     def email_validator(self, email):
         try:
             validate_email(email)
-        except ValidationError as err:
-            raise ValueError(
-                gettext_lazy(INVALID_EMAIL_ERROR(err.message))
-            )
 
-    def create_user(self, email, username, first_name, last_name, password, **extra_fields):
-        if email:
+        except ValidationError as error:
+            raise ValueError(
+                gettext_lazy(INVALID_EMAIL_ERROR(error.message)))
+
+    def create_user(self, email, username,  # Named parameters extracted to check or make ops
+                    first_name, last_name,
+                    password, **extra_fields):
+
+        if not email:
+            raise ValueError(gettext_lazy(EMAIL_REQUIRED_MESSAGE))
+        else:
             email = self.normalize_email(email=email)
             # self.email_validator(email=email)
-        else:
-            raise ValueError(gettext_lazy(EMAIL_REQUIRED_MESSAGE))
 
         if not username:
             raise ValueError(gettext_lazy(USERNAME_REQUIRED_MESSAGE))
@@ -41,14 +45,13 @@ class UserManager(BaseUserManager):
         if not last_name:
             raise ValueError(gettext_lazy(LAST_NAME_REQUIRED_MESSAGE))
 
-        user = self.model(
-            email=email,
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-            password=password,
-            **extra_fields
-        )
+        user = self.model(email=email,  # Named parameters extracted to check or make ops
+                          username=username,
+                          first_name=first_name,
+                          last_name=last_name,
+                          password=password,
+                          **extra_fields  # Other kwarg fields, that are in not named paraneters
+                          )
 
         user.set_password(password)
         user.save(using=self._db)
