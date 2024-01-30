@@ -212,7 +212,10 @@ class TasksFilteredGenericListCreate(ListCreateAPIView):
                         data=serializer.data)
 
 
+# #################### USER SERIALIZERS ################################
+
 class RegisterUserGenericCreate(CreateAPIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
     serializer_class = RegistrationUserSerializer
 
     def post(self, request: Request, *args, **kwargs):
@@ -220,16 +223,11 @@ class RegisterUserGenericCreate(CreateAPIView):
 
         if serializer.is_valid(raise_exception=True):
             serializer.save()
+            return Response(status=status.HTTP_201_CREATED,
+                            data=serializer.data)
 
-            return Response(
-                status=status.HTTP_201_CREATED,
-                data=serializer.data
-            )
-        return Response(
-            status=status.HTTP_400_BAD_REQUEST,
-            data=serializer.errors
-        )
-
+        return Response(status=status.HTTP_400_BAD_REQUEST,
+                        data=serializer.errors)
 
 # class RegisterSuperUserGenericCreate(CreateAPIView):
 #     serializer_class = RegistrationUserSerializer
