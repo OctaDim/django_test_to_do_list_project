@@ -25,9 +25,12 @@ class UserManager(BaseUserManager):
             raise ValueError(
                 gettext_lazy(INVALID_EMAIL_ERROR(error.message)))
 
-    def create_user(self, email, username,  # Named parameters extracted to check or make ops
-                    first_name, last_name,
-                    password, **extra_fields):
+    def create_user(self,
+                    email=None,
+                    username=None,  # Named parameters extracted to check or make ops
+                    first_name=None,
+                    last_name=None,
+                    password=None, **extra_fields):
 
         if not email:
             raise ValueError(gettext_lazy(EMAIL_REQUIRED_MESSAGE))
