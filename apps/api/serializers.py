@@ -244,6 +244,69 @@ class RegistrationUserSerializer(serializers.ModelSerializer):  # VLD
         return user
 
 
+class RegistrationSuperUserSerializer(serializers.ModelSerializer):  # VLD
+    email = serializers.CharField(
+        validators=[UniqueValidator(queryset=User.objects.all())],
+        style={"placeholder": "enter email like <any>@<any>.<any>"}, )
+
+    username = serializers.CharField(
+        validators=[UniqueValidator(queryset=User.objects.all())],
+        style={"placeholder": "enter your login"}, )
+
+    password = serializers.CharField(
+        min_length=4, max_length=68,
+        write_only=True,
+        style={"input_type": "password",
+               "placeholder": "enter password"}, )
+
+    password2 = serializers.CharField(
+        min_length=4, max_length=68,
+        write_only=True,
+        style={"input_type": "password",
+               "placeholder": "repeat password"}, )
+
+    class Meta:
+        model = User
+        fields = ["email",
+                  "username",  # DM
+                  "first_name",
+                  "last_name",
+                  "phone",
+                  "password",
+                  "password2",
+                  ]
+
+    def validate(self, attrs):
+        password = attrs.get("password")
+        password2 = attrs.get("password2")
+
+        if password and password2 and (password != password2):
+            raise serializers.ValidationError(
+                gettext_lazy(PASSWORDS_DO_NOT_MATCH_ERROR))
+
+        # username_to_check_unique = attrs.get("username")  # Check, if not defined unique validator in field parameters
+        # if User.objects.filter(username=username_to_check_unique).exists():
+        #     raise serializers.ValidationError(
+        #         gettext_lazy(USERNAME_ALREADY_EXISTS))
+        #
+        # email_to_check_unique = attrs.get("email")  # Check, if not defined unique validator in field parameters
+        # if User.objects.filter(email=email_to_check_unique).exists():
+        #     raise serializers.ValidationError(
+        #         gettext_lazy(EMAIL_ALREADY_EXISTS))
+
+        return attrs
+
+    def create(self, validated_data):
+        user = User.objects.create_user(email=validated_data.get("email"),
+                                        username=validated_data.get("username"),
+                                        first_name=validated_data.get("first_name"),
+                                        last_name=validated_data.get("last_name"),
+                                        phone=validated_data.get("phone"),
+                                        password=validated_data.get("password"),
+                                        )
+        return user
+
+
 class UserListSerializer(serializers.ModelSerializer):  # VLD
     class Meta:
         model = User
