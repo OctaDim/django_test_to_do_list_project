@@ -9,7 +9,7 @@ from apps.api.error_messages import (CATEGORY_NAME_LEN_ERROR_MESSAGE,  # Added
 from apps.todo.models import (Task,  # Added
                               SubTask,
                               Category,
-                              Status, )
+                              Status)
 
 # ####################################################
 # from django.contrib.auth.models import User  # Added
@@ -19,19 +19,6 @@ from apps.user.models import User
 from django.utils.translation import gettext_lazy
 
 from rest_framework.validators import UniqueValidator
-
-
-
-class ExampleSerializer(serializers.Serializer):  # Low-level Serializer sample. Enables define field parameters
-
-    title = serializers.CharField(max_length=50, required=True)  # Defining fields parameters
-
-    def create(self, validated_data):  # Overriding methods. Sample: Low-level Serializer class inheritance
-        pass
-
-    class Meta:  # Sample: Low-level Serializer class inheritance
-        model = Task
-        fields = ["id", "title", "description"]
 
 
 class StatusModelSerializer(serializers.ModelSerializer):  # ModelSerialize takes all fields parameters from the Model
@@ -56,7 +43,6 @@ class CategoryModelSerializer(serializers.ModelSerializer):  # ModelSerializer: 
 
 
 class TaskModelSerializer(serializers.ModelSerializer):  # ModelSerializer takes all fields parameters from the Model
-
     # SlugRelatedField (see bellow) allow to edit fields and simultaneously
     # and show literal value from model __str__ method instead of id value
     category = serializers.SlugRelatedField(slug_field="name",
@@ -84,7 +70,8 @@ class TaskModelSerializer(serializers.ModelSerializer):  # ModelSerializer takes
                   "status",
                   "start_date",
                   "deadline_date",
-                  "note", ]
+                  "note",
+                  ]
         # fields = "__all_"  # if all fields/
 
 
@@ -121,11 +108,11 @@ class SubTaskModelSerializer(serializers.ModelSerializer):
                   "status",
                   "start_date",
                   "deadline_date",
-                  "note", ]
+                  "note",
+                  ]
 
 
 class SubTaskPreviewModelSerializer(serializers.ModelSerializer):  # ModelSerializer: all fields params from the Model
-
     # SlugRelatedField (see bellow) allow to edit fields and simultaneously
     # and show literal value from model __str__ method instead of id value
     category = serializers.SlugRelatedField(slug_field="name",
@@ -152,12 +139,15 @@ class SubTaskPreviewModelSerializer(serializers.ModelSerializer):  # ModelSerial
                   "description",
                   "creator",
                   "task",
-                  "note", ]
+                  "note",
+                  ]
 
 
 class TaskWithSubtasksModelSerializer(serializers.ModelSerializer):  # ModelSerializer all fields params from the Model
-    subtasks = SubTaskPreviewModelSerializer(many=True,  # Defining related serializer of the related Model to show
-                                             read_only=True)  # info from SubTask serializer, when Task info showing
+    # Defining related serializer of the related Model to show
+    # info from SubTask serializer, when Task info showing
+    subtasks = SubTaskPreviewModelSerializer(many=True,
+                                             read_only=True)
 
     # SlugRelatedField (see bellow) allow to edit fields and simultaneously
     # and show literal value from model __str__ method instead of id value
@@ -187,7 +177,8 @@ class TaskWithSubtasksModelSerializer(serializers.ModelSerializer):  # ModelSeri
                   "start_date",
                   "deadline_date",
                   "note",
-                  "subtasks", ]
+                  "subtasks",
+                  ]
 
 
 class RegistrationUserSerializer(serializers.ModelSerializer):  # VLD
@@ -199,27 +190,28 @@ class RegistrationUserSerializer(serializers.ModelSerializer):  # VLD
         validators=[UniqueValidator(queryset=User.objects.all())],
         style={"placeholder": "enter your login"}, )
 
-    password = serializers.CharField(min_length=4, max_length=68,
-                                     write_only=True,
-                                     style={"input_type": "password",
-                                            "placeholder": "enter password"}, )
+    password = serializers.CharField(
+        min_length=4, max_length=68,
+        write_only=True,
+        style={"input_type": "password",
+               "placeholder": "enter password"}, )
 
-    password2 = serializers.CharField(min_length=4, max_length=68,
-                                      write_only=True,
-                                      style={"input_type": "password",
-                                             "placeholder": "repeat password"}, )
+    password2 = serializers.CharField(
+        min_length=4, max_length=68,
+        write_only=True,
+        style={"input_type": "password",
+               "placeholder": "repeat password"}, )
 
     class Meta:
         model = User
-        fields = [
-            'email',
-            "username",  # DIM
-            'first_name',
-            'last_name',
-            "phone",
-            'password',
-            'password2'
-        ]
+        fields = ["email",
+                  "username",  # DM
+                  "first_name",
+                  "last_name",
+                  "phone",
+                  "password",
+                  "password2",
+                  ]
 
     def validate(self, attrs):
         password = attrs.get("password")
@@ -242,15 +234,13 @@ class RegistrationUserSerializer(serializers.ModelSerializer):  # VLD
         return attrs
 
     def create(self, validated_data):
-        user = User.objects.create_user(
-            email=validated_data.get("email"),
-            username=validated_data.get("username"),
-            first_name=validated_data.get("first_name"),
-            last_name=validated_data.get("last_name"),
-            phone=validated_data.get("phone"),
-            password=validated_data.get("password")
-        )
-
+        user = User.objects.create_user(email=validated_data.get("email"),
+                                        username=validated_data.get("username"),
+                                        first_name=validated_data.get("first_name"),
+                                        last_name=validated_data.get("last_name"),
+                                        phone=validated_data.get("phone"),
+                                        password=validated_data.get("password"),
+                                        )
         return user
 
 
@@ -263,12 +253,11 @@ class UserListSerializer(serializers.ModelSerializer):  # VLD
 class UserInfoSerializer(serializers.ModelSerializer):  # VLD
     class Meta:
         model = User
-        fields = [
-            'id',
-            'email',
-            'first_name',
-            'last_name',
-            'username',
-            "phone",  # Not for standard User Model
-            'date_joined'
-        ]
+        fields = ['id',
+                  'email',
+                  'first_name',
+                  'last_name',
+                  'username',
+                  "phone",
+                  'date_joined',
+                  ]
