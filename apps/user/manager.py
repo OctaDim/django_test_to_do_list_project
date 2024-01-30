@@ -5,15 +5,14 @@ from django.core.validators import validate_email
 
 from django.utils.translation import gettext_lazy
 
-from apps.api.error_messages import (
-    INVALID_EMAIL_ERROR,
-    EMAIL_REQUIRED_MESSAGE,
-    LAST_NAME_REQUIRED_MESSAGE,
-    FIRST_NAME_REQUIRED_MESSAGE,
-    NOT_IS_STAFF_ERROR,
-    NOT_IS_SUPERUSER_ERROR,
-    USERNAME_REQUIRED_MESSAGE
-)
+from apps.api.error_messages import (INVALID_EMAIL_ERROR,
+                                     EMAIL_REQUIRED_MESSAGE,
+                                     LAST_NAME_REQUIRED_MESSAGE,
+                                     FIRST_NAME_REQUIRED_MESSAGE,
+                                     NOT_IS_STAFF_ERROR,
+                                     NOT_IS_SUPERUSER_ERROR,
+                                     USERNAME_REQUIRED_MESSAGE,
+                                     )
 
 
 class UserManager(BaseUserManager):
