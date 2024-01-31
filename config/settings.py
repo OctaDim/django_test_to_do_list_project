@@ -158,19 +158,24 @@ REST_FRAMEWORK = {
     #     'rest_framework.renderers.JSONRenderer',
     #     'rest_framework.renderers.BrowsableAPIRenderer',
     # ],
+
     # 'DEFAULT_PARSER_CLASSES': [
     #     'rest_framework.parsers.JSONParser',
     #     'rest_framework.parsers.FormParser',
     #     'rest_framework.parsers.MultiPartParser'
     # ],
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication'
         # 'rest_framework.authentication.SessionAuthentication',
         # 'rest_framework.authentication.BasicAuthentication'
     ],
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.AllowAny',
-    # ],
+
+   #  'DEFAULT_PERMISSION_CLASSES': [
+   #      "rest_framework.permissions.AllowAny",
+   #      "rest_framework.permissions.IsAuthenticated",  # DM: For standard Django permissions work good
+   #      "rest_framework.permissions.IsAdminUser",  # DM: For standard Django permissions work good
+   # ],
 }
 
 # SIMPLE_JWT = {
