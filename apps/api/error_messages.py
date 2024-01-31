@@ -3,6 +3,8 @@ CATEGORY_NAME_LEN_ERROR_MESSAGE = "The Category name length should be between 4-
 
 PASSWORDS_DO_NOT_MATCH_ERROR = "Passwords do not match. Please, try again"
 PASSWORD_REQUIRED_MESSAGE = "Empty password. Password is required"
+PASSWORDS_ALL_REQUIRED_MESSAGE = "Empty password(s). Password(s) is required"
+
 
 EMAIL_OR_USERNAME_REQUIRED_MESSAGE = "Empty login name. Email or Username is required"
 
