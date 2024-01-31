@@ -345,7 +345,7 @@ class ListUsersSerializer(serializers.ModelSerializer):  # VLD
         fields = '__all__'
 
 
-class UserInfoSerializer(serializers.ModelSerializer):  # VLD
+class UserIByIdSerializer(serializers.ModelSerializer):  # VLD
     class Meta:
         model = User
         fields = ['id',
