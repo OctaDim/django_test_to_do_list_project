@@ -37,7 +37,7 @@ from rest_framework.permissions import (IsAuthenticated,  # VLD
 
 from apps.api.serializers import (RegistrationUserSerializer,  # VLD
                                   RegistrationAdminStaffUserSerializer,
-                                  UserListSerializer,  # VLD
+                                  ListUsersSerializer,  # VLD
                                   UserInfoSerializer)  # VLD
 
 # ####################################################
@@ -247,8 +247,8 @@ class RegisterAdminStaffUserGenericCreate(CreateAPIView):
 
 
 class ListUsersGenericList(ListAPIView):
-    # permission_classes = [IsAuthenticated, IsAdminUser]
-    serializer_class = UserListSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    serializer_class = ListUsersSerializer
 
     def get_queryset(self):
         users = User.objects.all()  # All users
@@ -260,17 +260,12 @@ class ListUsersGenericList(ListAPIView):
         users = self.get_queryset()
 
         if not users:
-            return Response(
-                status=status.HTTP_404_NOT_FOUND,
-                data=[]
-            )
+            return Response(status=status.HTTP_404_NOT_FOUND,
+                            data=[])
 
         serializer = self.serializer_class(users, many=True)
-
-        return Response(
-            status=status.HTTP_200_OK,
-            data=serializer.data
-        )
+        return Response(status=status.HTTP_200_OK,
+                        data=serializer.data)
 
 
 class UserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
@@ -348,7 +343,7 @@ class UserRegistrationGenericView(CreateAPIView):
 class ListUsersGenericView(ListAPIView):
     # permission_classes = [IsAuthenticated]
     permission_classes = [IsAuthenticated, IsAdminUser]
-    serializer_class = UserListSerializer
+    serializer_class = ListUsersSerializer
 
     def get_queryset(self):
         users = User.objects.exclude(
