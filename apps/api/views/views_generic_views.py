@@ -33,12 +33,13 @@ from apps.api.serializers import (TaskModelSerializer,
                                   SubTaskModelSerializer)
 
 from rest_framework.permissions import (IsAuthenticated,  # VLD
-                                        IsAdminUser)  # VLD
+                                        IsAdminUser,
+                                        AllowAny)  # VLD
 
 from apps.api.serializers import (RegistrationUserSerializer,  # VLD
                                   RegistrationAdminStaffUserSerializer,
                                   ListUsersSerializer,  # VLD
-                                  UserInfoSerializer)  # VLD
+                                  UserIByIdSerializer)  # VLD
 
 # ####################################################
 # from django.contrib.auth.models import User  # Added
@@ -216,6 +217,7 @@ class TasksFilteredGenericListCreate(ListCreateAPIView):
 # #################### USER SERIALIZERS ################################
 
 class RegisterUserGenericCreate(CreateAPIView):
+    permission_classes = [AllowAny, IsAuthenticated, IsAdminUser]
     serializer_class = RegistrationUserSerializer
 
     def post(self, request: Request, *args, **kwargs):
@@ -247,7 +249,7 @@ class RegisterAdminStaffUserGenericCreate(CreateAPIView):
 
 
 class ListUsersGenericList(ListAPIView):
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAdminUser]
     serializer_class = ListUsersSerializer
 
     def get_queryset(self):
@@ -269,109 +271,8 @@ class ListUsersGenericList(ListAPIView):
 
 
 class UserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = UserInfoSerializer
-
-    def get_object(self):
-        user_id = self.kwargs.get("user_id")
-
-        user_obj = get_object_or_404(User, id=user_id)
-
-        return user_obj
-
-    def get(self, request: Request, *args, **kwargs):
-        user = self.get_object()
-
-        serializer = self.serializer_class(user)
-
-        return Response(
-            status=status.HTTP_200_OK,
-            data=serializer.data
-        )
-
-    def put(self, request: Request, *args, **kwargs):
-        user = self.get_object()
-
-        serializer = self.serializer_class(
-            user,
-            data=request.data,
-            partial=True
-        )
-
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-
-            return Response(
-                status=status.HTTP_200_OK,
-                data=serializer.data
-            )
-        return Response(
-            status=status.HTTP_400_BAD_REQUEST,
-            data=serializer.errors
-        )
-
-    def delete(self, request: Request, *args, **kwargs):
-        user = self.get_object()
-
-        user.delete()
-
-        return Response(
-            status=status.HTTP_200_OK,
-            data=[]
-        )
-
-
-class UserRegistrationGenericView(CreateAPIView):
-    serializer_class = RegistrationUserSerializer
-
-    def post(self, request: Request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
-
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-
-            return Response(
-                status=status.HTTP_201_CREATED,
-                data=serializer.data
-            )
-        return Response(
-            status=status.HTTP_400_BAD_REQUEST,
-            data=serializer.errors
-        )
-
-
-class ListUsersGenericView(ListAPIView):
-    # permission_classes = [IsAuthenticated]
     permission_classes = [IsAuthenticated, IsAdminUser]
-    serializer_class = ListUsersSerializer
-
-    def get_queryset(self):
-        users = User.objects.exclude(
-            id=self.request.user.id
-        )
-
-        return users
-
-    def get(self, request: Request, *args, **kwargs):
-        users = self.get_queryset()
-
-        if not users:
-            return Response(
-                status=status.HTTP_404_NOT_FOUND,
-                data=[]
-            )
-
-        serializer = self.serializer_class(users, many=True)
-
-        return Response(
-            status=status.HTTP_200_OK,
-            data=serializer.data
-        )
-
-
-class UserDetailGenericView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = UserInfoSerializer
+    serializer_class = UserIByIdSerializer
 
     def get_object(self):
         user_id = self.kwargs.get("user_id")
@@ -380,43 +281,134 @@ class UserDetailGenericView(RetrieveUpdateDestroyAPIView):
 
         return user_obj
 
+
     def get(self, request: Request, *args, **kwargs):
         user = self.get_object()
 
         serializer = self.serializer_class(user)
 
-        return Response(
-            status=status.HTTP_200_OK,
-            data=serializer.data
-        )
+        return Response(status=status.HTTP_200_OK,
+                        data=serializer.data)
 
     def put(self, request: Request, *args, **kwargs):
         user = self.get_object()
 
-        serializer = self.serializer_class(
-            user,
-            data=request.data,
-            partial=True
-        )
+        serializer = self.serializer_class(user, data=request.data,
+                                           partial=True)
 
         if serializer.is_valid(raise_exception=True):
             serializer.save()
+            return Response(status=status.HTTP_200_OK,
+                            data=serializer.data)
 
-            return Response(
-                status=status.HTTP_200_OK,
-                data=serializer.data
-            )
-        return Response(
-            status=status.HTTP_400_BAD_REQUEST,
-            data=serializer.errors
-        )
+        return Response(status=status.HTTP_400_BAD_REQUEST,
+                        data=serializer.errors)
 
     def delete(self, request: Request, *args, **kwargs):
         user = self.get_object()
 
         user.delete()
 
-        return Response(
-            status=status.HTTP_200_OK,
-            data=[]
-        )
+        return Response(status=status.HTTP_200_OK,
+                        data=[])
+
+
+# class UserRegistrationGenericView(CreateAPIView):
+#     serializer_class = RegistrationUserSerializer
+#
+#     def post(self, request: Request, *args, **kwargs):
+#         serializer = self.serializer_class(data=request.data)
+#
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save()
+#
+#             return Response(
+#                 status=status.HTTP_201_CREATED,
+#                 data=serializer.data
+#             )
+#         return Response(
+#             status=status.HTTP_400_BAD_REQUEST,
+#             data=serializer.errors
+#         )
+#
+#
+# class ListUsersGenericView(ListAPIView):
+#     # permission_classes = [IsAuthenticated]
+#     permission_classes = [IsAuthenticated, IsAdminUser]
+#     serializer_class = ListUsersSerializer
+#
+#     def get_queryset(self):
+#         users = User.objects.exclude(
+#             id=self.request.user.id
+#         )
+#
+#         return users
+#
+#     def get(self, request: Request, *args, **kwargs):
+#         users = self.get_queryset()
+#
+#         if not users:
+#             return Response(
+#                 status=status.HTTP_404_NOT_FOUND,
+#                 data=[]
+#             )
+#
+#         serializer = self.serializer_class(users, many=True)
+#
+#         return Response(
+#             status=status.HTTP_200_OK,
+#             data=serializer.data
+#         )
+#
+#
+# class UserDetailGenericView(RetrieveUpdateDestroyAPIView):
+#     permission_classes = [IsAuthenticated]
+#     serializer_class = UserIByIdSerializer
+#
+#     def get_object(self):
+#         user_id = self.kwargs.get("user_id")
+#
+#         user_obj = get_object_or_404(User, id=user_id)
+#
+#         return user_obj
+#
+#     def get(self, request: Request, *args, **kwargs):
+#         user = self.get_object()
+#
+#         serializer = self.serializer_class(user)
+#
+#         return Response(
+#             status=status.HTTP_200_OK,
+#             data=serializer.data
+#         )
+#
+#     def put(self, request: Request, *args, **kwargs):
+#         user = self.get_object()
+#
+#         serializer = self.serializer_class(
+#             user,
+#             data=request.data,
+#             partial=True
+#         )
+#
+#         if serializer.is_valid(raise_exception=True):
+#             serializer.save()
+#
+#             return Response(
+#                 status=status.HTTP_200_OK,
+#                 data=serializer.data
+#             )
+#         return Response(
+#             status=status.HTTP_400_BAD_REQUEST,
+#             data=serializer.errors
+#         )
+#
+#     def delete(self, request: Request, *args, **kwargs):
+#         user = self.get_object()
+#
+#         user.delete()
+#
+#         return Response(
+#             status=status.HTTP_200_OK,
+#             data=[]
+#         )
