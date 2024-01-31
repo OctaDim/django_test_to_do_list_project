@@ -15,3 +15,5 @@ git checkout master rem Go to the branch master
 git merge my_branch —ff rem (fast forward merge) rem To merge with my_branch WITHOUT merging commit
 git merge my_branch —no-ff rem (no fast forward merge) rem To merge with my_branch WITH merging commit
 git branch -d my_branch rem Deleting feat branch
+
+pip install djangorestframework-simplejwt
