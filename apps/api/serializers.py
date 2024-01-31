@@ -1,4 +1,5 @@
 from rest_framework import serializers  # Added
+from enumchoicefield import EnumChoiceField, ChoiceEnum
 
 from apps.api.error_messages import (CATEGORY_NAME_LEN_ERROR_MESSAGE,  # Added
                                      STATUS_NAME_LEN_ERROR_MESSAGE,
@@ -19,6 +20,8 @@ from apps.user.models import User
 from django.utils.translation import gettext_lazy
 
 from rest_framework.validators import UniqueValidator
+
+from apps.api.enums import YesNoChoiceEnum
 
 
 class StatusModelSerializer(serializers.ModelSerializer):  # ModelSerialize takes all fields parameters from the Model
@@ -265,6 +268,28 @@ class RegistrationSuperUserSerializer(serializers.ModelSerializer):  # VLD
         style={"input_type": "password",
                "placeholder": "repeat password"}, )
 
+
+    is_staff = serializers.BooleanField()
+    # is_staff = EnumChoiceField(enum_class=YesNoChoiceEnum,
+    #                        default=YesNoChoiceEnum.No,
+    #                        verbose_name="Staff group",
+    #                        default=True,
+    #                        )
+
+    is_superuser = serializers.BooleanField()
+    # is_superuser = EnumChoiceField(enum_class=YesNoChoiceEnum,
+    #                                # default=YesNoChoiceEnum.Yes,
+    #                                verbose_name="SuperUser",
+    #                                # default=True,
+    #                                )
+
+    is_verified = serializers.BooleanField()
+    # is_verified = EnumChoiceField(enum_class=YesNoChoiceEnum,
+    #                                # default=YesNoChoiceEnum.No,
+    #                               verbose_name="Verified",
+    #                               # default=True,
+    #                               )
+
     class Meta:
         model = User
         fields = ["email",
@@ -274,6 +299,9 @@ class RegistrationSuperUserSerializer(serializers.ModelSerializer):  # VLD
                   "phone",
                   "password",
                   "password2",
+                  "is_staff",
+                  "is_superuser",
+                  "is_verified"
                   ]
 
     def validate(self, attrs):
@@ -297,13 +325,17 @@ class RegistrationSuperUserSerializer(serializers.ModelSerializer):  # VLD
         return attrs
 
     def create(self, validated_data):
-        user = User.objects.create_superuser(email=validated_data.get("email"),
-                                    username=validated_data.get("username"),
-                                    first_name=validated_data.get("first_name"),
-                                    last_name=validated_data.get("last_name"),
-                                    phone=validated_data.get("phone"),
-                                    password=validated_data.get("password"),
-                                    )
+        user = User.objects.create_superuser(
+                        email=validated_data.get("email"),
+                        username=validated_data.get("username"),
+                        first_name=validated_data.get("first_name"),
+                        last_name=validated_data.get("last_name"),
+                        phone=validated_data.get("phone"),
+                        password=validated_data.get("password"),
+                        is_staff=validated_data.get("is_staff"),
+                        is_superuser=validated_data.get("is_superuser"),
+                        is_verified=validated_data.get("is_verified"),
+                        )
         return user
 
 
