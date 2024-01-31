@@ -33,8 +33,14 @@ from apps.api.serializers import (TaskModelSerializer,
                                   SubTaskModelSerializer)
 
 from rest_framework.permissions import (IsAuthenticated,  # VLD
-                                        IsAdminUser,
-                                        AllowAny)  # VLD
+                                        IsAdminUser,  # VLD
+                                        AllowAny,  # VLD
+                                        IsAuthenticatedOrReadOnly,
+                                        DjangoModelPermissionsOrAnonReadOnly,  # ???
+                                        DjangoModelPermissions,
+                                        DjangoObjectPermissions,
+                                        BasePermission,
+                                        BasePermissionMetaclass)
 
 from apps.api.serializers import (RegistrationUserSerializer,  # VLD
                                   RegistrationAdminStaffUserSerializer,
