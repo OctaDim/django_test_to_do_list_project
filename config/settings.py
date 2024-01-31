@@ -173,8 +173,8 @@ REST_FRAMEWORK = {
 
    #  'DEFAULT_PERMISSION_CLASSES': [
    #      "rest_framework.permissions.AllowAny",
-   #      "rest_framework.permissions.IsAuthenticated",  # DM: For standard Django permissions work good
-   #      "rest_framework.permissions.IsAdminUser",  # DM: For standard Django permissions work good
+   #      "rest_framework.permissions.IsAuthenticated",  # DM added: For standard Django permissions work good
+   #      "rest_framework.permissions.IsAdminUser",  # DM added: For standard Django permissions work good
    # ],
 }
 
