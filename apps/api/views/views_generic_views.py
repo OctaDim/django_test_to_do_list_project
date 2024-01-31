@@ -216,7 +216,6 @@ class TasksFilteredGenericListCreate(ListCreateAPIView):
 # #################### USER SERIALIZERS ################################
 
 class RegisterUserGenericCreate(CreateAPIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = RegistrationUserSerializer
 
     def post(self, request: Request, *args, **kwargs):
