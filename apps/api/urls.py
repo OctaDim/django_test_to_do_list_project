@@ -1,6 +1,9 @@
 from django.urls import path  # Added
 from rest_framework.routers import DefaultRouter  # Added, for ModelViewSet
 
+from rest_framework_simplejwt.views import (TokenObtainPairView,
+                                            TokenRefreshView)
+
 # views via functions (samples)
 from apps.api.views.views_functions import (get_all_tasks,
                                             create_new_task, )
@@ -24,6 +27,7 @@ from apps.api.views.views_generic_views import (
 from apps.api.views.views_model_view_set import (StatusViewSet,
                                                  CategoryViewSet)
 
+
 app_name = "api"
 
 urlpatterns = [
@@ -43,6 +47,9 @@ urlpatterns = [
     path("generics/authentication/register_superuser/", RegisterAdminStaffUserGenericCreate.as_view(), name="register-new-superuser"),
     path("generics/authentication/all_users/", ListUsersGenericList.as_view(), name="get-all-users"),
     path("generics/authentication/user_by_id/<int:user_id>/", UserByIdGenericRetrieveUpdDestroy.as_view(), name="get-user-by-id"),
+
+    path("auth/obtain_token/", TokenObtainPairView.as_view(), name="token-obtain-pair"),
+    path("auth/refresh_token/", TokenRefreshView.as_view(), name="refresh-token"),
 
     # views via ApiViews classes (samples):
     path("api_views/tasks/", TasksApiViews.as_view(), name="tasks-api-view"),
