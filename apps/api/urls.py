@@ -43,10 +43,10 @@ urlpatterns = [
     path("generics/filtered_tasks/", TasksFilteredGenericListCreate.as_view(), name="get-filtered-tasks"),
 
     # for users: views via GenericViews (samples):
-    path("generics/authentication/register_user/", RegisterUserGenericCreate.as_view(), name="register-new-user"),
-    path("generics/authentication/register_superuser/", RegisterAdminStaffUserGenericCreate.as_view(), name="register-new-superuser"),
-    path("generics/authentication/all_users/", ListUsersGenericList.as_view(), name="get-all-users"),
-    path("generics/authentication/user_by_id/<int:user_id>/", UserByIdGenericRetrieveUpdDestroy.as_view(), name="get-user-by-id"),
+    path("generics/auth/register_user/", RegisterUserGenericCreate.as_view(), name="register-new-user"),
+    path("generics/auth/register_superuser/", RegisterAdminStaffUserGenericCreate.as_view(), name="register-new-superuser"),
+    path("generics/auth/all_users/", ListUsersGenericList.as_view(), name="get-all-users"),
+    path("generics/auth/user_by_id/<int:user_id>/", UserByIdGenericRetrieveUpdDestroy.as_view(), name="get-user-by-id"),
 
     path("auth/obtain_token/", TokenObtainPairView.as_view(), name="token-obtain-pair"),
     path("auth/refresh_token/", TokenRefreshView.as_view(), name="refresh-token"),
