@@ -7,6 +7,6 @@ class YesNoChoiceEnum(ChoiceEnum):
     No = False
 
 
-class CustomTrueByDeafaultBooleanField(BooleanField):
+class CustomTrueByDefaultBooleanField(BooleanField):
     default_empty_html = True
     initial = True
