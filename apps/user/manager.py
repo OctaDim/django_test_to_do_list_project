@@ -39,14 +39,21 @@ class UserManager(BaseUserManager):
             email = self.normalize_email(email=email)
             # self.email_validator(email=email)
 
+        ERROR_MESSAGE = []
         if not username:
-            raise ValueError(gettext_lazy(USERNAME_REQUIRED_MESSAGE))
+            ERROR_MESSAGE.append(gettext_lazy(USERNAME_REQUIRED_MESSAGE))
+            # raise ValueError(gettext_lazy(USERNAME_REQUIRED_MESSAGE))
 
         if not first_name:
-            raise ValueError(gettext_lazy(FIRST_NAME_REQUIRED_MESSAGE))
+            ERROR_MESSAGE.append(gettext_lazy(FIRST_NAME_REQUIRED_MESSAGE))
+            # raise ValueError(gettext_lazy(FIRST_NAME_REQUIRED_MESSAGE))
 
         if not last_name:
-            raise ValueError(gettext_lazy(LAST_NAME_REQUIRED_MESSAGE))
+            ERROR_MESSAGE.append(gettext_lazy(LAST_NAME_REQUIRED_MESSAGE))
+            # raise ValueError(gettext_lazy(LAST_NAME_REQUIRED_MESSAGE))
+
+        if ERROR_MESSAGE:
+            raise ValueError(", ".join(ERROR_MESSAGE))
 
         user = self.model(email=email,  # Named parameters extracted to check or make ops
                           username=username,
@@ -67,28 +74,43 @@ class UserManager(BaseUserManager):
                          first_name=None,
                          last_name=None,
                          password=None,
+                         # is_staff=None,
+                         # is_superuser=None,
+                         # is_verified=None,
                          **extra_fields):
 
-        extra_fields.setdefault("is_staff", True)
-        extra_fields.setdefault("is_superuser", True)
-        extra_fields.setdefault("is_verified", True)
+        ERROR_MESSAGE = []
 
-        if not extra_fields.get("is_staff"):
-            raise ValueError(gettext_lazy(NOT_IS_STAFF_ERROR))
+        # extra_fields.setdefault("is_staff", True)
+        # extra_fields.setdefault("is_superuser", True)
+        # extra_fields.setdefault("is_verified", True)
 
-        if not extra_fields.get("is_superuser"):
-            raise ValueError(gettext_lazy(NOT_IS_SUPERUSER_ERROR))
+
+        # if not extra_fields.get("is_staff"):
+        #     ERROR_MESSAGE.append(gettext_lazy(NOT_IS_STAFF_ERROR))
+        #     # raise ValueError(gettext_lazy(NOT_IS_STAFF_ERROR))
+
+        # if not extra_fields.get("is_superuser"):
+        #     ERROR_MESSAGE.append(gettext_lazy(NOT_IS_SUPERUSER_ERROR))
+        #     # raise ValueError(gettext_lazy(NOT_IS_SUPERUSER_ERROR))
+
+        # if not extra_fields.get("is_verified"):
+        #     ERROR_MESSAGE.append(gettext_lazy(NOT_IS_SUPERUSER_ERROR))
+        #     # raise ValueError(gettext_lazy(NOT_IS_SUPERUSER_ERROR))
 
         if not email:
-            raise ValueError(gettext_lazy(EMAIL_REQUIRED_MESSAGE))
+            ERROR_MESSAGE.append(gettext_lazy(EMAIL_REQUIRED_MESSAGE))
+            # raise ValueError(gettext_lazy(EMAIL_REQUIRED_MESSAGE))
         else:
             email = self.normalize_email(email=email)
             # self.email_validator(email=email)
 
         if not username:
-            raise ValueError(gettext_lazy(USERNAME_REQUIRED_MESSAGE))
+            ERROR_MESSAGE.append(gettext_lazy(USERNAME_REQUIRED_MESSAGE))
+            # raise ValueError(gettext_lazy(USERNAME_REQUIRED_MESSAGE))
 
-
+        if ERROR_MESSAGE:
+            raise ValueError(ERROR_MESSAGE)
 
         user = self.model(email=email,  # Named parameters extracted to check or make ops
                           username=username,
