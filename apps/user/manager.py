@@ -68,9 +68,9 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self,
-                         email=None,    # Named parameters extracted to check or make ops
-                         username=None, # others falling into **extra_fields
+    def create_superuser(self,  # NOT TO RENAME FOR DJANGO CREATE SUPERUSER CONSOLE COMMAND WORKING GOOD
+                         email=None,  # Named parameters extracted to check or make ops
+                         username=None,  # others falling into **extra_fields
                          first_name=None,
                          last_name=None,
                          password=None,
