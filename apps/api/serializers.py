@@ -4,7 +4,9 @@ from apps.api.error_messages import (CATEGORY_NAME_LEN_ERROR_MESSAGE,  # Added
                                      STATUS_NAME_LEN_ERROR_MESSAGE,
                                      PASSWORDS_DO_NOT_MATCH_ERROR,
                                      USERNAME_ALREADY_EXISTS,
-                                     EMAIL_ALREADY_EXISTS)
+                                     EMAIL_ALREADY_EXISTS,
+                                     PASSWORDS_ALL_REQUIRED_MESSAGE
+                                     )
 
 from apps.todo.models import (Task,  # Added
                               SubTask,
@@ -22,7 +24,7 @@ from rest_framework.validators import UniqueValidator
 from enumchoicefield import EnumChoiceField, ChoiceEnum
 
 from apps.api.enums import YesNoChoiceEnum
-from apps.api.enums import CustomTrueByDeafaultBooleanField
+from apps.api.enums import CustomTrueByDefaultBooleanField
 
 
 class StatusModelSerializer(serializers.ModelSerializer):  # ModelSerialize takes all fields parameters from the Model
@@ -221,19 +223,34 @@ class RegistrationUserSerializer(serializers.ModelSerializer):  # VLD
         password = attrs.get("password")
         password2 = attrs.get("password2")
 
-        if password and password2 and (password != password2):
-            raise serializers.ValidationError(
-                gettext_lazy(PASSWORDS_DO_NOT_MATCH_ERROR))
+        ERROR_MESSAGES = []
+        if not password or not password2:
+            ERROR_MESSAGES.append(
+                gettext_lazy(PASSWORDS_ALL_REQUIRED_MESSAGE))
+            # raise serializers.ValidationError(
+            #     gettext_lazy(PASSWORDS_ALL_REQUIRED_MESSAGE))
 
+        if password != password2:
+            ERROR_MESSAGES.append(
+                gettext_lazy(PASSWORDS_DO_NOT_MATCH_ERROR))
+            # raise serializers.ValidationError(
+            #     gettext_lazy(PASSWORDS_DO_NOT_MATCH_ERROR))
+
+        # # # Optionally fields can be checked without field parameters in this way
         # username_to_check_unique = attrs.get("username")  # Check, if not defined unique validator in field parameters
         # if User.objects.filter(username=username_to_check_unique).exists():
-        #     raise serializers.ValidationError(
-        #         gettext_lazy(USERNAME_ALREADY_EXISTS))
+        #     ERROR_MESSAGES.append(gettext_lazy(USERNAME_ALREADY_EXISTS))
+        #     # raise serializers.ValidationError(
+        #     #     gettext_lazy(USERNAME_ALREADY_EXISTS))
         #
         # email_to_check_unique = attrs.get("email")  # Check, if not defined unique validator in field parameters
         # if User.objects.filter(email=email_to_check_unique).exists():
-        #     raise serializers.ValidationError(
-        #         gettext_lazy(EMAIL_ALREADY_EXISTS))
+        #     ERROR_MESSAGES.append(gettext_lazy(EMAIL_ALREADY_EXISTS))
+        #     # raise serializers.ValidationError(
+        #     #     gettext_lazy(EMAIL_ALREADY_EXISTS))
+
+        if ERROR_MESSAGES:
+            raise serializers.ValidationError(ERROR_MESSAGES)
 
         return attrs
 
@@ -269,7 +286,7 @@ class RegistrationAdminStaffUserSerializer(serializers.ModelSerializer):  # VLD
         style={"input_type": "password",
                "placeholder": "repeat password"}, )
 
-    is_staff = CustomTrueByDeafaultBooleanField()
+    is_staff = CustomTrueByDefaultBooleanField()
     # is_staff = serializers.BooleanField()
     # is_staff = EnumChoiceField(enum_class=YesNoChoiceEnum,
     #                        default=YesNoChoiceEnum.No,
@@ -277,7 +294,7 @@ class RegistrationAdminStaffUserSerializer(serializers.ModelSerializer):  # VLD
     #                        default=True,
     #                        )
 
-    is_superuser = CustomTrueByDeafaultBooleanField()
+    is_superuser = CustomTrueByDefaultBooleanField()
     # is_superuser = serializers.BooleanField()
     # is_superuser = EnumChoiceField(enum_class=YesNoChoiceEnum,
     #                                # default=YesNoChoiceEnum.Yes,
@@ -285,7 +302,7 @@ class RegistrationAdminStaffUserSerializer(serializers.ModelSerializer):  # VLD
     #                                #default=True,
     #                                )
 
-    is_verified = CustomTrueByDeafaultBooleanField()
+    is_verified = CustomTrueByDefaultBooleanField()
     # is_verified = serializers.BooleanField()
     # is_verified = EnumChoiceField(enum_class=YesNoChoiceEnum,
     #                                # default=YesNoChoiceEnum.No,
@@ -311,19 +328,34 @@ class RegistrationAdminStaffUserSerializer(serializers.ModelSerializer):  # VLD
         password = attrs.get("password")
         password2 = attrs.get("password2")
 
-        if password and password2 and (password != password2):
-            raise serializers.ValidationError(
+        ERROR_MESSAGES = []
+
+        if not password or not password2:
+            ERROR_MESSAGES.append(
+                gettext_lazy(PASSWORDS_ALL_REQUIRED_MESSAGE))
+            # raise serializers.ValidationError(
+            #     gettext_lazy(PASSWORDS_ALL_REQUIRED_MESSAGE))
+
+        if password != password2:
+            ERROR_MESSAGES.append(
                 gettext_lazy(PASSWORDS_DO_NOT_MATCH_ERROR))
+            # raise serializers.ValidationError(
+            #     gettext_lazy(PASSWORDS_DO_NOT_MATCH_ERROR))
 
         # username_to_check_unique = attrs.get("username")  # Check, if not defined unique validator in field parameters
         # if User.objects.filter(username=username_to_check_unique).exists():
-        #     raise serializers.ValidationError(
-        #         gettext_lazy(USERNAME_ALREADY_EXISTS))
-        #
+        #     ERROR_MESSAGES.append(gettext_lazy(USERNAME_ALREADY_EXISTS))
+        #     # raise serializers.ValidationError(
+        #     #     gettext_lazy(USERNAME_ALREADY_EXISTS))
+
         # email_to_check_unique = attrs.get("email")  # Check, if not defined unique validator in field parameters
         # if User.objects.filter(email=email_to_check_unique).exists():
-        #     raise serializers.ValidationError(
-        #         gettext_lazy(EMAIL_ALREADY_EXISTS))
+        #     ERROR_MESSAGES.append(gettext_lazy(EMAIL_ALREADY_EXISTS))
+        #     # raise serializers.ValidationError(
+        #     #     gettext_lazy(EMAIL_ALREADY_EXISTS))
+
+        if ERROR_MESSAGES:
+            raise serializers.ValidationError(ERROR_MESSAGES)
 
         return attrs
 
