@@ -16,7 +16,7 @@ from apps.api.views.views_generic_views import (
     SubtaskByIdGenericRetrieveUpdateDelete,
     TasksFilteredGenericListCreate,
     RegisterUserGenericCreate,
-    RegisterSuperUserGenericCreate,
+    RegisterAdminStaffUserGenericCreate,
     ListUsersGenericList,
     UserByIdGenericRetrieveUpdDestroy)
 
@@ -40,7 +40,7 @@ urlpatterns = [
 
     # for users: views via GenericViews (samples):
     path("generics/authentication/register_user/", RegisterUserGenericCreate.as_view(), name="register-new-user"),
-    path("generics/authentication/register_superuser/", RegisterSuperUserGenericCreate.as_view(), name="register-new-superuser"),
+    path("generics/authentication/register_superuser/", RegisterAdminStaffUserGenericCreate.as_view(), name="register-new-superuser"),
     path("generics/authentication/all_users/", ListUsersGenericList.as_view(), name="get-all-users"),
     path("generics/authentication/user_by_id/<int:user_id>/", UserByIdGenericRetrieveUpdDestroy.as_view(), name="get-user-by-id"),
 

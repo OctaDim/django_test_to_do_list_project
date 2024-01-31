@@ -247,7 +247,7 @@ class RegistrationUserSerializer(serializers.ModelSerializer):  # VLD
         return user
 
 
-class RegistrationSuperUserSerializer(serializers.ModelSerializer):  # VLD
+class RegistrationAdminStaffUserSerializer(serializers.ModelSerializer):  # VLD
     email = serializers.CharField(
         validators=[UniqueValidator(queryset=User.objects.all())],
         style={"placeholder": "enter email like <any>@<any>.<any>"}, )

@@ -36,7 +36,7 @@ from rest_framework.permissions import (IsAuthenticated,  # VLD
                                         IsAdminUser)  # VLD
 
 from apps.api.serializers import (RegistrationUserSerializer,  # VLD
-                                  RegistrationSuperUserSerializer,
+                                  RegistrationAdminStaffUserSerializer,
                                   UserListSerializer,  # VLD
                                   UserInfoSerializer)  # VLD
 
@@ -230,9 +230,9 @@ class RegisterUserGenericCreate(CreateAPIView):
                         data=serializer.errors)
 
 
-class RegisterSuperUserGenericCreate(CreateAPIView):
+class RegisterAdminStaffUserGenericCreate(CreateAPIView):
     permission_classes = [IsAdminUser]
-    serializer_class = RegistrationSuperUserSerializer
+    serializer_class = RegistrationAdminStaffUserSerializer
 
     def post(self, request: Request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data)
@@ -247,8 +247,7 @@ class RegisterSuperUserGenericCreate(CreateAPIView):
 
 
 class ListUsersGenericList(ListAPIView):
-    # permission_classes = [IsAuthenticated]
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    # permission_classes = [IsAuthenticated, IsAdminUser]
     serializer_class = UserListSerializer
 
     def get_queryset(self):
