@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3-rd apps
+    "djangorestframework-simplejwt"  # Added for Simple JWT
     "rest_framework",  # Added for DjangoRestFramework
     "drf_yasg",  # Added for SWAGER
 
