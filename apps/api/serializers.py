@@ -1,5 +1,4 @@
 from rest_framework import serializers  # Added
-from enumchoicefield import EnumChoiceField, ChoiceEnum
 
 from apps.api.error_messages import (CATEGORY_NAME_LEN_ERROR_MESSAGE,  # Added
                                      STATUS_NAME_LEN_ERROR_MESSAGE,
@@ -18,10 +17,12 @@ from apps.user.models import User
 # ####################################################
 
 from django.utils.translation import gettext_lazy
-
 from rest_framework.validators import UniqueValidator
 
+from enumchoicefield import EnumChoiceField, ChoiceEnum
+
 from apps.api.enums import YesNoChoiceEnum
+from apps.api.enums import CustomTrueByDeafaultBooleanField
 
 
 class StatusModelSerializer(serializers.ModelSerializer):  # ModelSerialize takes all fields parameters from the Model
@@ -268,22 +269,24 @@ class RegistrationAdminStaffUserSerializer(serializers.ModelSerializer):  # VLD
         style={"input_type": "password",
                "placeholder": "repeat password"}, )
 
-
-    is_staff = serializers.BooleanField()
+    is_staff = CustomTrueByDeafaultBooleanField()
+    # is_staff = serializers.BooleanField()
     # is_staff = EnumChoiceField(enum_class=YesNoChoiceEnum,
     #                        default=YesNoChoiceEnum.No,
     #                        verbose_name="Staff group",
     #                        default=True,
     #                        )
 
-    is_superuser = serializers.BooleanField()
+    is_superuser = CustomTrueByDeafaultBooleanField()
+    # is_superuser = serializers.BooleanField()
     # is_superuser = EnumChoiceField(enum_class=YesNoChoiceEnum,
     #                                # default=YesNoChoiceEnum.Yes,
     #                                verbose_name="SuperUser",
-    #                                # default=True,
+    #                                #default=True,
     #                                )
 
-    is_verified = serializers.BooleanField()
+    is_verified = CustomTrueByDeafaultBooleanField()
+    # is_verified = serializers.BooleanField()
     # is_verified = EnumChoiceField(enum_class=YesNoChoiceEnum,
     #                                # default=YesNoChoiceEnum.No,
     #                               verbose_name="Verified",
@@ -342,17 +345,17 @@ class RegistrationAdminStaffUserSerializer(serializers.ModelSerializer):  # VLD
 class ListUsersSerializer(serializers.ModelSerializer):  # VLD
     class Meta:
         model = User
-        fields = '__all__'
+        fields = "__all__"
 
 
 class UserIByIdSerializer(serializers.ModelSerializer):  # VLD
     class Meta:
         model = User
-        fields = ['id',
-                  'email',
-                  'first_name',
-                  'last_name',
-                  'username',
+        fields = ["id",
+                  "email",
+                  "username"
+                  "first_name",
+                  "last_name",
                   "phone",
-                  'date_joined',
+                  "date_joined",
                   ]
