@@ -48,8 +48,9 @@ urlpatterns = [
     path("generics/auth/all_users/", ListUsersGenericList.as_view(), name="get-all-users"),
     path("generics/auth/user_by_id/<int:user_id>/", UserByIdGenericRetrieveUpdDestroy.as_view(), name="get-user-by-id"),
 
-    path("auth/obtain_token/", TokenObtainPairView.as_view(), name="token-obtain-pair"),
-    path("auth/refresh_token/", TokenRefreshView.as_view(), name="refresh-token"),
+    # for login and obtain, refresh Token: views via rest framework simple JWT:
+    path("simple_jwt/auth/login_obtain_token/", TokenObtainPairView.as_view(), name="login-obtain-token"),
+    path("simple_jwt/auth/refresh_token/", TokenRefreshView.as_view(), name="refresh-token"),
 
     # views via ApiViews classes (samples):
     path("api_views/tasks/", TasksApiViews.as_view(), name="tasks-api-view"),
