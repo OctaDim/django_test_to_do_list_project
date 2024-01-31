@@ -33,4 +33,5 @@ class CustomAuthByEmailBackend(ModelBackend):
             UserModel().set_password(password)
         else:
             if user.check_password(password) and self.user_can_authenticate(user):
+                print(f"AUTH ##### username: {username}: AUTHENTICATED")
                 return user

@@ -214,10 +214,10 @@ class TasksFilteredGenericListCreate(ListCreateAPIView):
                         data=serializer.data)
 
 
-# #################### USER SERIALIZERS ################################
+# ########################## USER VIEWS ################################
 
 class RegisterUserGenericCreate(CreateAPIView):
-    permission_classes = [AllowAny, IsAuthenticated, IsAdminUser]
+    permission_classes = [AllowAny, IsAuthenticated, IsAdminUser]  # JWT token doesn't understand
     serializer_class = RegistrationUserSerializer
 
     def post(self, request: Request, *args, **kwargs):
@@ -233,7 +233,7 @@ class RegisterUserGenericCreate(CreateAPIView):
 
 
 class RegisterAdminStaffUserGenericCreate(CreateAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser]  # JWT token doesn't understand
     serializer_class = RegistrationAdminStaffUserSerializer
 
     def post(self, request: Request, *args, **kwargs):
@@ -249,7 +249,7 @@ class RegisterAdminStaffUserGenericCreate(CreateAPIView):
 
 
 class ListUsersGenericList(ListAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser]  # JWT token doesn't understand
     serializer_class = ListUsersSerializer
 
     def get_queryset(self):
@@ -271,7 +271,7 @@ class ListUsersGenericList(ListAPIView):
 
 
 class UserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated, IsAdminUser]  # JWT token doesn't understand
     serializer_class = UserIByIdSerializer
 
     def get_object(self):
