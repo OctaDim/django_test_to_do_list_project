@@ -339,7 +339,7 @@ class RegistrationAdminStaffUserSerializer(serializers.ModelSerializer):  # VLD
         return user
 
 
-class UserListSerializer(serializers.ModelSerializer):  # VLD
+class ListUsersSerializer(serializers.ModelSerializer):  # VLD
     class Meta:
         model = User
         fields = '__all__'
