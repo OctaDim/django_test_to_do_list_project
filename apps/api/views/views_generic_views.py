@@ -54,6 +54,7 @@ from apps.user.models import User
 
 
 class TaskByIdGenericRetrieve(RetrieveAPIView):  # Parent class has the only 'get' method, so it will be inherited
+    permission_classes = [IsAuthenticated]
     serializer_class = TaskModelSerializer
 
     def get_object(self):
@@ -63,6 +64,7 @@ class TaskByIdGenericRetrieve(RetrieveAPIView):  # Parent class has the only 'ge
 
 
 class TaskByIdWithSubtasksGenericRetrieve(RetrieveAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = TaskWithSubtasksModelSerializer
 
     def get_object(self):
@@ -72,11 +74,13 @@ class TaskByIdWithSubtasksGenericRetrieve(RetrieveAPIView):
 
 
 class AllTasksWithSubtasksGenericList(ListAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = TaskWithSubtasksModelSerializer
     queryset = Task.objects.all()
 
 
 class AllSubtasksGenericListCreate(ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = SubTaskModelSerializer
 
     def create_subtask(self, data):  # Custom function, not from Generic, as sample
@@ -126,6 +130,7 @@ class AllSubtasksGenericListCreate(ListCreateAPIView):
 
 
 class SubtaskByIdGenericRetrieveUpdateDelete(RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = SubTaskModelSerializer  # Minimum to work, if not defining and overriding included CRUD methods
 
     def get_object(self):  # Minimum to work if not defining and overriding included CRUD methods at all
@@ -161,6 +166,7 @@ class SubtaskByIdGenericRetrieveUpdateDelete(RetrieveUpdateDestroyAPIView):
 
 
 class TasksFilteredGenericListCreate(ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = TaskWithSubtasksModelSerializer
 
     # serializer_class = TaskModelSerializer
@@ -223,7 +229,7 @@ class TasksFilteredGenericListCreate(ListCreateAPIView):
 # ########################## USER VIEWS ################################
 
 class RegisterUserGenericCreate(CreateAPIView):
-    permission_classes = [AllowAny, IsAuthenticated, IsAdminUser]  # JWT token doesn't understand
+    permission_classes = [IsAuthenticated]  # JWT token doesn't understand
     serializer_class = RegistrationUserSerializer
 
     def post(self, request: Request, *args, **kwargs):
@@ -277,7 +283,7 @@ class ListUsersGenericList(ListAPIView):
 
 
 class UserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAuthenticated, IsAdminUser]  # JWT token doesn't understand
+    permission_classes = [IsAdminUser]  # JWT token doesn't understand
     serializer_class = UserIByIdSerializer
 
     def get_object(self):
