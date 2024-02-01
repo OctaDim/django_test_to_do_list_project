@@ -38,7 +38,7 @@ urlpatterns = [
     path("generics/task/<int:task_id>/", TaskByIdGenericRetrieve.as_view(), name="get-task-by-id"),
     path("generics/task_with_subtasks/<int:task_id>/", TaskByIdWithSubtasksGenericRetrieve.as_view(), name="get-task-by-id-with-subtasks"),
     path("generics/all_tasks/", AllTasksWithSubtasksGenericList.as_view(), name="get-all-tasks"),
-    path("generics/all_subtasks/", AllSubtasksGenericListCreate.as_view(), name="get-all-subtasks"),
+    path("generics/subtasks/", AllSubtasksGenericListCreate.as_view(), name="get-all-subtasks"),
     path("generics/subtask/<int:subtask_id>/", SubtaskByIdGenericRetrieveUpdateDelete.as_view(), name="get-subtask-by-id"),
     path("generics/filtered_tasks/", TasksFilteredGenericListCreate.as_view(), name="get-filtered-tasks"),
 
