@@ -35,11 +35,11 @@ urlpatterns = [
     # --> for ModelViewSet classes DefaultRouter is used (see section bellow)
 
     # views via GenericViews (samples):
-    path("generics/task/<int:task_id>", TaskByIdGenericRetrieve.as_view(), name="get-task-by-id"),
-    path("generics/task_with_subtasks/<int:task_id>", TaskByIdWithSubtasksGenericRetrieve.as_view(), name="get-task-by-id-with-subtasks"),
-    path("generics/all_tasks", AllTasksWithSubtasksGenericList.as_view(), name="get-all-tasks"),
-    path("generics/all_subtasks", AllSubtasksGenericListCreate.as_view(), name="get-all-subtasks"),
-    path("generics/subtask/<int:subtask_id>", SubtaskByIdGenericRetrieveUpdateDelete.as_view(), name="get-subtask-by-id"),
+    path("generics/task/<int:task_id>/", TaskByIdGenericRetrieve.as_view(), name="get-task-by-id"),
+    path("generics/task_with_subtasks/<int:task_id>/", TaskByIdWithSubtasksGenericRetrieve.as_view(), name="get-task-by-id-with-subtasks"),
+    path("generics/all_tasks/", AllTasksWithSubtasksGenericList.as_view(), name="get-all-tasks"),
+    path("generics/all_subtasks/", AllSubtasksGenericListCreate.as_view(), name="get-all-subtasks"),
+    path("generics/subtask/<int:subtask_id>/", SubtaskByIdGenericRetrieveUpdateDelete.as_view(), name="get-subtask-by-id"),
     path("generics/filtered_tasks/", TasksFilteredGenericListCreate.as_view(), name="get-filtered-tasks"),
 
     # for users: views via GenericViews (samples):
@@ -49,15 +49,15 @@ urlpatterns = [
     path("generics/auth/user_by_id/<int:user_id>/", UserByIdGenericRetrieveUpdDestroy.as_view(), name="get-user-by-id"),
 
     # for login and obtain, refresh Token: views via rest framework simple JWT:
-    path("simple_jwt/auth/login_obtain_token/", TokenObtainPairView.as_view(), name="login-obtain-token"),
+    path("simple_jwt/auth/login_and_obtain_token/", TokenObtainPairView.as_view(), name="login-and-obtain-token"),
     path("simple_jwt/auth/refresh_token/", TokenRefreshView.as_view(), name="refresh-token"),
 
     # views via ApiViews classes (samples):
     path("api_views/tasks/", TasksApiViews.as_view(), name="tasks-api-view"),
 
     # views via functions (samples):
-    path("function/all_tasks", get_all_tasks, name="get-all-tasks"),
-    path("function/create_task", create_new_task, name="create-new-task"),
+    path("function/all_tasks/", get_all_tasks, name="get-all-tasks"),
+    path("function/create_task/", create_new_task, name="create-new-task"),
 ]
 
 # #################### FOR MODEL VIEW SET ONLY: ########################
