@@ -14,6 +14,7 @@ from apps.api.serializers import TaskModelSerializer  # Added
 # ############### VIEWS VIA API VIEWS CLASSES (SAMPLES) ################
 class TasksApiViews(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request: Request):
         tasks = Task.objects.filter(creator=request.user.id)
 
