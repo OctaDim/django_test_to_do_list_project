@@ -4,6 +4,7 @@
 
 from rest_framework import status  # Added
 from rest_framework.views import Response, Request, APIView  # Added
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.serializers import ValidationError
 
 from apps.todo.models import Task  # Added
@@ -12,7 +13,7 @@ from apps.api.serializers import TaskModelSerializer  # Added
 
 # ############### VIEWS VIA API VIEWS CLASSES (SAMPLES) ################
 class TasksApiViews(APIView):
-
+    permission_classes = [IsAuthenticated]
     def get(self, request: Request):
         tasks = Task.objects.filter(creator=request.user.id)
 
