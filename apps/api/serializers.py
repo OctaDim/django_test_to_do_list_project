@@ -190,7 +190,7 @@ class TaskWithSubtasksModelSerializer(serializers.ModelSerializer):  # ModelSeri
 class RegistrationUserSerializer(serializers.ModelSerializer):  # VLD
     email = serializers.CharField(
         validators=[UniqueValidator(queryset=User.objects.all())],
-        style={"placeholder": "enter email like <any>@<any>.<any>"}, )
+        style={"placeholder": "enter email like <any>@<any>"}, )
 
     username = serializers.CharField(
         validators=[UniqueValidator(queryset=User.objects.all())],
@@ -268,7 +268,7 @@ class RegistrationUserSerializer(serializers.ModelSerializer):  # VLD
 class RegistrationAdminStaffUserSerializer(serializers.ModelSerializer):  # VLD
     email = serializers.CharField(
         validators=[UniqueValidator(queryset=User.objects.all())],
-        style={"placeholder": "enter email like <any>@<any>.<any>"}, )
+        style={"placeholder": "enter email like <any>@<any>"}, )
 
     username = serializers.CharField(
         validators=[UniqueValidator(queryset=User.objects.all())],
