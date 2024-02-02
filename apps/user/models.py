@@ -34,9 +34,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login = models.DateTimeField(auto_now=True)
 
-    USERNAME_FIELD = "username"
+    USERNAME_FIELD = "username"  # Default filed for logining purposes
 
-    REQUIRED_FIELDS = ["email", 'first_name', 'last_name']
+    REQUIRED_FIELDS = ["email", 'first_name', 'last_name']  # Required f. for console command 'createsuperuser'
 
     objects = UserManager()
 
