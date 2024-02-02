@@ -38,7 +38,6 @@
                     <h3><b>Username: </b><span>{{ user.username }}</span></h3>
                     <h3><b>Email: </b><span>{{ user.email }}</span></h3>
                 {% endif %}
-
             </div>
         </div>
 
@@ -65,32 +64,29 @@
                 {% endfor %}
             </div>
 
-
             <div class="tasks-block">
-            <div class="recent-tasks">
-                <h3>Recent Subtasks :</h3>
-                <a href="{% url 'router:tasks:get-all-subtasks-by-creator' %}" class="all-tasks-link">Show all subtasks</a>
+                <div class="recent-tasks">
+                    <h3>Recent Subtasks :</h3>
+                    <a href="{% url 'router:tasks:get-all-subtasks-by-creator' %}" class="all-tasks-link">Show all subtasks</a>
+                </div>
+                <div class="all-tasks">
+                    {% for subtask in subtasks|slice:":12" %}
+                        <a href="{% url 'router:tasks:get-subtask-by-id' subtask.id %}" class="user-task-link">
+                            <div class="profile-task-block">
+                                <h5 class="task-title">
+                                    {{ subtask.title|slice:":15" }}{% if subtask.title|length > 15 %}...{% endif %}
+                                </h5>
+                                <p class="task-status"><b>status: </b>
+                                    {{ subtask.status.name|slice:":6" }}{% if subtask.status.name|length > 6 %}...{% endif %}
+                                </p>
+                                <p class="task-category"><b>category: </b>
+                                    {{ subtask.category.name|slice:":6" }}{% if subtask.category.name|length > 6 %}...{% endif %}
+                                </p>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
             </div>
-            <div class="all-tasks">
-                {% for subtask in subtasks|slice:":12" %}
-                    <a href="{% url 'router:tasks:get-subtask-by-id' subtask.id %}" class="user-task-link">
-                        <div class="profile-task-block">
-                            <h5 class="task-title">
-                                {{ subtask.title|slice:":15" }}{% if subtask.title|length > 15 %}...{% endif %}
-                            </h5>
-                            <p class="task-status"><b>status: </b>
-                                {{ subtask.status.name|slice:":6" }}{% if subtask.status.name|length > 6 %}...{% endif %}
-                            </p>
-                            <p class="task-category"><b>category: </b>
-                                {{ subtask.category.name|slice:":6" }}{% if subtask.category.name|length > 6 %}...{% endif %}
-                            </p>
-                        </div>
-                    </a>
-                {% endfor %}
-            </div>
-
-
-
         </div>
     </div>
 {% endblock %}
