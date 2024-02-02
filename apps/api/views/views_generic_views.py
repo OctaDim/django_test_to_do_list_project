@@ -245,7 +245,7 @@ class RegisterUserGenericCreate(CreateAPIView):
 
 
 class RegisterAdminStaffUserGenericCreate(CreateAPIView):
-    permission_classes = [IsAdminUser]  # JWT token doesn't understand
+    permission_classes = [IsAuthenticated, IsAdminUser]  # Request is only processed if satisfies all permissions
     serializer_class = RegistrationAdminStaffUserSerializer
 
     def post(self, request: Request, *args, **kwargs):
@@ -261,7 +261,7 @@ class RegisterAdminStaffUserGenericCreate(CreateAPIView):
 
 
 class ListUsersGenericList(ListAPIView):
-    permission_classes = [IsAdminUser]  # JWT token doesn't understand
+    permission_classes = [IsAuthenticated, IsAdminUser]  # Request is only processed if satisfies all permissions
     serializer_class = ListUsersSerializer
 
     def get_queryset(self):
@@ -283,7 +283,7 @@ class ListUsersGenericList(ListAPIView):
 
 
 class UserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAdminUser]  # JWT token doesn't understand
+    permission_classes = [IsAuthenticated, IsAdminUser]  # Request is only processed if satisfies all permissions
     serializer_class = UserIByIdSerializer
 
     def get_object(self):
