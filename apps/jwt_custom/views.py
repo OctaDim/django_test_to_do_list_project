@@ -15,22 +15,9 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 
     def post(self, request: Request, *args, **kwargs) -> Response:
         serializer = self.serializer_class(data=request.data)
-        print(f"@@@@@@@@@@@@@@@@@@@@@@@@@ request.data: {request.data}")
-        print(f"@@@@@@@@@@@@@@@@@@@@@@@@@ request.auth: {request.auth}")
-        print(f"@@@@@@@@@@@@@@@@@@@@@@@@@ request.user: {request.user}")
-
-        print(f"@@@@@@@@@@@@@@@@@@@@@@@@@ serializer.initial_data: {serializer.initial_data}")
-        print(f"@@@@@@@@@@@@@@@@@@@@@@@@@ serializer.validators: {serializer.validators}")
-        print(f"@@@@@@@@@@@@@@@@@@@@@@@@@ serializer.fields: {serializer.fields}")
-        print(f"@@@@@@@@@@@@@@@@@@@@@@@@@ serializer.context: {serializer.context}")
 
         try:
             serializer.is_valid(raise_exception=True)
-            print(f"@@@@@@@@@@@@@@@@@@@@@@@@@ serializer.validated_data: {serializer.validated_data}")
-            print(f"@@@@@@@@@@@@@@@@@@@@@@@@@ serializer.data: {serializer.data}")
-            print(f"@@@@@@@@@@@@@@@@@@@@@@@@@ serializer.errors: {serializer.errors}")
-
-
         except TokenError as error:
             raise InvalidToken(error.args[0])
 
