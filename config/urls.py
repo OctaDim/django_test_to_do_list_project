@@ -28,7 +28,7 @@ from rest_framework.permissions import (IsAdminUser,  # API can read/write only 
                                         IsAuthenticatedOrReadOnly,  # API can read/write authorised, else readonly
                                         AllowAny,  # API can read/write any users (allowed to all)
                                         # BasePermission,  # API can read/write only (custom settings)
-                                        # IsAuthenticated,  # API can read/write only authorised users
+                                        IsAuthenticated,  # API can read/write only authorised users
                                         )
 
 
@@ -43,8 +43,12 @@ schema_view = get_schema_view(
                       license=openapi.License(name="QWERTY License")
                       ),
     public=True,  # API settings (public or not)
-    permission_classes=([IsAdminUser, IsAuthenticatedOrReadOnly, AllowAny])  # Can be added several permissions
-    )
+    permission_classes=([IsAdminUser, ])  # Can be added several permissions
+    # permission_classes = ([AllowAny])  # Can be added several permissions  # Other options bellow
+    # permission_classes = ([IsAdminUser])  # Can be added several permissions
+    # permission_classes = ([IsAuthenticated])  # Can be added several permissions
+    # permission_classes = ([IsAuthenticatedOrReadOnly])  # Can be added several permissions
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
