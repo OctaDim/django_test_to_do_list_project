@@ -3,7 +3,6 @@ from rest_framework_simplejwt.serializers import (
     AuthUser, )
 
 from rest_framework_simplejwt.tokens import Token
-from apps.user.models import User
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
