@@ -81,9 +81,9 @@ class UserManager(BaseUserManager):
 
         ERROR_MESSAGE = []
 
-        # extra_fields.setdefault("is_staff", True)
-        # extra_fields.setdefault("is_superuser", True)
-        # extra_fields.setdefault("is_verified", True)
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_verified", True)
 
 
         # if not extra_fields.get("is_staff"):
