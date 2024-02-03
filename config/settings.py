@@ -62,10 +62,10 @@ INSTALLED_APPS = [
     "drf_yasg",  # Added for SWAGER
 
     # local apps
-    "apps.todo.apps.TodoConfig",  # Added
-    "apps.user.apps.UserConfig",  # Added
-    "apps.api.apps.ApiConfig",  # Added
-    "apps.api.jwt_custom.JwtCustomConfig",  # Add
+    "apps.todo.apps.TodoConfig",  # Added. apps.<apps>.<'name' attribute defined in the class <AppsConfig(AppConfig)>>
+    "apps.user.apps.UserConfig",  # Added. apps.<apps>.<'name' attribute defined in the class <AppsConfig(AppConfig)>>
+    "apps.api.apps.ApiConfig",  # Added. apps.<apps>.<'name' attribute defined in the class <AppsConfig(AppConfig)>>
+    "apps.jwt_custom.apps.JwtCustomConfig",  # apps.<apps>.<'name' attribute defined in class <AppsConfig(AppConfig)>>
 ]
 
 MIDDLEWARE = [
