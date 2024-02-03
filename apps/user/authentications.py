@@ -10,8 +10,8 @@ from apps.api.error_messages import (EMAIL_OR_USERNAME_REQUIRED_MESSAGE,
 
 class CustomAuthByEmailBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
-        print(f"AUTH ##### username: {username}, password: {password}")
-        print(f"AUTH KWARGS ##### username: {kwargs.get("username")}, email: {kwargs.get("email")}")
+        print(f"##### CUSTOM AUTHENTICATION BY EMAIL ##### AS METHOD ARGUMENTS: email (as username): {username}, password: (secret)")
+        print(f"##### CUSTOM AUTHENTICATION BY EMAIL ##### FROM KWARGS(REQUEST): email (as username): {kwargs.get("username")}, email: {kwargs.get("email")}")
         if username is None:
             username = kwargs.get("username")  # Get username with email entered on purpose or by mistake
 
@@ -33,5 +33,5 @@ class CustomAuthByEmailBackend(ModelBackend):
             UserModel().set_password(password)
         else:
             if user.check_password(password) and self.user_can_authenticate(user):
-                print(f"AUTH ##### username: {username}: AUTHENTICATED")
+                print(f"##### CUSTOM AUTHENTICATION BY EMAIL ##### RESULT: email (as username): {username} is AUTHENTICATED")
                 return user
