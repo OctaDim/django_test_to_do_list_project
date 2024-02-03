@@ -385,7 +385,7 @@ class UserIByIdSerializer(serializers.ModelSerializer):  # VLD
         model = User
         fields = ["id",
                   "email",
-                  "username"
+                  "username",
                   "first_name",
                   "last_name",
                   "phone",
