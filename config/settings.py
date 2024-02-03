@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     "apps.todo.apps.TodoConfig",  # Added
     "apps.user.apps.UserConfig",  # Added
     "apps.api.apps.ApiConfig",  # Added
+    "apps.api.jwt_custom.JwtCustomConfig",  # Add
 ]
 
 MIDDLEWARE = [
