@@ -27,6 +27,9 @@ from apps.api.views.views_generic_views import (
 from apps.api.views.views_model_view_set import (StatusViewSet,
                                                  CategoryViewSet)
 
+from apps.jwt_custom.views import CustomTokenObtainPairView
+
+
 
 app_name = "api"
 
@@ -50,6 +53,7 @@ urlpatterns = [
 
     # for login and obtain, refresh Token: views via rest framework simple JWT:
     path("simple_jwt/auth/login_and_obtain_token/", TokenObtainPairView.as_view(), name="login-and-obtain-token"),
+    path("simple_jwt/auth/login_and_obtain_custom_token/", CustomTokenObtainPairView.as_view(), name="login-and-obtain-custom-token"),
     path("simple_jwt/auth/refresh_token/", TokenRefreshView.as_view(), name="refresh-token"),
 
     # views via ApiViews classes (samples):
