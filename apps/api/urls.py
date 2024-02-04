@@ -12,16 +12,16 @@ from apps.api.views.views_api_views import TasksApiViews
 
 # views via GenericViews Classes (samples)
 from apps.api.views.views_generic_views import (
-    TaskByIdGenericRetrieve,
-    TaskByIdWithSubtasksGenericRetrieve,
-    AllTasksWithSubtasksGenericList,
-    AllSubtasksGenericListCreate,
-    SubtaskByIdGenericRetrieveUpdateDelete,
-    TasksFilteredGenericListCreate,
-    RegisterUserGenericCreate,
-    RegisterAdminStaffUserGenericCreate,
-    ListUsersGenericList,
-    UserByIdGenericRetrieveUpdDestroy)
+                                TaskByIdGenericRetrieve,
+                                TaskByIdWithSubtasksGenericRetrieve,
+                                AllTasksWithSubtasksGenericList,
+                                AllSubtasksGenericListCreate,
+                                SubtaskByIdGenericRetrieveUpdateDelete,
+                                TasksFilteredGenericListCreate,
+                                RegisterUserGenericCreate,
+                                RegisterAdminStaffUserGenericCreate,
+                                ListUsersGenericList,
+                                UserByIdGenericRetrieveUpdDestroy)
 
 # views via ModelViewSet Classes (samples)
 from apps.api.views.views_model_view_set import (StatusViewSet,
