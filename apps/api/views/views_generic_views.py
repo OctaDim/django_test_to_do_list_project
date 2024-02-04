@@ -52,6 +52,9 @@ from apps.api.serializers import (RegistrationUserSerializer,  # VLD
 from apps.user.models import User
 # ####################################################
 
+from apps.user.serializers import AppsUserUserAllFieldsModelSerializer
+
+
 
 class TaskByIdGenericRetrieve(RetrieveAPIView):  # Parent class has the only 'get' method, so it will be inherited
     permission_classes = [IsAuthenticated]
@@ -323,3 +326,31 @@ class UserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
 
         return Response(status=status.HTTP_200_OK,
                         data=[])
+
+
+class AppsUserListUsersGenericList(ListAPIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
+    serializer_class = AppsUserUserAllFieldsModelSerializer
+
+    def get_queryset(self):
+        users = User.objects.all()
+        return users
+
+    def get(self, request: Request, *args, **kwargs):
+        users = self.get_queryset()
+
+        if not users:
+            return Response(status=status.HTTP_404_NOT_FOUND,
+                            data={
+                                "message": "Users were not found",
+                                "data": []
+                                }
+                            )
+
+        serializer = self.serializer_class(instance=users, many=True)
+        return Response(status=status.HTTP_200_OK,
+                        data={
+                            "message": "All users:",
+                            "data": serializer.data
+                            }
+                        )
