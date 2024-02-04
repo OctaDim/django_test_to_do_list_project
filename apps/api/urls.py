@@ -29,6 +29,8 @@ from apps.api.views.views_model_view_set import (StatusViewSet,
 
 from apps.jwt_custom.views import CustomTokenObtainPairView
 
+from apps.api.views.views_generic_views import AppsUserListUsersGenericList
+
 
 
 app_name = "api"
@@ -48,8 +50,10 @@ urlpatterns = [
     # for users: views via GenericViews (samples):
     path("generics/auth/register_user/", RegisterUserGenericCreate.as_view(), name="register-new-user"),
     path("generics/auth/register_superuser/", RegisterAdminStaffUserGenericCreate.as_view(), name="register-new-superuser"),
-    path("generics/auth/all_users/", ListUsersGenericList.as_view(), name="get-all-users"),
+    path("generics/auth/all_users-v1/", ListUsersGenericList.as_view(), name="get-all-users-v1"),
     path("generics/auth/user_by_id/<int:user_id>/", UserByIdGenericRetrieveUpdDestroy.as_view(), name="get-user-by-id"),
+
+    path("generics/user/all_users-v2/", AppsUserListUsersGenericList.as_view(), name="get-all-users-v2"),
 
     # for login and obtain, refresh Token: views via rest framework simple JWT:
     path("simple_jwt/auth/login_and_obtain_token/", TokenObtainPairView.as_view(), name="login-and-obtain-token"),
