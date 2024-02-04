@@ -52,7 +52,8 @@ from apps.api.serializers import (RegistrationUserSerializer,  # VLD
 from apps.user.models import User
 # ####################################################
 
-from apps.user.serializers import AppsUserUserAllFieldsModelSerializer
+from apps.user.serializers import (AppsUserUserAllFieldsModelSerializer,
+                                   AppsUserUserByIdModelSerializer)
 
 
 
@@ -334,6 +335,7 @@ class AppsUserListUsersGenericList(ListAPIView):
 
     def get_queryset(self):
         users = User.objects.all()
+        # users = User.objects.exclude(id=self.request.user.id)  # Option 2: to get all users except current user
         return users
 
     def get(self, request: Request, *args, **kwargs):
