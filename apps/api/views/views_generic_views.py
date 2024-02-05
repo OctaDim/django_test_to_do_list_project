@@ -356,6 +356,7 @@ class AppsUserListUsersGenericList(ListAPIView):
 
 
 class AppsUserUserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
+    # permission_classes = [IsAuthenticated, IsAdminUser]
     serializer_class = AppsUserUserByIdModelSerializer
     user_id = None
 
@@ -379,7 +380,8 @@ class AppsUserUserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
     def put(self, request: Request, *args, **kwargs):
         user = self.get_object()
         serializer = self.serializer_class(instance=user,
-                                           data=request.data)
+                                           data=request.data,
+                                           partial=True)  # Partial update. will not require to fill required fields
 
         if serializer.is_valid(raise_exception=True):
             serializer.save()
