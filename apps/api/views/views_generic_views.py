@@ -52,6 +52,7 @@ from apps.api.serializers import (RegistrationUserSerializer,  # VLD
 from apps.user.models import User
 # ####################################################
 
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from apps.user.serializers import (AppsUserUserAllFieldsModelSerializer,
                                    AppsUserUserByIdModelSerializer)
 
@@ -327,6 +328,7 @@ class UserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
 
 
 class AppsUserListUsersGenericList(ListAPIView):
+    # authentication_classes = [JWTAuthentication]  # if not defined in 'DEFAULT_AUTHENTICATION_CLASSES' in settings
     permission_classes = [IsAuthenticated, IsAdminUser]
     serializer_class = AppsUserUserAllFieldsModelSerializer
 
@@ -356,7 +358,8 @@ class AppsUserListUsersGenericList(ListAPIView):
 
 
 class AppsUserUserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
-    # permission_classes = [IsAuthenticated, IsAdminUser]
+    # authentication_classes = [JWTAuthentication]  # if not defined in 'DEFAULT_AUTHENTICATION_CLASSES' in settings
+    permission_classes = [IsAuthenticated, IsAdminUser]
     serializer_class = AppsUserUserByIdModelSerializer
     user_id = None
 
