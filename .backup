@@ -1,5 +1,4 @@
 # File is just to make reserve commits without any changes
 
-2024.02.02
-To fix problem with 'not credentials' Authorization key should be passed
-in request from all views, as it is in 'All users' view
+2024.02.05
+Night closing commit: All api views are ready. Authority is not defined in requests yet. Final commit before testing
