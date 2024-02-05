@@ -396,6 +396,9 @@ class AppsUserUserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
                                 }
                             )
 
+        return Response(status=status.HTTP_400_BAD_REQUEST,
+                        data=serializer.errors)
+
     def delete(self, request: Request, *args, **kwargs):
         user = self.get_object()
         user.delete()
