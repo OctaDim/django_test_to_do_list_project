@@ -172,11 +172,11 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.BasicAuthentication',
     ],
 
-   #  'DEFAULT_PERMISSION_CLASSES': [
-   #      "rest_framework.permissions.AllowAny",
+    'DEFAULT_PERMISSION_CLASSES': [
+        "rest_framework.permissions.AllowAny",  # if not defined any permission, will be AllowAny by default
    #      "rest_framework.permissions.IsAuthenticated",  # DM added: For standard Django permissions work good
    #      "rest_framework.permissions.IsAdminUser",  # DM added: For standard Django permissions work good
-   # ],
+   ],
 }
 
 SIMPLE_JWT = {
