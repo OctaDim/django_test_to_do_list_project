@@ -327,14 +327,14 @@ class UserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
                         data=[])
 
 
-class AppsUserListUsersGenericList(ListAPIView):
+class AppsUserListUsersExceptCurrentGenericList(ListAPIView):
     # authentication_classes = [JWTAuthentication]  # if not defined in 'DEFAULT_AUTHENTICATION_CLASSES' in settings
     permission_classes = [IsAuthenticated, IsAdminUser]
     serializer_class = AppsUserUserAllFieldsModelSerializer
 
     def get_queryset(self):
-        users = User.objects.all()
-        # users = User.objects.exclude(id=self.request.user.id)  # Opt 2: get all users except current user (e.g. admin)
+        # users = User.objects.all()  # Opt 1: get all users with current user
+        users = User.objects.exclude(id=self.request.user.id)  # Opt 2: get all users except current user (e.g. admin)
         return users
 
     def get(self, request: Request, *args, **kwargs):
