@@ -292,15 +292,12 @@ class UserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         user_id = self.kwargs.get("user_id")
-
         user_obj = get_object_or_404(User, id=user_id)
-
         return user_obj
 
 
     def get(self, request: Request, *args, **kwargs):
         user = self.get_object()
-
         serializer = self.serializer_class(user)
 
         return Response(status=status.HTTP_200_OK,
@@ -335,7 +332,7 @@ class AppsUserListUsersGenericList(ListAPIView):
 
     def get_queryset(self):
         users = User.objects.all()
-        # users = User.objects.exclude(id=self.request.user.id)  # Option 2: to get all users except current user
+        # users = User.objects.exclude(id=self.request.user.id)  # Opt 2: get all users except current user (e.g. admin)
         return users
 
     def get(self, request: Request, *args, **kwargs):
@@ -354,5 +351,54 @@ class AppsUserListUsersGenericList(ListAPIView):
                         data={
                             "message": "All users:",
                             "data": serializer.data
+                            }
+                        )
+
+
+class AppsUserUserByIdGenericRetrieveUpdDestroy(RetrieveUpdateDestroyAPIView):
+    serializer_class = AppsUserUserByIdModelSerializer
+    user_id = None
+
+    def get_object(self):
+        self.user_id = self.kwargs.get("user_id")
+        user_object = get_object_or_404(User, id=self.user_id)
+        return user_object
+
+    def get(self, request: Request, *args, **kwargs):
+        user = self.get_object()
+        serializer = self.serializer_class(instance=user)
+
+        return Response(status=status.HTTP_200_OK,
+                        data={
+                            "message": f"User (id:{self.user_id}) info:",
+                            "data": serializer.data
+                            }
+                        )
+
+
+    def put(self, request: Request, *args, **kwargs):
+        user = self.get_object()
+        serializer = self.serializer_class(instance=user,
+                                           data=request.data)
+
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(status=status.HTTP_200_OK,
+                            data={
+                                "message": f"User (id:{self.user_id}) "
+                                           f"was updated successfully",
+                                "data": serializer.data
+                                }
+                            )
+
+    def delete(self, request: Request, *args, **kwargs):
+        user = self.get_object()
+        user.delete()
+
+        return Response(status=status.HTTP_200_OK,
+                        data={
+                            "message": f"User (id:{self.user_id}) "
+                                       f"was deleted successfully",
+                            "data": []
                             }
                         )
