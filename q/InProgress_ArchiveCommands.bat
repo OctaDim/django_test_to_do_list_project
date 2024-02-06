@@ -9,6 +9,11 @@ pip install -r "requirements.txt"
 
 pip install django-enumchoicefield
 
+pip install wheel setuptools pip --upgrade
+pip install setuptools pip --upgrade
+pip install pip --upgrade
+
+
 git checkout my_branch rem Go to the branch my_branch
 git rebase master rem Rebasing all commits to the master
 git checkout master rem Go to the branch master
