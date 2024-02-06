@@ -155,12 +155,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_RENDERER_CLASSES': [
-    #     'rest_framework.renderers.JSONRenderer',
-    #     'rest_framework.renderers.BrowsableAPIRenderer',
+    # 'DEFAULT_RENDERER_CLASSES': [  # ??? Tests don't want to work, uncomment/comment and ok
+        # 'rest_framework.renderers.JSONRenderer',
+        # 'rest_framework.renderers.BrowsableAPIRenderer',
     # ],
 
-    # 'DEFAULT_PARSER_CLASSES': [
+    # 'DEFAULT_PARSER_CLASSES': [  # ??? Tests don't want to work, uncomment/comment and ok
     #     'rest_framework.parsers.JSONParser',
     #     'rest_framework.parsers.FormParser',
     #     'rest_framework.parsers.MultiPartParser'
