@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 import re
-from datetime import datetime
+from datetime import datetime, timedelta, time
 from rest_framework.test import APIClient
 from rest_framework import status
 
@@ -36,6 +36,15 @@ class AppsUserListUsersExceptCurrentGenericListTest(TestCase):
             is_superuser=True,
             )
 
+        for stress_user_number in range(1, 101):
+            self.stress_user = User.objects.create_user(
+                email=f"StressUser{stress_user_number}@stresstest.com",
+                username=f"StressUser{stress_user_number}",
+                first_name=f"StressUserName{stress_user_number}",
+                last_name=f"StressUserSurname{stress_user_number}",
+                password=f"qwe{stress_user_number}")
+
+
         self.client = APIClient()  # imitate front client, as if any front client (user) makes requests
 
 
@@ -46,9 +55,9 @@ class AppsUserListUsersExceptCurrentGenericListTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)  # Check if status is status.HTTP_200_OK
         self.assertIsInstance(response.data["data"], list)  # Check if type is dict
         self.assertEqual(len(response.data["data"]), User.objects.count() - 1)  # Check if count=User.objects.count()-1
-        # print("##### TEST DATA #####", response.data["data"])
-        # print("##### TEST DATA #####", len(response.data["data"]))
-        # print("##### TEST DATA #####", User.objects.count() - 1)
+        print("##### TEST DATA #####", response.data["data"])
+        print("##### TEST DATA #####", len(response.data["data"]))
+        print("##### TEST DATA #####", User.objects.count() - 1)
 
 
         for each_user in response.data["data"]:  # for user in response.data["data"] because I return data = "message" and "data" as keys
