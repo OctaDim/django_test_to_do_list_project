@@ -1,4 +1,4 @@
 # File is just to make reserve commits without any changes
 
-2024.02.05
-Night closing commit: All api views are ready. Authority is not defined in requests yet. Final commit before testing
+2024.02.06 21:03
+Night closing commit: Unity tests have been made, all bugs with bad displaying response data were fixed (data => data["data"])
