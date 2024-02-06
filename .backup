@@ -1,4 +1,4 @@
 # File is just to make reserve commits without any changes
 
-2024.02.06 21:03
-Night closing commit: Unity tests have been made, all bugs with bad displaying response data were fixed (data => data["data"])
+2024.02.07
+Night closing commit: User tests work well. Docker container should be created and connected
